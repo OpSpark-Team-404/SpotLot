@@ -8,11 +8,15 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "expo": "~36.0.0",
+    "fastify": "^2.12.1",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
-    "react-native-web": "~0.11.7"
+    "react-native-elements": "^1.2.7",
+    "react-native-web": "~0.11.7",
+    "react-router-native": "^5.1.2"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",
