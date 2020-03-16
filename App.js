@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import LoginPage from './client/LoginPage';
 import LoggedInPage from './client/LoggedInPage';
 import * as Google from 'expo-google-app-auth';
+import { key } from './supersecret';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -17,8 +18,7 @@ export default class App extends React.Component {
   signIn = async() => {
     try {
       const result = await Google.logInAsync({
-        // HIDE KEY IN ANOTHER FILE
-        androidClientId: '59381228740-ivnr7ahll9433s7op8kbmpft858pc6or.apps.googleusercontent.com',
+        androidClientId: key,
         scopes: ['profile', 'email'],
       });
   
