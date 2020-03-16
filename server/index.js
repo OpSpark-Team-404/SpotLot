@@ -1,11 +1,10 @@
 const fastify = require('fastify')({ logger: true })
 
-// Declare a route
-fastify.get('/', async (request, reply) => {
-  console.log('hit point')
-  return 'server get response';
-})
+//Routes
+fastify
+  .register(require('./serverAPI/testRoute'), { prefix: '/api' })  //test route
 
+//start server
 const start = async () => {
   try {
     await fastify.listen(8080)
