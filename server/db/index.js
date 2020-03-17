@@ -30,8 +30,13 @@ const addUser = (name, email, google_token, image_url, bio, billing_info) => {
 // addUser("test", "test@test.com", "test123", "test", "test", "test");
 
 const deleteUser = (id) => {
-
+    const query = 'DELETE FROM "user" WHERE id = $1'
+    pool.query(query, [id])
+    .then(()=> console.log("User deleted"))
+    .catch(err => console.log(err))
 }
+
+// deleteUser(1)
 
 const selectUser = (email) => {
     const query = 'SELECT * FROM "user" WHERE email = $1'
@@ -56,15 +61,21 @@ const addVehicle = (user_id, make, model, color, plate, state) => {
 const selectVehicle = (id) => {
     const query = "SELECT * FROM vehicle WHERE id = $1"
     pool.query(query, [id])
-    .then(res => console.log(res.row[0]))
+    .then(res => console.log(res.rows[0]))
     .catch( err => console.log(err))
 }
 
-const deleteVehicle = () => {
+// selectVehicle(2)
+
+const deleteVehicle = (id) => {
 
 }
 
-const patchVehicle = () => {
+const deleteAllUserVehicles = (user_id) => {
+
+}
+
+const patchVehicle = (id, patchArr) => {
 
 }
 
@@ -111,5 +122,9 @@ const addReview = (id) => {
 }
 
 const selectReview = (id) => {
+
+}
+
+const patchReview = (id) => {
 
 }
