@@ -1,19 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import LoginPage from './client/LoginPage';
-import LoggedInPage from './client/LoggedInPage';
+import Profile from './client/Profile';
 import * as Google from 'expo-google-app-auth';
 import { key } from './supersecret';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      signedIn: false,
-      name: '',
-      photoUrl: ''
-    }
-  }
+export default function App(){
+  const [signedIn, onChangeSignIn] = React.useState(false);
+  const [name, onChangeName] = React.useState('');
+  const [photoUrl, onChangePhotoUrl] = React.useState('');
 
   signIn = async() => {
     try {
@@ -23,11 +18,9 @@ export default class App extends React.Component {
       });
   
       if (result.type === 'success') {
-        this.setState({
-          signedIn: true,
-          name: result.user.name,
-          photoUrl: result.user.photoUrl,
-        })
+        onChangeSignIn(true);
+        onChangeName(result.user.name);
+        onChangePhotoUrl(result.user.photoUrl);
       } else {
         console.log('cancelled');
       }
@@ -36,17 +29,15 @@ export default class App extends React.Component {
     }
   }
 
-  render(){
-    return (
-      <View style={styles.container}>
-        {this.state.signedIn ? (
-          <LoggedInPage name={this.state.name} photoUrl={this.state.photoUrl} />
-        ) : (
-          <LoginPage signIn={this.signIn} />
-        )}
-      </View>
-    )
-  }
+  return (
+    <View style={styles.container}>
+      {signedIn ? (
+        <Profile name={name} photoUrl={photoUrl} />
+      ) : (
+        <LoginPage signIn={signIn} />
+      )}
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
