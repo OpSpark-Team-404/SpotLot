@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
 
-const LoginPage = props => {
+export default function LoginPage(props){
   return (
-    <View>
+    <View style={styles.container}>
       <Image source={require('../images/spotlot3.png')} style={styles.image} />
       <Text style={styles.text}>SpotLot</Text>
       <Text style={styles.subtext}>find a <Text style={styles.spotlot}>spot</Text>, rent a <Text style={styles.spotlot}>lot</Text></Text>
@@ -13,6 +13,12 @@ const LoginPage = props => {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#3fb984',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   subtext: {
     color: '#E5EBEA',
     fontSize: 15,
@@ -33,6 +39,4 @@ const styles = StyleSheet.create({
     color: '#726D9B',
     fontWeight: 'bold'
   }
-})
-
-export default LoginPage;
+});
