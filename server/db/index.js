@@ -26,7 +26,19 @@ const addUser = (name, email, google_token, image_url, bio, billing_info) => {
     .catch(err => console.log(err))
 }
 
-addUser("test", "test@test.com", "test123", "test", "test", "test");
+// addUser("test", "test@test.com", "test123", "test", "test", "test");
 
+const deleteUser = (id) => {
+
+}
+
+const selectUser = (email) => {
+    const query = 'SELECT * FROM "user" WHERE email = $1'
+    pool.query(query, [email])
+    .then( res => console.log(res.fields))
+    .catch( err => console.log(err))
+}
+
+selectUser("test@test.com");
 
 
