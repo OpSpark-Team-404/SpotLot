@@ -108,14 +108,20 @@ const addLot = (owner_id, image_url, price, longitude, latitude, is_open, lot_cl
     .catch( err => console.log(err))
 }
 
-addLot(3, "test_url", 20, 0, 0, true, new Date, new Date, 4, 0, "A test lot")
+// addLot(3, "test_url", 20, 0, 0, true, new Date, new Date, 4, 0, "A test lot")
 
 const selectLot = (id) => {
-    
+    const query = "SELECT * FROM lot WHERE id = $1"
+    pool.query(query, [id])
+    .then(res => console.log(res.rows[0]))
+    .catch( err => console.log(err))
 }
 
 const deleteLot = (id) => {
-    
+    const query = 'DELETE FROM lot WHERE id = $1'
+    pool.query(query, [id])
+    .then(()=> console.log("Lot deleted"))
+    .catch(err => console.log(err))
 }
 
 const patchLot = (id) => {
@@ -127,35 +133,57 @@ const patchLot = (id) => {
 //
 
 const addSpot = (lot_id, user_id) => {
-
+    const query = 'INSERT INTO spot (lot_id, user_id) VALUES ($1, $2)'
+    pool.query(query, [lot_id, user_id]
+    )
+    .then(() => console.log("Spot added"))
+    .catch(err => console.log(err))
 }
 
 const selectSpot = (id) => {
-
+    const query = "SELECT * FROM spot WHERE id = $1"
+    pool.query(query, [id])
+    .then(res => console.log(res.rows[0]))
+    .catch( err => console.log(err))
 }
 
 const deleteSpot = (id) => {
-
+    const query = 'DELETE FROM spot WHERE id = $1'
+    pool.query(query, [id])
+    .then(()=> console.log("Spot deleted"))
+    .catch(err => console.log(err))
 }
 
 const patchSpot = () => {
 
 }
 
-const reserveSpot = (lot_id) => {
-
+const reserveSpot = (id) => {
+    const query = 'UPDATE lot SET current_spots = current_spots + 1 WHERE id = $1'
+    pool.query(query, [id])
+    .then(()=> console.log("Spot reserved"))
+    .catch(err => console.log(err))
 }
+
+reserveSpot(1)
 
 //
 //REVIEW
 //
 
-const addReview = (id) => {
-    
+const addReview = (user_id, lot_id, rating, desc) => {
+    const query = 'INSERT INTO spot (user_id, lot_id, rating, desc) VALUES ($1, $2, $3)'
+    pool.query(query, [lot_id, user_id]
+    )
+    .then(() => console.log("Review added"))
+    .catch(err => console.log(err))
 }
 
-const selectReview = (id) => {
-
+const selectReview = (lot_id) => {
+    const query = "SELECT * FROM review WHERE lot_id = $1"
+    pool.query(query, [id])
+    .then(res => console.log(res.rows[0]))
+    .catch( err => console.log(err))
 }
 
 const patchReview = (id) => {
