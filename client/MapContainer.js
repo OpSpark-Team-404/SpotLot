@@ -1,14 +1,42 @@
 import React from 'react';
-import MapView from 'react-native-maps'
+import MapView, { Marker, UrlTile } from 'react-native-maps'
 import { StyleSheet, View} from 'react-native';
+import { mapStyle } from './mapStyle';
 
 class MapContainer extends React.Component {
 
   render(){
-    const Marker = MapView.Marker;
+    const markdata = [
+      {
+        title: 'marker1',
+        description: 'description1',
+        latlng:{
+          latitude: 29.9511,
+          longitude: -90.031533,
+        }
+      },
+      {
+        title: 'marker2',
+        description: 'description2',
+        latlng:{
+          latitude: 29.9511,
+          longitude: -90.171533,
+        }
+      },
+      {
+        title: 'marker3',
+        description: 'description3',
+        latlng:{
+          latitude: 29.9511,
+          longitude: -90.071533,
+        }
+      },
+    ];
+
     return (
       <View style={styles.container}>
-        <MapView 
+        <MapView
+          customMapStyle={mapStyle} 
           style={styles.map}
           region={{
             latitude: 29.9511,
@@ -17,14 +45,14 @@ class MapContainer extends React.Component {
             longitudeDelta: .5,
           }}
         >
-          <Marker 
-            coordinate={{
-              latitude: 29.9511,
-              longitude: -90.071533,
-            }}
-            title={"MY FIRST MARKER"}
-            description={"my marker descript"}
-          />
+          {markdata.map(marker => (
+            <Marker
+              coordinate={marker.latlng}
+              title={marker.title}
+              description={marker.description}
+              image={'https://cdn.mapmarker.io/api/v1/font-awesome/v5/pin?icon=fa-car&size=120&background=3FB984&color=222222&hoffset=0&voffset=-1'}
+            />
+          ))}
         </MapView>
       </View>
     );
