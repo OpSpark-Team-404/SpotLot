@@ -128,3 +128,31 @@ const selectReview = (id) => {
 const patchReview = (id) => {
 
 }
+
+module.exports = {
+//USER
+addUser,
+selectUser,
+deleteUser,
+patchUser,
+//VEHICLE
+addVehicle,
+selectVehicle,
+deleteVehicle,
+deleteAllUserVehicles,
+patchVehicle,
+//SPOT
+addSpot,
+selectSpot,
+deleteSpot,
+patchSpot,
+//LOT
+addLot,
+selectLot,
+deleteLot,
+patchLot,
+//REVIEW
+addReview,
+selectReview,
+patchReview
+}
