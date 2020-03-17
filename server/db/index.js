@@ -16,12 +16,17 @@ pool.connect()
 .catch(err => console.log(err))
 // .finally(() => client.end());
 
-const addUser = (image_url, bio, name, billing_info) => {
-    const query = 'INSERT INTO "user" (image_url, bio, name, billing_info) VALUES ($1, $2, $3, $4)'
-    pool.query(query, [image_url, bio, name, billing_info]
+
+//USER
+const addUser = (name, email, google_token, image_url, bio, billing_info) => {
+    const query = 'INSERT INTO "user" (name, email, google_token, image_url, bio, billing_info) VALUES ($1, $2, $3, $4, $5, $6)'
+    pool.query(query, [name, email, google_token, image_url, bio, billing_info]
     )
     .then(() => console.log("User added"))
     .catch(err => console.log(err))
 }
 
-addUser("test", "test", "test", "test");
+addUser("test", "test@test.com", "test123", "test", "test", "test");
+
+
+

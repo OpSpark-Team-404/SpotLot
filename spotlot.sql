@@ -3,7 +3,9 @@ CREATE TABLE "user" (
   "image_url" varchar(255),
   "bio" varchar(255),
   "name" varchar(64),
-  "billing_info" varchar(150)
+  "billing_info" varchar(150),
+  "email" text UNIQUE,
+  "google_token" text UNIQUE
 );
 
 CREATE TABLE "review" (
