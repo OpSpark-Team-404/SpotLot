@@ -4,6 +4,7 @@ import LoginPage from './client/LoginPage';
 import Profile from './client/Profile';
 import * as Google from 'expo-google-app-auth';
 import { key } from './supersecret';
+import MapContainer from './client/MapContainer';
 
 export default function App(){
   const [signedIn, onChangeSignIn] = React.useState(false);
@@ -32,7 +33,7 @@ export default function App(){
   return (
     <View style={styles.container}>
       {signedIn ? (
-        <Profile name={name} photoUrl={photoUrl} />
+        <MapContainer />
       ) : (
         <LoginPage signIn={signIn} />
       )}
