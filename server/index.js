@@ -1,8 +1,14 @@
 const fastify = require('fastify')({ logger: true })
+const { pool } = require('./db/index.js');
 
 //Routes
 fastify
-  .register(require('./serverAPI/testRoute'), { prefix: '/api' })  //test route
+.register(require('./serverAPI/testRoute'), { prefix: '/api' })  //test route
+
+// Connects pool to DB
+pool.connect()
+.then(() => console.log("Connected to DB"))
+.catch(err => console.log(err))
 
 //start server
 const start = async () => {
