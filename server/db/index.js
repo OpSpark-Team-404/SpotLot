@@ -6,16 +6,16 @@ var fs = require('fs');
 
 // Creates new pool
 const pool = new Pool({
-    user: "postgres",
-    password: "bacool7769",
+    user: "operationspark",
+    password: "",
     host: "localhost",
     database: "spotlot"
 })
 
 // Connects pool to DB
-pool.connect()
-.then(() => console.log("Connected to DB"))
-.catch(err => console.log(err))
+// pool.connect()
+// .then(() => console.log("Connected to DB"))
+// .catch(err => console.log(err))
 
 //
 //USER
@@ -165,8 +165,6 @@ const reserveSpot = (id) => {
     .catch(err => console.log(err))
 }
 
-reserveSpot(1)
-
 //
 //REVIEW
 //
@@ -191,30 +189,32 @@ const patchReview = (id) => {
 }
 
 module.exports = {
-//USER
-addUser,
-selectUser,
-deleteUser,
-patchUser,
-//VEHICLE
-addVehicle,
-selectVehicle,
-deleteVehicle,
-deleteAllUserVehicles,
-patchVehicle,
-//SPOT
-addSpot,
-selectSpot,
-deleteSpot,
-patchSpot,
-reserveSpot,
-//LOT
-addLot,
-selectLot,
-deleteLot,
-patchLot,
-//REVIEW
-addReview,
-selectReview,
-patchReview
+  // pool
+  pool,
+  //USER
+  addUser,
+  selectUser,
+  deleteUser,
+  patchUser,
+  //VEHICLE
+  addVehicle,
+  selectVehicle,
+  deleteVehicle,
+  deleteAllUserVehicles,
+  patchVehicle,
+  //SPOT
+  addSpot,
+  selectSpot,
+  deleteSpot,
+  patchSpot,
+  reserveSpot,
+  //LOT
+  addLot,
+  selectLot,
+  deleteLot,
+  patchLot,
+  //REVIEW
+  addReview,
+  selectReview,
+  patchReview
 }
