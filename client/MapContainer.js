@@ -2,6 +2,7 @@ import React from 'react';
 import MapView, { Marker, UrlTile } from 'react-native-maps'
 import { StyleSheet, View} from 'react-native';
 import { mapStyle } from './mapStyle';
+import Search from './SearchButton'
 
 class MapContainter extends React.Component {
 
@@ -58,6 +59,7 @@ class MapContainter extends React.Component {
             />
           ))}
         </MapView>
+        <Search />
       </View>
     );
   }
