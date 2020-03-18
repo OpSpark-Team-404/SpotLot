@@ -3,13 +3,14 @@ import MapView, { Marker, UrlTile } from 'react-native-maps'
 import { StyleSheet, View} from 'react-native';
 import { mapStyle } from './mapStyle';
 
-class MapContainer extends React.Component {
+class MapContainter extends React.Component {
 
   render(){
     const markdata = [
       {
         title: 'marker1',
         description: 'description1',
+        id: 1,
         latlng:{
           latitude: 29.9511,
           longitude: -90.031533,
@@ -18,6 +19,7 @@ class MapContainer extends React.Component {
       {
         title: 'marker2',
         description: 'description2',
+        id: 2,
         latlng:{
           latitude: 29.9511,
           longitude: -90.171533,
@@ -26,6 +28,7 @@ class MapContainer extends React.Component {
       {
         title: 'marker3',
         description: 'description3',
+        id: 3,
         latlng:{
           latitude: 29.9511,
           longitude: -90.071533,
@@ -47,6 +50,7 @@ class MapContainer extends React.Component {
         >
           {markdata.map(marker => (
             <Marker
+              key={marker.id}
               coordinate={marker.latlng}
               title={marker.title}
               description={marker.description}
@@ -76,4 +80,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MapContainer;
+export default MapContainter;
