@@ -3,7 +3,12 @@ const { pool } = require('./db/index.js');
 
 //Routes
 fastify
-.register(require('./serverAPI/testRoute'), { prefix: '/api' })  //test route
+  .register(require("./api/testRoute"), { prefix: "/api" }) //test route
+  .register(require("./api/user"))
+  .register(require("./api/vehicle"))
+  .register(require("./api/lot"))
+  .register(require("./api/spot"))
+  .register(require("./api/review"));
 
 // Connects pool to DB
 pool.connect()
