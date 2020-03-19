@@ -9,11 +9,14 @@ const pool = new Pool({
     database: "spotlot"
 })
 
+// Connects pool to DB
+// pool.connect()
+// .then(() => console.log("Connected to DB"))
+// .catch(err => console.log(err))
 
 //
 //USER
 //
-
 
 const addUser = (name, email, google_token, image_url, bio, billing_info) => {
     const query = 'INSERT INTO "user" (name, email, google_token, image_url, bio, billing_info) VALUES ($1, $2, $3, $4, $5, $6)'
@@ -23,6 +26,7 @@ const addUser = (name, email, google_token, image_url, bio, billing_info) => {
     .catch(err => console.log(err))
 }
 
+// addUser("test", "test@test.com", "test123", "test", "test", "test");
 
 const deleteUser = (id) => {
     const query = 'DELETE FROM "user" WHERE id = $1'
@@ -31,6 +35,7 @@ const deleteUser = (id) => {
     .catch(err => console.log(err))
 }
 
+// deleteUser(1)
 
 const selectUser = (email) => {
     const query = 'SELECT * FROM "user" WHERE email = $1'
@@ -39,16 +44,15 @@ const selectUser = (email) => {
     .catch( err => console.log(err))
 }
 
+// selectUser("test@test.com");
 
 const patchUser = (id) => {
 
 }
 
-
 //
 //VEHICLE
 //
-
 
 const addVehicle = (user_id, make, model, color, plate, state) => {
     const query = "INSERT INTO vehicle (user_id, make, model,license_plate, color, state) VALUES ($1, $2, $3, $4, $5, $6)"
@@ -57,6 +61,7 @@ const addVehicle = (user_id, make, model, color, plate, state) => {
     .catch( err => console.log(err))
 }
 
+// addVehicle(3, "Ford", "Focus", "12345678", "Silver", "LA" )
 
 const selectVehicle = (id) => {
     const query = "SELECT * FROM vehicle WHERE id = $1"
@@ -65,6 +70,7 @@ const selectVehicle = (id) => {
     .catch( err => console.log(err))
 }
 
+// selectVehicle(2)
 
 const deleteVehicle = (id) => {
     const query = 'DELETE FROM vehicle WHERE id = $1'
@@ -73,6 +79,7 @@ const deleteVehicle = (id) => {
     .catch(err => console.log(err))
 }
 
+// deleteVehicle(1)
 
 const deleteAllUserVehicles = (user_id) => {
     const query = 'DELETE FROM vehicle WHERE user_id = $1'
@@ -81,7 +88,7 @@ const deleteAllUserVehicles = (user_id) => {
     .catch(err => console.log(err))
 }
 
-
+// deleteAllUserVehicles(3)
 
 const patchVehicle = (id, patchArr) => {
 
@@ -91,7 +98,6 @@ const patchVehicle = (id, patchArr) => {
 //LOT
 //
 
-
 const addLot = (owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description) => {
     const query = "INSERT INTO lot (owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)"
     pool.query(query, [owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description])
@@ -99,6 +105,7 @@ const addLot = (owner_id, image_url, price, longitude, latitude, is_open, lot_cl
     .catch( err => console.log(err))
 }
 
+// addLot(3, "test_url", 20, 0, 0, true, new Date, new Date, 4, 0, "A test lot")
 
 const selectLot = (id) => {
     const query = "SELECT * FROM lot WHERE id = $1"
@@ -107,7 +114,6 @@ const selectLot = (id) => {
     .catch( err => console.log(err))
 }
 
-
 const deleteLot = (id) => {
     const query = 'DELETE FROM lot WHERE id = $1'
     pool.query(query, [id])
@@ -115,16 +121,13 @@ const deleteLot = (id) => {
     .catch(err => console.log(err))
 }
 
-
 const patchLot = (id) => {
     
 }
 
-
 //
 //SPOT
 //
-
 
 const addSpot = (lot_id, user_id) => {
     const query = 'INSERT INTO spot (lot_id, user_id) VALUES ($1, $2)'
@@ -134,14 +137,12 @@ const addSpot = (lot_id, user_id) => {
     .catch(err => console.log(err))
 }
 
-
 const selectSpot = (id) => {
     const query = "SELECT * FROM spot WHERE id = $1"
     pool.query(query, [id])
     .then(res => console.log(res.rows[0]))
     .catch( err => console.log(err))
 }
-
 
 const deleteSpot = (id) => {
     const query = 'DELETE FROM spot WHERE id = $1'
@@ -150,11 +151,9 @@ const deleteSpot = (id) => {
     .catch(err => console.log(err))
 }
 
-
 const patchSpot = () => {
 
 }
-
 
 const reserveSpot = (id) => {
     const query = 'UPDATE lot SET current_spots = current_spots + 1 WHERE id = $1'
@@ -163,11 +162,9 @@ const reserveSpot = (id) => {
     .catch(err => console.log(err))
 }
 
-
 //
 //REVIEW
 //
-
 
 const addReview = (user_id, lot_id, rating, desc) => {
     const query = 'INSERT INTO spot (user_id, lot_id, rating, desc) VALUES ($1, $2, $3)'
@@ -177,7 +174,6 @@ const addReview = (user_id, lot_id, rating, desc) => {
     .catch(err => console.log(err))
 }
 
-
 const selectReview = (lot_id) => {
     const query = "SELECT * FROM review WHERE lot_id = $1"
     pool.query(query, [id])
@@ -185,11 +181,9 @@ const selectReview = (lot_id) => {
     .catch( err => console.log(err))
 }
 
-
 const patchReview = (id) => {
 
 }
-
 
 module.exports = {
   // pool
