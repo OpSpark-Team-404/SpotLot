@@ -1,9 +1,13 @@
 import React from 'react';
 import MapView, { Marker, UrlTile } from 'react-native-maps'
-import { StyleSheet, View} from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { mapStyle } from './mapStyle';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 class MapContainter extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
   render(){
     const markdata = [
@@ -58,6 +62,12 @@ class MapContainter extends React.Component {
             />
           ))}
         </MapView>
+        <TouchableOpacity
+        style={{ alignSelf: "flex-start", margin: 16, top: 20 }}
+        onPress={() => this.props.navigation.openDrawer()}
+        >
+          <FontAwesome5 name="bars" size={30} color="#161624" />
+        </TouchableOpacity>
       </View>
     );
   }
