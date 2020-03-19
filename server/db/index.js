@@ -3,8 +3,8 @@ const { Client, Pool } = require('pg');
 
 // Creates new pool
 const pool = new Pool({
-    user: "postgres",
-    password: "bacool7769",
+    user: "operationspark",
+    password: "",
     host: "localhost",
     database: "spotlot"
 })
@@ -18,36 +18,32 @@ const pool = new Pool({
 //USER
 //
 
-const addUser = (name, email, google_token, image_url, bio, billing_info) => {
-    const query = 'INSERT INTO "user" (name, email, google_token, image_url, bio, billing_info) VALUES ($1, $2, $3, $4, $5, $6)'
-    pool.query(query, [name, email, google_token, image_url, bio, billing_info]
-    )
-    .then(() => console.log("User added"))
-    .catch(err => console.log(err))
-}
-
-// addUser("test", "test@test.com", "test123", "test", "test", "test");
-
-const deleteUser = (id) => {
+const addUser = ({ name, email, google_token, image_url, bio, billing_info }) => {
+  const query = 'INSERT INTO "user" (name, email, google_token, image_url, bio, billing_info) VALUES ($1, $2, $3, $4, $5, $6)'
+  return pool.query
+  (query,
+    [name, email, google_token, image_url, bio, billing_info])
+  }
+  
+  const deleteUser = (id) => {
     const query = 'DELETE FROM "user" WHERE id = $1'
-    pool.query(query, [id])
-    .then(()=> console.log("User deleted"))
-    .catch(err => console.log(err))
+    return pool.query(query, [id])
 }
-
-// deleteUser(1)
 
 const selectUser = (email) => {
     const query = 'SELECT * FROM "user" WHERE email = $1'
-    pool.query(query, [email])
-    .then( res => console.log(res.rows[0]))
-    .catch( err => console.log(err))
+    return pool.query(query, [email])
+      .then(data => {
+        return data.rows[0];
+      })
+      .catch(error => {
+        return error;
+      });
 }
 
-// selectUser("test@test.com");
-
-const patchUser = (id) => {
-
+const patchUser = (id, body) => {
+  const { name, email, google_token, image_url, bio, billing_info } = body;
+  debugger;
 }
 
 //
