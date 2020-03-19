@@ -23,15 +23,15 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "~1.5.0",
+    "react-native-maps": "0.26.1",
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
-    "react-native-maps": "0.26.1",
     "react-native-web": "~0.11.7",
+    "react-navigation": "^4.3.1",
     "react-router-native": "^5.1.2",
     "stripe": "^8.32.0",
-    "react-navigation": "^4.3.1"
-
+    "tipsi-stripe": "^7.5.1"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",
