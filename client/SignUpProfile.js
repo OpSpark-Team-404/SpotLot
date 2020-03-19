@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function SignUpProfile({ navigation }){
   const [firstName, changeFirstName] = React.useState('');
@@ -13,6 +14,12 @@ export default function SignUpProfile({ navigation }){
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={{ alignSelf: "flex-start", margin: 16, top: -80, left: -60 }}
+        onPress={() => navigation.goBack()}
+        >
+        <FontAwesome5 name="arrow-left" size={24} color="#161624" />
+      </TouchableOpacity>
       <Text style={styles.header}>Sign up for SpotLot</Text>
       <Text style={styles.subtext}>
         Thank you for signing up for SpotLot using your Google account! We still need some information from you to complete your account.

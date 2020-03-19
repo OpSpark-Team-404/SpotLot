@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
+import { Text, View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function SignUpCar({ navigation }){
   const [make, changeMake] = React.useState('');
@@ -12,11 +13,17 @@ export default function SignUpCar({ navigation }){
 
   function saveToDB(){
     //SAVE TO DB
-    navigation.navigate('MapContainer')
+    navigation.navigate('Map')
   }
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={{ alignSelf: "flex-start", margin: 16, top: -70, left: -60  }}
+        onPress={() => navigation.goBack()}
+        >
+        <FontAwesome5 name="arrow-left" size={24} color="#161624" />
+      </TouchableOpacity>
       <Text style={styles.header}>Sign up for SpotLot</Text>
       <Text style={styles.subtext}>
         If you plan on parking using SpotLot we will need to know some information about your car to tell the lot owners.
