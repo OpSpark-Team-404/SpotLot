@@ -28,8 +28,10 @@
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-maps": "0.26.1",
     "react-native-web": "~0.11.7",
-    "react-navigation": "^4.3.1",
-    "react-router-native": "^5.1.2"
+    "react-router-native": "^5.1.2",
+    "stripe": "^8.32.0",
+    "react-navigation": "^4.3.1"
+
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",
