@@ -16,6 +16,7 @@ const LoginStackScreen = () => (
     screenOptions={{
       headerShown: false
     }}
+    initialRouteName="Login"
   >
     <LoginStack.Screen name="Login" component={LoginPage} />
     <LoginStack.Screen name="SignUpProfile" component={SignUpProfile} />
@@ -29,6 +30,7 @@ const ProfileStackScreen = () => (
     screenOptions={{
       headerShown: false
     }}
+    initialRouteName="Profile"
   >
     <ProfileStack.Screen name="Profile" component={Profile} />
   </ProfileStack.Navigator>
@@ -40,6 +42,7 @@ const MapContainerStackScreen = () => (
     screenOptions={{
       headerShown: false
     }}
+    initialRouteName="MapContainer"
   >
     <MapContainerStack.Screen name="MapContainer" component={MapContainer} />
   </MapContainerStack.Navigator>

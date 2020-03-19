@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
+import { StackActions } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function SignUpCar({ navigation }){
@@ -13,6 +14,8 @@ export default function SignUpCar({ navigation }){
 
   function saveToDB(){
     //SAVE TO DB
+    const pushAction = StackActions.push('Login')
+    navigation.dispatch(pushAction);
     navigation.navigate('Map')
   }
 
