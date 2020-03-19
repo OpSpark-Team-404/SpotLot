@@ -77,17 +77,17 @@ export default function App(){
         <Drawer.Screen
           name="Map"
           component={MapContainerStackScreen}
-          options={{ drawerIcon: ({ tintColor }) => (<FontAwesome5 name="globe" size={20} style={{ right: -10, tintColor: tintColor }} />) }}
+          options={{ drawerIcon: ({ tintColor }) => (<FontAwesome5 name="globe" color={tintColor} size={20} right={-10} />) }}
         />
         <Drawer.Screen
           name="Profile"
           component={ProfileStackScreen}
-          options={{ drawerIcon: ({ tintColor }) => (<FontAwesome5 name="user" size={20} style={{ right: -10, tintColor: tintColor }} />) }}
+          options={{ drawerIcon: ({ tintColor }) => (<FontAwesome5 name="user" color={tintColor} size={20} right={-10} />) }}
         />
         <Drawer.Screen
           name="Logout"
           component={LoginStackScreen}
-          options={{ gestureEnabled: false, drawerIcon: ({ tintColor }) => (<FontAwesome5 name="sign-out-alt" size={20} style={{right: -10, tintColor: tintColor }} />)}}
+          options={{ gestureEnabled: false, drawerIcon: ({ tintColor }) => (<FontAwesome5 name="sign-out-alt" color={tintColor} size={20} right={-10} />)}}
         />
       </Drawer.Navigator>
     </NavigationContainer>
