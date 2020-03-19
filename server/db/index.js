@@ -1,13 +1,10 @@
 const { Client, Pool } = require('pg');
-var fs = require('fs');
 
-// for reading schema file but can't figure out how to parse correctly
-// var sql = fs.readFileSync('spotlot.sql').toString();
 
 // Creates new pool
 const pool = new Pool({
-    user: "operationspark",
-    password: "",
+    user: "postgres",
+    password: "bacool7769",
     host: "localhost",
     database: "spotlot"
 })
