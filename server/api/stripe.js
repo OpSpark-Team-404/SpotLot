@@ -22,6 +22,7 @@ module.exports = async function (fastify) {
     });
 
     //add bank account to customer
+    //production version would get params from req.body sent from client side
     fastify.post("/sources/:id", (req, res) => {
 
         const params = {
@@ -46,23 +47,23 @@ module.exports = async function (fastify) {
     });
 
     //add debit card to customer
-    fastify.post("/payment_methods/:id", (req, res) => {
-        stripe.paymentMethods.create(
-            {
-              type: 'card',
-              card: {
-                number: '4242424242424242',
-                exp_month: 3,
-                exp_year: 2021,
-                cvc: '314',
-              },
-            })
-            .then(reply => {
-                stripe.paymentMethods.attach(
-                    reply.id,
-                    {customer: req.params.id})
-            })
-            .then(reply => res.send(reply))
-            .catch(error => console.error(error));
-        });
+    // fastify.post("/payment_methods/:id", (req, res) => {
+    //     stripe.paymentMethods.create(
+    //         {
+    //           type: 'card',
+    //           card: {
+    //             number: '4242424242424242',
+    //             exp_month: 3,
+    //             exp_year: 2021,
+    //             cvc: '314',
+    //           },
+    //         })
+    //         .then(reply => {
+    //             stripe.paymentMethods.attach(
+    //                 reply.id,
+    //                 {customer: req.params.id})
+    //         })
+    //         .then(reply => res.send(reply))
+    //         .catch(error => console.error(error));
+    //     });
 };
