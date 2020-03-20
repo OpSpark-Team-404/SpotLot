@@ -13,7 +13,6 @@ export default class SearchInput extends Component {
   }
 
   render() {
-
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -25,8 +24,12 @@ export default class SearchInput extends Component {
         borderBottomWidth: 2,
         borderColor: '#dbdbdb',
         padding: 10,
+        color: 'white',
+        fontSize: 25,
+        borderBottomWidth: 0,
       },
     });
+    const { onBlurFunc } = this.props;
 
     return (
       <KeyboardAvoidingView
@@ -34,7 +37,7 @@ export default class SearchInput extends Component {
         style={styles.container}>
         <ScrollView style={styles.scrollView}>
         </ScrollView>
-        <TextInput autoFocus={true} style={styles.input} placeholder="Tap here" />
+        <TextInput spellCheck={false} autoCorrect={false} autoFocus={true} style={styles.input} placeholder="Tap here" onBlur={()=>{onBlurFunc()}}/>
       </KeyboardAvoidingView>
     );
   }
