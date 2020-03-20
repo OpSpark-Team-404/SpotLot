@@ -1,15 +1,34 @@
 import React from 'react';
 import MapView, { Marker, UrlTile } from 'react-native-maps'
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import SearchButton from './SearchButton';
+import SearchInput from './SearchInput';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { mapStyle } from './mapStyle';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 class MapContainter extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isSearchButtonClicked: false,
+    };
+    this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
+    this.onBlurInput = this.onBlurInput.bind(this);
   }
 
-  render(){
+  onSearchButtonClick() {
+    this.setState({
+      isSearchButtonClicked: !this.state.isSearchButtonClicked,
+    })
+  }
+
+  onBlurInput() {
+    this.setState({
+      isSearchButtonClicked: false,
+    })
+  }
+
+  render() {
     const markdata = [
       {
         title: 'marker1',
@@ -39,7 +58,8 @@ class MapContainter extends React.Component {
         }
       },
     ];
-
+    let placeHolder = <Text></Text>
+    let SearchInputHolder = <SearchInput onBlurFunc={this.onBlurInput}/>
     return (
       <View style={styles.container}>
         <MapView
@@ -63,11 +83,13 @@ class MapContainter extends React.Component {
           ))}
         </MapView>
         <TouchableOpacity
-        style={{ alignSelf: "flex-start", margin: 16, top: 20 }}
-        onPress={() => this.props.navigation.openDrawer()}
+          style={{ alignSelf: "flex-start", margin: 16, top: 20 }}
+          onPress={() => this.props.navigation.openDrawer()}
         >
           <FontAwesome5 name="bars" size={30} color="#161624" />
         </TouchableOpacity>
+        <SearchButton clickFunc={this.onSearchButtonClick}/>
+        {this.state.isSearchButtonClicked ? SearchInputHolder : placeHolder}
       </View>
     );
   }
