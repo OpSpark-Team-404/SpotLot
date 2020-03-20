@@ -6,28 +6,35 @@ import { key } from '../supersecret'
 export default function LoginPage({ navigation }){
   const [name, onChangeName] = React.useState('');
   const [photoUrl, onChangePhotoUrl] = React.useState('');
+  const [buttonDisabled, onButtonPress] = React.useState(false);
 
   signIn = async(char) => {
-    try {
-      const result = await Google.logInAsync({
-        androidClientId: key,
-        scopes: ['profile', 'email'],
-      });
-  
-      if (result.type === 'success') {
-        onChangeName(result.user.name);
-        onChangePhotoUrl(result.user.photoUrl);
-        if(char === 'A'){
-          navigation.navigate('MapContainer')
+    if(!buttonDisabled){
+      onButtonPress(true)
+      try {
+        const result = await Google.logInAsync({
+          androidClientId: key,
+          scopes: ['profile', 'email'],
+        });
+    
+        if (result.type === 'success') {
+          onChangeName(result.user.name);
+          onChangePhotoUrl(result.user.photoUrl);
+          if(char === 'A'){
+            navigation.navigate('Map')
+          }
+          if(char === 'B'){
+            navigation.navigate('SignUpProfile')
+          }
+        } else {
+          console.log('cancelled');
         }
-        if(char === 'B'){
-          navigation.navigate('SignUpProfile')
-        }
-      } else {
-        console.log('cancelled');
+      } catch (e) {
+        console.log('error', e);
       }
-    } catch (e) {
-      console.log('error', e);
+      setTimeout(() => {
+        onButtonPress(false);
+      }, 3000)
     }
   }
 
