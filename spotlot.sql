@@ -3,7 +3,6 @@ CREATE TABLE "user" (
   "image_url" varchar(255),
   "bio" varchar(255),
   "name" varchar(64),
-  "billing_info" varchar(150),
   "email" text UNIQUE,
   "google_token" text UNIQUE
 );
@@ -47,6 +46,13 @@ CREATE TABLE "lot" (
   "description" varchar(255)
 );
 
+CREATE TABLE "billing_info" (
+  "user_id" integer,
+  "stripe_token" text,
+  "card_token" text,
+  "bank_token" text
+);
+
 ALTER TABLE "spot" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 
 ALTER TABLE "spot" ADD FOREIGN KEY ("lot_id") REFERENCES "lot" ("id");
@@ -58,3 +64,5 @@ ALTER TABLE "vehicle" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 ALTER TABLE "review" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 
 ALTER TABLE "review" ADD FOREIGN KEY ("lot_id") REFERENCES "lot" ("id");
+
+ALTER TABLE "billing_info" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
