@@ -1,3 +1,5 @@
+const { addUser, deleteUser, allUsers, selectUser, patchUser } = require('../db/index');
+
 //exort should be a function that takes in fastify instance
 module.exports = async function(fastify) {
 
@@ -9,25 +11,62 @@ module.exports = async function(fastify) {
 
   // addUser to DB
   fastify.post("/addUser", (req, res) => {
-    console.log("Run addUser function");
-    res.send("addUser return");
+    addUser(req.body).then(data => {
+      res.send('Added user to DB')
+    })
+    .catch(error => {
+      console.log(error);
+      res.send('Unable to add user to DB');
+    });
   });
 
   // deleteUser from DB
-  fastify.delete("/deleteUser", (req, res) => {
-    console.log("Run deleteUser function");
-    res.send("deleteUser return");
+  fastify.delete("/deleteUser/:id", (req, res) => {
+    deleteUser(req.params.id)
+      .then(() => {
+        res.send('Deleted user from DB')
+      })
+      .catch(error => {
+        console.log(error);
+        res.send('Unable to delete user from DB');
+      });
+  });
+
+  // allUsers from DB
+  fastify.get("/allUsers", (req, res) => {
+    allUsers()
+      .then(data => {
+        res.send(data.rows[0]);
+      })
+      .catch(error => {
+        console.log(error);
+        res.send("Unable to grab users from DB");
+      });
   });
 
   // selectUser from DB
-  fastify.get("/selectUser", (req, res) => {
-    console.log("Run selectUser function");
-    res.send("selectUser return");
+  fastify.get("/selectUser/:email", (req, res) => {
+    selectUser(req.params.email)
+      .then(data => {
+        res.send(data.rows[0]);
+      })
+      .catch(error => {
+        console.log(error);
+        res.send("Unable to grab user from DB");
+      });
   });
 
   // patchUser in DB
-  fastify.patch("/patchUser", (req, res) => {
-    console.log("Run patchUser function");
-    res.send("return patchUser data");
+  fastify.patch("/patchUser/:id", (req, res) => {
+    console.log(req);
+    patchUser(req.params.id, req.body)
+      .then(data => {
+        console.log(data);
+        res.send("Patching user from DB");
+      })
+      .catch(error => {
+        console.log(error);
+        res.send("Unable to patch user from DB");
+      });
   });
 };
