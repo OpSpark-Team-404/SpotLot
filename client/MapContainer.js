@@ -1,20 +1,14 @@
 import React from 'react';
 import MapView, { Marker, UrlTile } from 'react-native-maps'
-<<<<<<< HEAD
-import { StyleSheet, View, Text} from 'react-native';
-import { mapStyle } from './mapStyle';
 import SearchButton from './SearchButton';
 import SearchInput from './SearchInput';
-=======
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { mapStyle } from './mapStyle';
 import { FontAwesome5 } from '@expo/vector-icons';
->>>>>>> c741ba72456bac47414bdd826b4ffe583fe26cd5
 
 class MapContainter extends React.Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
     this.state = {
       isSearchButtonClicked: false,
     };
@@ -26,8 +20,6 @@ class MapContainter extends React.Component {
     this.setState({
       isSearchButtonClicked: !this.state.isSearchButtonClicked,
     })
-=======
->>>>>>> c741ba72456bac47414bdd826b4ffe583fe26cd5
   }
 
   render() {
