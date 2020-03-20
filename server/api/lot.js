@@ -1,4 +1,4 @@
-const { addLot, selectLot, deleteLot, patchLot } = require('../db/index');
+const { addLot, allLots, selectLot, deleteLot, patchLot } = require('../db/index');
 
 //exort should be a function that takes in fastify instance
 module.exports = async function(fastify) {
