@@ -51,17 +51,17 @@ const patchUser = (id, body) => {
 
 //VEHICLE
 
-const addVehicle = (user_id, make, model, color, plate, state) => {
+const addVehicle = (user_id, { make, model, color, plate, state }) => {
   const query = "INSERT INTO vehicle (user_id, make, model,license_plate, color, state) VALUES ($1, $2, $3, $4, $5, $6)"
   return pool.query(query, [user_id, make, model, color, plate, state])
 }
 
-const selectVehicle = (id) => {
+const selectVehicle = id => {
   const query = "SELECT * FROM vehicle WHERE id = $1"
   return pool.query(query, [id])
 }
 
-const deleteVehicle = (id) => {
+const deleteVehicle = id => {
   const query = 'DELETE FROM vehicle WHERE id = $1'
   return pool.query(query, [id])
 }
@@ -72,7 +72,7 @@ const deleteAllUserVehicles = (user_id) => {
 }
 
 const patchVehicle = (id, body) => {
-  const { user_id, make, model, color, plate, state } = body;
+  const { make, model, color, plate, state } = body;
 }
 
 //
@@ -195,6 +195,7 @@ module.exports = {
   reserveSpot,
   //LOT
   addLot,
+  allLots,
   selectLot,
   deleteLot,
   patchLot,
