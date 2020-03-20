@@ -8,13 +8,20 @@ const pool = new Pool({
     database: "spotlot"
 })
 
-// USER
+// Connects pool to DB
+// pool.connect()
+// .then(() => console.log("Connected to DB"))
+// .catch(err => console.log(err))
 
-const addUser = ({ name, email, google_token, image_url, bio, billing_info }) => {
-  const query = 'INSERT INTO "user" (name, email, google_token, image_url, bio, billing_info) VALUES ($1, $2, $3, $4, $5, $6)'
+//
+//USER
+//
+
+const addUser = ({ name, email, google_token, image_url, bio }) => {
+  const query = 'INSERT INTO "user" (name, email, google_token, image_url, bio) VALUES ($1, $2, $3, $4, $5)'
   return pool.query
   (query,
-    [name, email, google_token, image_url, bio, billing_info])
+    [name, email, google_token, image_url, bio ])
   }
   
   const deleteUser = (id) => {
