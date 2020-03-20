@@ -13,12 +13,18 @@ class MapContainter extends React.Component {
       isSearchButtonClicked: false,
     };
     this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
+    this.onBlurInput = this.onBlurInput.bind(this);
   }
 
   onSearchButtonClick() {
-    console.log(this.state.isSearchButtonClicked);
     this.setState({
       isSearchButtonClicked: !this.state.isSearchButtonClicked,
+    })
+  }
+
+  onBlurInput() {
+    this.setState({
+      isSearchButtonClicked: false,
     })
   }
 
@@ -53,7 +59,7 @@ class MapContainter extends React.Component {
       },
     ];
     let placeHolder = <Text></Text>
-    let SearchInputHolder = <SearchInput />
+    let SearchInputHolder = <SearchInput onBlurFunc={this.onBlurInput}/>
     return (
       <View style={styles.container}>
         <MapView
