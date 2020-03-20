@@ -1,12 +1,27 @@
 import React from 'react';
 import MapView, { Marker, UrlTile } from 'react-native-maps'
-import { StyleSheet, View} from 'react-native';
+import { StyleSheet, View, Text} from 'react-native';
 import { mapStyle } from './mapStyle';
-import Search from './SearchButton'
+import SearchButton from './SearchButton';
+import SearchInput from './SearchInput';
 
 class MapContainter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isSearchButtonClicked: false,
+    };
+    this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
+  }
 
-  render(){
+  onSearchButtonClick() {
+    console.log(this.state.isSearchButtonClicked);
+    this.setState({
+      isSearchButtonClicked: !this.state.isSearchButtonClicked,
+    })
+  }
+
+  render() {
     const markdata = [
       {
         title: 'marker1',
@@ -36,7 +51,8 @@ class MapContainter extends React.Component {
         }
       },
     ];
-
+    let placeHolder = <Text></Text>
+    let SearchInputHolder = <SearchInput />
     return (
       <View style={styles.container}>
         <MapView
@@ -59,7 +75,8 @@ class MapContainter extends React.Component {
             />
           ))}
         </MapView>
-        <Search />
+        <SearchButton clickFunc={this.onSearchButtonClick}/>
+        {this.state.isSearchButtonClicked ? SearchInputHolder : placeHolder}
       </View>
     );
   }
