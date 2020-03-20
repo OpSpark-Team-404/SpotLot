@@ -1,6 +1,5 @@
 const { Client, Pool } = require('pg');
 
-
 // Creates new pool
 const pool = new Pool({
     user: "operationspark",
@@ -9,14 +8,7 @@ const pool = new Pool({
     database: "spotlot"
 })
 
-// Connects pool to DB
-// pool.connect()
-// .then(() => console.log("Connected to DB"))
-// .catch(err => console.log(err))
-
-//
-//USER
-//
+// USER
 
 const addUser = ({ name, email, google_token, image_url, bio, billing_info }) => {
   const query = 'INSERT INTO "user" (name, email, google_token, image_url, bio, billing_info) VALUES ($1, $2, $3, $4, $5, $6)'
@@ -29,6 +21,18 @@ const addUser = ({ name, email, google_token, image_url, bio, billing_info }) =>
     const query = 'DELETE FROM "user" WHERE id = $1'
     return pool.query(query, [id])
 }
+
+const allUsers = () => {
+  const query = 'SELECT * FROM "user"';
+  return pool
+    .query(query)
+    .then(data => {
+      return data.rows[0];
+    })
+    .catch(error => {
+      return error;
+    });
+};
 
 const selectUser = (email) => {
     const query = 'SELECT * FROM "user" WHERE email = $1'
@@ -43,12 +47,9 @@ const selectUser = (email) => {
 
 const patchUser = (id, body) => {
   const { name, email, google_token, image_url, bio, billing_info } = body;
-  debugger;
 }
 
-//
 //VEHICLE
-//
 
 const addVehicle = (user_id, make, model, color, plate, state) => {
     const query = "INSERT INTO vehicle (user_id, make, model,license_plate, color, state) VALUES ($1, $2, $3, $4, $5, $6)"
@@ -94,20 +95,18 @@ const patchVehicle = (id, patchArr) => {
 //LOT
 //
 
-const addLot = (owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description) => {
-    const query = "INSERT INTO lot (owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)"
-    pool.query(query, [owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description])
-    .then(console.log("Lot added!"))
-    .catch( err => console.log(err))
+const addLot = ({ owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description }) => {
+  const query = "INSERT INTO lot (owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)"
+  return pool.query(
+    query,
+    [owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description]
+  )
 }
 
-// addLot(3, "test_url", 20, 0, 0, true, new Date, new Date, 4, 0, "A test lot")
-
 const selectLot = (id) => {
-    const query = "SELECT * FROM lot WHERE id = $1"
-    pool.query(query, [id])
-    .then(res => console.log(res.rows[0]))
-    .catch( err => console.log(err))
+  const query = "SELECT * FROM lot WHERE owner_id = $1"
+  console.log(id);
+  return pool.query(query, [id])
 }
 
 const deleteLot = (id) => {
@@ -186,6 +185,7 @@ module.exports = {
   pool,
   //USER
   addUser,
+  allUsers,
   selectUser,
   deleteUser,
   patchUser,

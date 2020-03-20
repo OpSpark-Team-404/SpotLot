@@ -1,4 +1,4 @@
-const { addUser, deleteUser, selectUser, patchUser } = require('../db/index');
+const { addUser, deleteUser, allUsers, selectUser, patchUser } = require('../db/index');
 
 //exort should be a function that takes in fastify instance
 module.exports = async function(fastify) {
@@ -29,6 +29,18 @@ module.exports = async function(fastify) {
       .catch(error => {
         console.log(error);
         res.send('Unable to delete user from DB');
+      });
+  });
+
+  // allUsers from DB
+  fastify.get("/allUsers", (req, res) => {
+    allUsers()
+      .then(data => {
+        res.send(data);
+      })
+      .catch(error => {
+        console.log(error);
+        res.send("Unable to grab users from DB");
       });
   });
 
