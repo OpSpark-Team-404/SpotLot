@@ -31,7 +31,7 @@ module.exports = async function(fastify) {
     console.log(req.params);
     selectSpot(req.params.id)
     .then((data) => {
-      res.send(data);
+      res.send(data.rows[0]);
     })
     .catch((error) => {
       console.log(error);
