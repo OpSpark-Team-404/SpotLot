@@ -146,7 +146,7 @@ const deleteSpot = (id) => {
 }
 
 const patchSpot = (lot_id, user_id) => {
-
+  //update query for current person in a spot
 }
 
 const reserveSpot = (id) => {
