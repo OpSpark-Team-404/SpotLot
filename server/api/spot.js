@@ -1,3 +1,10 @@
+const {  addSpot,
+  selectSpot,
+  deleteSpot,
+  patchSpot,
+  reserveSpot
+} = require('../db/index');
+
 //exort should be a function that takes in fastify instance
 module.exports = async function(fastify) {
   // All APIs are under route here
@@ -6,19 +13,55 @@ module.exports = async function(fastify) {
     res.send("return Spot data");
   });
 
-  fastify.post("/addSpot", (req, res) => {
-    console.log("Run a addSpot function");
-    res.send("return addSpot data");
+  fastify.post("/addSpot/:lot_id/:user_id", (req, res) => {
+    console.log(req.params);
+    const { lot_id, user_id } = req.params;
+    addSpot(lot_id, user_id)
+      .then((data) => {
+        console.log(data);
+        res.send('Spot added to lot in DB');
+      })
+      .catch((error) => {
+        console.log(error);
+        res.send('Unable to add spot to lot in DB')
+      });
   });
 
-  fastify.get("/selectSpot", (req, res) => {
-    console.log("Run a selectSpot function");
-    res.send("return selectSpot data");
+  fastify.get("/selectSpot/:id", (req, res) => {
+    console.log(req.params);
+    selectSpot(req.params.id)
+    .then((data) => {
+      res.send(data.rows[0]);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send('Unable to get spot from DB');
+    });
   });
 
-  fastify.delete("/deleteSpot", (req, res) => {
-    console.log("Run a deleteSpot function");
-    res.send("return deleteSpot data");
+  fastify.delete("/deleteSpot/:id", (req, res) => {
+    console.log(req.params);
+    deleteSpot(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(error => {
+        console.log(error);
+        res.send("Unable to delete spot from DB");
+      });
+  });
+
+  fastify.post("/reserveSpot/:id", (req, res) => {
+    console.log(req.params);
+    reserveSpot(req.params.id)
+      .then(data => {
+        console.log(data);
+        res.send('spot reserved');
+      })
+      .catch(error => {
+        console.log(error);
+        res.send("Unable to reserve spot in DB");
+      });
   });
 
   fastify.patch("/patchSpot", (req, res) => {
@@ -26,8 +69,4 @@ module.exports = async function(fastify) {
     res.send("return patchSpot data");
   });
 
-  fastify.post("/reserveSpot", (req, res) => {
-    console.log("Run a reserveSpot function");
-    res.send("return reserveSpot data");
-  });
 };
