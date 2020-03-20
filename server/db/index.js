@@ -35,14 +35,14 @@ const allUsers = () => {
 };
 
 const selectUser = (email) => {
-    const query = 'SELECT * FROM "user" WHERE email = $1'
-    return pool.query(query, [email])
-      .then(data => {
-        return data.rows[0];
-      })
-      .catch(error => {
-        return error;
-      });
+  const query = 'SELECT * FROM "user" WHERE email = $1'
+  return pool.query(query, [email])
+    .then(data => {
+      return data.rows[0];
+    })
+    .catch(error => {
+      return error;
+    });
 }
 
 const patchUser = (id, body) => {
@@ -52,23 +52,23 @@ const patchUser = (id, body) => {
 //VEHICLE
 
 const addVehicle = (user_id, make, model, color, plate, state) => {
-    const query = "INSERT INTO vehicle (user_id, make, model,license_plate, color, state) VALUES ($1, $2, $3, $4, $5, $6)"
-    return pool.query(query, [user_id, make, model, color, plate, state])
+  const query = "INSERT INTO vehicle (user_id, make, model,license_plate, color, state) VALUES ($1, $2, $3, $4, $5, $6)"
+  return pool.query(query, [user_id, make, model, color, plate, state])
 }
 
 const selectVehicle = (id) => {
-    const query = "SELECT * FROM vehicle WHERE id = $1"
-    return pool.query(query, [id])
+  const query = "SELECT * FROM vehicle WHERE id = $1"
+  return pool.query(query, [id])
 }
 
 const deleteVehicle = (id) => {
-    const query = 'DELETE FROM vehicle WHERE id = $1'
-    return pool.query(query, [id])
+  const query = 'DELETE FROM vehicle WHERE id = $1'
+  return pool.query(query, [id])
 }
 
 const deleteAllUserVehicles = (user_id) => {
-    const query = 'DELETE FROM vehicle WHERE user_id = $1'
-    return pool.query(query, [user_id])
+  const query = 'DELETE FROM vehicle WHERE user_id = $1'
+  return pool.query(query, [user_id])
 }
 
 const patchVehicle = (id, body) => {
@@ -131,27 +131,27 @@ const patchLot = (id, body) => {
 //
 
 const addSpot = (lot_id, user_id) => {
-    const query = 'INSERT INTO spot (lot_id, user_id) VALUES ($1, $2)'
-    return pool.query(query, [lot_id, user_id])
+  const query = 'INSERT INTO spot (lot_id, user_id) VALUES ($1, $2)'
+  return pool.query(query, [lot_id, user_id])
 }
 
-const selectSpot = (id) => {
-    const query = "SELECT * FROM spot WHERE id = $1"
-    return pool.query(query, [id])
+const selectSpot = id => {
+  const query = "SELECT * FROM spot WHERE id = $1"
+  return pool.query(query, [id])
 }
 
-const deleteSpot = (id) => {
-    const query = 'DELETE FROM spot WHERE id = $1'
-    return pool.query(query, [id])
+const deleteSpot = id => {
+  const query = 'DELETE FROM spot WHERE id = $1'
+  return pool.query(query, [id])
 }
 
 const patchSpot = (lot_id, user_id) => {
   //update query for current person in a spot
 }
 
-const reserveSpot = (id) => {
-    const query = 'UPDATE lot SET current_spots = current_spots + 1 WHERE id = $1'
-    return pool.query(query, [id])
+const reserveSpot = id => {
+  const query = 'UPDATE lot SET current_spots = current_spots + 1 WHERE id = $1'
+  return pool.query(query, [id])
 }
 
 //
@@ -159,18 +159,13 @@ const reserveSpot = (id) => {
 //
 
 const addReview = (user_id, lot_id, rating, desc) => {
-    const query = 'INSERT INTO spot (user_id, lot_id, rating, desc) VALUES ($1, $2, $3)'
-    pool.query(query, [lot_id, user_id]
-    )
-    .then(() => console.log("Review added"))
-    .catch(err => console.log(err))
+  const query = 'INSERT INTO spot (user_id, lot_id, rating, desc) VALUES ($1, $2, $3, $4)'
+  return pool.query(query, [lot_id, user_id, rating, desc])
 }
 
-const selectReview = (lot_id) => {
-    const query = "SELECT * FROM review WHERE lot_id = $1"
-    pool.query(query, [id])
-    .then(res => console.log(res.rows[0]))
-    .catch( err => console.log(err))
+const selectReview = lot_id => {
+  const query = "SELECT * FROM review WHERE lot_id = $1"
+  return pool.query(query, [lot_id]);
 }
 
 const patchReview = (id) => {
