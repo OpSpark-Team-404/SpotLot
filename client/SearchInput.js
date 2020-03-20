@@ -5,11 +5,27 @@ import {
   TextInput,
   StyleSheet
 } from 'react-native';
+import Geocoder from 'react-native-geocoding';
 
 export default class SearchInput extends Component {
   constructor(props) {
     super(props);
-    this.state = {text: ''};
+    this.state = {
+      text: '',
+    };
+
+    this.convertToCords = this.convertToCords.bind(this);
+  }
+
+  convertToCords(){
+    const { changeCords } = this.props;
+    Geocoder.init("AIzaSyA64rRgGJFp9T_dq1aN7R3mOPldglBUxNw");
+    Geocoder.from(this.state.text)
+        .then(json => {
+            let location = json.results[0].geometry.location;
+            changeCords(location.lat, location.lng);
+        })
+        .catch(error => console.warn(error));
   }
 
   render() {
@@ -37,7 +53,7 @@ export default class SearchInput extends Component {
         style={styles.container}>
         <ScrollView style={styles.scrollView}>
         </ScrollView>
-        <TextInput spellCheck={false} autoCorrect={false} autoFocus={true} style={styles.input} placeholder="Tap here" onBlur={()=>{onBlurFunc()}}/>
+        <TextInput   onSubmitEditing={this.convertToCords} onChangeText={(text) => this.setState({text})} spellCheck={false} autoCorrect={false} autoFocus={true} style={styles.input} placeholder="Tap here" onBlur={()=>{onBlurFunc()}}/>
       </KeyboardAvoidingView>
     );
   }

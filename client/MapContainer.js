@@ -11,9 +11,19 @@ class MapContainter extends React.Component {
     super(props);
     this.state = {
       isSearchButtonClicked: false,
+      lat: 29.9511,
+      lng: -90.031533,
     };
     this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
     this.onBlurInput = this.onBlurInput.bind(this);
+    this.changeMapCords = this.changeMapCords.bind(this);
+  }
+
+  changeMapCords(lat, lng){
+    this.setState({
+      lat: lat,
+      lng: lng
+    })
   }
 
   onSearchButtonClick() {
@@ -29,6 +39,7 @@ class MapContainter extends React.Component {
   }
 
   render() {
+    const { lat, lng } = this.state
     const markdata = [
       {
         title: 'marker1',
@@ -59,15 +70,15 @@ class MapContainter extends React.Component {
       },
     ];
     let placeHolder = <Text></Text>
-    let SearchInputHolder = <SearchInput onBlurFunc={this.onBlurInput}/>
+    let SearchInputHolder = <SearchInput changeCords={this.changeMapCords} onBlurFunc={this.onBlurInput}/>
     return (
       <View style={styles.container}>
         <MapView
           customMapStyle={mapStyle} 
           style={styles.map}
           region={{
-            latitude: 29.9511,
-            longitude: -90.071533,
+            latitude: lat,
+            longitude: lng,
             latitudeDelta: .5,
             longitudeDelta: .5,
           }}
