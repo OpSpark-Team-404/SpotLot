@@ -7,6 +7,8 @@ import LoginPage from './client/LoginPage';
 import SignUpProfile from './client/SignUpProfile';
 import SignUpCar from './client/SignUpCar';
 import Profile from './client/Profile';
+import MyLot from './client/MyLot';
+import CreateLot from './client/CreateLot';
 import MapContainer from './client/MapContainer';
 import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -48,6 +50,19 @@ const MapContainerStackScreen = () => (
   </MapContainerStack.Navigator>
 );
 
+const MyLotStack = createStackNavigator();
+const MyLotStackScreen = () => (
+  <MyLotStack.Navigator
+    screenOptions={{
+      headerShown: false
+    }}
+    initialRouteName="MyLot"
+  >
+    <MyLotStack.Screen name="MyLot" component={MyLot} />
+    <MyLotStack.Screen name="CreateLot" component={CreateLot} />
+  </MyLotStack.Navigator>
+);
+
 function CustomDrawer(props){
   return (
     <DrawerContentScrollView {...props}>
@@ -86,6 +101,12 @@ export default function App(){
           name="Profile"
           component={ProfileStackScreen}
           options={{ drawerIcon: ({ tintColor }) => (<FontAwesome5 name="user" color={tintColor} size={20} right={-10} />) }}
+        />
+        <Drawer.Screen
+          name="MyLot"
+          component={MyLotStackScreen}
+          // options={{ drawerIcon: ({ tintColor }) => (<FontAwesome5 name="user" color={tintColor} size={20} right={-10} />) }}
+          // need to find an icon for MyLot
         />
         <Drawer.Screen
           name="Logout"
