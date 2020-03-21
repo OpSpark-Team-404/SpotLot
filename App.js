@@ -1,21 +1,16 @@
-import React from "react";
-import { Image, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem
-} from "@react-navigation/drawer";
-import LoginPage from "./client/LoginPage";
-import SignUpProfile from "./client/SignUpProfile";
-import SignUpCar from "./client/SignUpCar";
-import Profile from "./client/Profile";
-import MyLot from "./client/MyLot";
-import CreateLot from "./client/CreateLot";
-import MapContainer from "./client/MapContainer";
-import { FontAwesome5 } from "@expo/vector-icons";
+import React from 'react';
+import { Image, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import LoginPage from './client/LoginPage';
+import SignUpProfile from './client/SignUpProfile';
+import SignUpCar from './client/SignUpCar';
+import Profile from './client/Profile';
+import MyLot from './client/MyLot';
+import CreateLot from './client/CreateLot';
+import MapContainer from './client/MapContainer';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const LoginStack = createStackNavigator();
 const LoginStackScreen = () => (
@@ -68,7 +63,7 @@ const MyLotStackScreen = () => (
   </MyLotStack.Navigator>
 );
 
-function CustomDrawer(props) {
+function CustomDrawer(props){
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItem
@@ -133,6 +128,12 @@ export default function App() {
               />
             )
           }}
+        />
+        <Drawer.Screen
+          name="MyLot"
+          component={MyLotStackScreen}
+          // options={{ drawerIcon: ({ tintColor }) => (<FontAwesome5 name="user" color={tintColor} size={20} right={-10} />) }}
+          // need to find an icon for MyLot
         />
         <Drawer.Screen
           name="MyLot"
