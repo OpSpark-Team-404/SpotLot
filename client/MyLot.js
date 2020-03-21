@@ -6,7 +6,7 @@ export default function MyLot({ navigation }){
 
   return (
     <View style={styles.container}>
-      <View style={{flexDirection: 'row' }}>
+      <View>
         <TouchableOpacity
           style={{ margin: 16, alignSelf: "flex-start", top: 20 }}
           onPress={() => navigation.openDrawer()}
@@ -14,7 +14,7 @@ export default function MyLot({ navigation }){
           <FontAwesome5 name="bars" size={30} color='#3fb984' />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ margin: 16, alignSelf: "flex-end", top: 20 }}
+          style={{ margin: 16, alignSelf: "flex-end", top: -40 }}
           onPress={() => navigation.navigate('CreateLot')}
         >
           <FontAwesome5 name="plus-circle" size={30} color='#3fb984' />
