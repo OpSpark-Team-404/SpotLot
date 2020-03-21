@@ -5,6 +5,7 @@ import SearchInput from './SearchInput';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { mapStyle } from './mapStyle';
 import { FontAwesome5 } from '@expo/vector-icons';
+import axios from 'axios';
 
 class MapContainter extends React.Component {
   constructor(props) {
@@ -13,10 +14,16 @@ class MapContainter extends React.Component {
       isSearchButtonClicked: false,
       lat: 29.9511,
       lng: -90.031533,
+      markers: [],
     };
     this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
     this.onBlurInput = this.onBlurInput.bind(this);
     this.changeMapCords = this.changeMapCords.bind(this);
+    this.getLots = this.getLots.bind(this);
+  }
+
+  componentDidMount() {
+    this.getLots();
   }
 
   changeMapCords(lat, lng){
@@ -38,8 +45,21 @@ class MapContainter extends React.Component {
     })
   }
 
+  getLots(){
+    axios.get('http://10.0.2.2:8080/lot/allLots')
+      .then((res) => {
+        this.setState({
+          markers: res.data,
+        })
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  }
+
   render() {
-    const { lat, lng } = this.state
+    const { markers, lat, lng } = this.state
+    console.log(markers);
     const markdata = [
       {
         title: 'marker1',
@@ -83,11 +103,11 @@ class MapContainter extends React.Component {
             longitudeDelta: .5,
           }}
         >
-          {markdata.map(marker => (
+          {markers.map(marker => (
             <Marker
               key={marker.id}
-              coordinate={marker.latlng}
-              title={marker.title}
+              coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+              title={`${marker.id}`}
               description={marker.description}
               image={'https://cdn.mapmarker.io/api/v1/font-awesome/v5/pin?icon=fa-car&size=120&background=3FB984&color=222222&hoffset=0&voffset=-1'}
             />
