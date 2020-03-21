@@ -53,42 +53,13 @@ class MapContainter extends React.Component {
         })
       })
       .catch((res) => {
-        console.log(res);
+        console.log('error getting markers');
       });
   }
 
   render() {
     const { markers, lat, lng } = this.state
-    console.log(markers);
-    const markdata = [
-      {
-        title: 'marker1',
-        description: 'description1',
-        id: 1,
-        latlng:{
-          latitude: 29.9511,
-          longitude: -90.031533,
-        }
-      },
-      {
-        title: 'marker2',
-        description: 'description2',
-        id: 2,
-        latlng:{
-          latitude: 29.9511,
-          longitude: -90.171533,
-        }
-      },
-      {
-        title: 'marker3',
-        description: 'description3',
-        id: 3,
-        latlng:{
-          latitude: 29.9511,
-          longitude: -90.071533,
-        }
-      },
-    ];
+
     let placeHolder = <Text></Text>
     let SearchInputHolder = <SearchInput changeCords={this.changeMapCords} onBlurFunc={this.onBlurInput}/>
     return (
