@@ -5,6 +5,7 @@ import SearchInput from './SearchInput';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { mapStyle } from './mapStyle';
 import { FontAwesome5 } from '@expo/vector-icons';
+import axios from 'axios';
 
 class MapContainter extends React.Component {
   constructor(props) {
@@ -13,10 +14,16 @@ class MapContainter extends React.Component {
       isSearchButtonClicked: false,
       lat: 29.9511,
       lng: -90.031533,
+      markers: [],
     };
     this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
     this.onBlurInput = this.onBlurInput.bind(this);
     this.changeMapCords = this.changeMapCords.bind(this);
+    this.getLots = this.getLots.bind(this);
+  }
+
+  componentDidMount() {
+    this.getLots();
   }
 
   changeMapCords(lat, lng){
@@ -38,37 +45,21 @@ class MapContainter extends React.Component {
     })
   }
 
+  getLots(){
+    axios.get('http://10.0.2.2:8080/lot/allLots')
+      .then((res) => {
+        this.setState({
+          markers: res.data,
+        })
+      })
+      .catch((res) => {
+        console.log('error getting markers');
+      });
+  }
+
   render() {
-    const { lat, lng } = this.state
-    const markdata = [
-      {
-        title: 'marker1',
-        description: 'description1',
-        id: 1,
-        latlng:{
-          latitude: 29.9511,
-          longitude: -90.031533,
-        }
-      },
-      {
-        title: 'marker2',
-        description: 'description2',
-        id: 2,
-        latlng:{
-          latitude: 29.9511,
-          longitude: -90.171533,
-        }
-      },
-      {
-        title: 'marker3',
-        description: 'description3',
-        id: 3,
-        latlng:{
-          latitude: 29.9511,
-          longitude: -90.071533,
-        }
-      },
-    ];
+    const { markers, lat, lng } = this.state
+
     let placeHolder = <Text></Text>
     let SearchInputHolder = <SearchInput changeCords={this.changeMapCords} onBlurFunc={this.onBlurInput}/>
     return (
@@ -83,11 +74,11 @@ class MapContainter extends React.Component {
             longitudeDelta: .5,
           }}
         >
-          {markdata.map(marker => (
+          {markers.map(marker => (
             <Marker
               key={marker.id}
-              coordinate={marker.latlng}
-              title={marker.title}
+              coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+              title={`${marker.id}`}
               description={marker.description}
               image={'https://cdn.mapmarker.io/api/v1/font-awesome/v5/pin?icon=fa-car&size=120&background=3FB984&color=222222&hoffset=0&voffset=-1'}
             />

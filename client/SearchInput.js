@@ -26,7 +26,7 @@ export default class SearchInput extends Component {
             let location = json.results[0].geometry.location;
             changeCords(location.lat, location.lng);
         })
-        .catch(error => console.warn(error));
+        .catch(error => console.log(error));
   }
 
   render() {
