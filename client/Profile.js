@@ -5,7 +5,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function Profile({ navigation }){
   const [editStatus, onStatusChange] = React.useState('false');
-  const [description, onChangeDescription] = React.useState('My description')
+  const [description, onChangeDescription] = React.useState('')
 
   return (
     <View style={styles.container}>
@@ -13,7 +13,7 @@ export default function Profile({ navigation }){
         style={{ alignSelf: "flex-start", justifyContent: "flex-start", margin: 16, top: 20 }}
         onPress={() => navigation.openDrawer()}
       >
-        <FontAwesome5 name="bars" size={30} color="#161624" />
+        <FontAwesome5 name="bars" size={30} color='#3fb984'/>
       </TouchableOpacity>
       <Image style={styles.photoImage} source={{ uri: 'https://pngimg.com/uploads/face/face_PNG5645.png' }} />
       <Text style={styles.header}>Fresh Prince</Text>
@@ -24,13 +24,15 @@ export default function Profile({ navigation }){
             onChangeText={text => onChangeDescription(text)}
             multiline={true}
             numberOfLines={5}
+            maxLength={100}
           >
             {description}
           </TextInput>
           <View style={styles.icon}>
             <Icon
             name='check'
-            underlayColor='#3fb984'
+            color='#222222'
+            underlayColor='#E5EBEA'
             onPress={() => onStatusChange(!editStatus)}
             />
           </View>
@@ -47,7 +49,8 @@ export default function Profile({ navigation }){
           <View style={styles.icon}>
             <Icon
             name='edit'
-            underlayColor='#3fb984'
+            color='#222222'
+            underlayColor='#E5EBEA'
             onPress={() => onStatusChange(!editStatus)}
             />
           </View>
@@ -60,23 +63,23 @@ export default function Profile({ navigation }){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3fb984',
+    backgroundColor: '#E5EBEA',
   },
   photoImage: {
     marginTop: 15,
     width: 150,
     height: 150,
-    borderColor: 'rgba(0,0,0,0.2)',
+    borderColor: '#3fb984',
     borderWidth: 3,
     borderRadius: 150,
     bottom: 10,
     top: -70,
     alignSelf: "center",
-    top: 10
+    top: 10,
   },
   header: {
     fontSize: 25,
-    color: '#E5EBEA',
+    color: '#222222',
     top: -60,
     alignSelf: "center",
     top: 20
@@ -89,7 +92,9 @@ const styles = StyleSheet.create({
     height: 125,
     borderRadius: 5,
     alignSelf: "center",
-    top: 60
+    top: 60,
+    borderColor: '#3fb984',
+    borderWidth: 2
   },
   icon: {
     alignContent: 'flex-end',

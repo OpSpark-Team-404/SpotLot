@@ -97,7 +97,7 @@ class MapContainter extends React.Component {
           style={{ alignSelf: "flex-start", margin: 16, top: 20 }}
           onPress={() => this.props.navigation.openDrawer()}
         >
-          <FontAwesome5 name="bars" size={30} color="#161624" />
+          <FontAwesome5 name="bars" size={30} color='#3fb984' />
         </TouchableOpacity>
         <SearchButton clickFunc={this.onSearchButtonClick}/>
         {this.state.isSearchButtonClicked ? SearchInputHolder : placeHolder}

@@ -53,9 +53,9 @@ function CustomDrawer(props){
     <DrawerContentScrollView {...props}>
       <DrawerItem
         label={() => 
-          <View>
+          <View style={{ flex: 1, flexDirection: 'row' }}>
             <Image style={{height: 65, width: 65, resizeMode: 'contain'}} source={{ uri: 'https://pngimg.com/uploads/face/face_PNG5645.png' }} />
-            <Text>Fresh Prince</Text>
+            <Text style={{color: '#E5EBEA', alignSelf: "flex-end", fontSize: 16}}>Fresh Prince</Text>
           </View>
         }
         style={{backgroundColor: '#3fb984'}}
