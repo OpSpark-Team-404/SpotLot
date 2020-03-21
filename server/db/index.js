@@ -2,10 +2,10 @@ const { Client, Pool } = require('pg');
 
 // Creates new pool
 const pool = new Pool({
-    user: "operationspark",
-    password: "",
-    host: "localhost",
-    database: "spotlot"
+  user: "gordonstyron",
+  password: "password",
+  host: "localhost",
+  database: "spotlot"
 })
 
 // Connects pool to DB
@@ -99,7 +99,7 @@ const allLots = () => {
   return pool
     .query(query)
     .then(data => {
-      return data.rows[0];
+      return data.rows;
     })
     .catch(error => {
       return error;

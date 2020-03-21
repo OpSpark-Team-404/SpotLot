@@ -7,7 +7,8 @@ module.exports = async function(fastify) {
   fastify.get("/allLots", (req, res) => {
     allLots()
       .then(data => {
-        res.send(data.rows[0]);
+        console.log(data);
+        res.send(data);
       })
       .catch(error => {
         console.log(error);
