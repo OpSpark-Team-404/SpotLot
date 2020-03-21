@@ -20,6 +20,7 @@ export default function LoginPage({ navigation }){
         if (result.type === 'success') {
           onChangeName(result.user.name);
           onChangePhotoUrl(result.user.photoUrl);
+
           if(char === 'A'){
             navigation.navigate('Map')
           }

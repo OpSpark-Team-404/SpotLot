@@ -25,7 +25,7 @@ export default function SignUpCar({ navigation }){
         style={{ alignSelf: "flex-start", margin: 16, top: -70, left: -60  }}
         onPress={() => navigation.goBack()}
         >
-        <FontAwesome5 name="arrow-left" size={24} color="#161624" />
+        <FontAwesome5 name="arrow-left" size={24} color='#3fb984' />
       </TouchableOpacity>
       <Text style={styles.header}>Sign up for SpotLot</Text>
       <Text style={styles.subtext}>
@@ -33,36 +33,46 @@ export default function SignUpCar({ navigation }){
       </Text>
       <Text style={styles.header}>Car information</Text>
       <View style={{ top: -90}}>
-        <Text style={styles.inputHeader}>Car make</Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={text => changeMake(text)}
-        ></TextInput>
-        <Text style={styles.inputHeader}>Car model</Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={text => changeModel(text)}
-        ></TextInput>
-        <Text style={styles.inputHeader}>Car color</Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={text => changeColor(text)}
-        >
-        </TextInput>
-        <Text style={styles.inputHeader}>License plate number</Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={text => changeNumber(text)}
-        >
-        </TextInput>
-        <Text style={styles.inputHeader}>License plate state</Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={text => changeState(text)}
-        >
-        </TextInput>
-        <View style={{ top: 20 }}>
-          <Button color="#394648" title="Continue" onPress={() => saveToDB()} />
+        <View style={{top: 5}}>
+          <Text style={styles.inputHeader}>Car make</Text>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={text => changeMake(text)}
+          ></TextInput>
+        </View>
+        <View style={{top: 10}}>
+          <Text style={styles.inputHeader}>Car model</Text>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={text => changeModel(text)}
+          ></TextInput>
+        </View>
+        <View style={{top: 15}}>
+          <Text style={styles.inputHeader}>Car color</Text>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={text => changeColor(text)}
+          >
+          </TextInput>
+        </View>
+        <View style={{top: 20}}>
+          <Text style={styles.inputHeader}>License plate number</Text>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={text => changeNumber(text)}
+          >
+          </TextInput>
+        </View>
+        <View style={{top: 25}}>
+          <Text style={styles.inputHeader}>License plate state</Text>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={text => changeState(text)}
+          >
+          </TextInput>
+        </View>
+        <View style={{ top: 50 }}>
+          <Button color="#394648" title="Complete" onPress={() => saveToDB()} />
         </View>
       </View>
     </View>
@@ -72,35 +82,34 @@ export default function SignUpCar({ navigation }){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3fb984',
+    backgroundColor: '#E5EBEA',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 55,
   },
   header: {
     fontSize: 25,
-    color: '#E5EBEA',
+    color: '#222222',
     top: -80,
     fontWeight: 'bold',
     alignSelf: 'flex-start'
   },
   subtext: {
     fontSize: 15,
-    color: '#E5EBEA',
+    color: '#222222',
     top: -70,
     marginBottom: 20,
   },
   textInput: {
     borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#E5EBEA',
-    bottom: 5,
-    color: '#E5EBEA',
+    borderWidth: 2,
+    borderColor: '#3fb984',
     width: 300,
-    top: 10
+    top: 10,
+    backgroundColor: 'white',
   },
   inputHeader: {
-    color: '#E5EBEA',
+    color: '#222222',
     bottom: 5,
     top: 10
   },
