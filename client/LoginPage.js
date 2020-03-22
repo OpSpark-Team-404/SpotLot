@@ -3,9 +3,7 @@ import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import { key } from '../supersecret'
 
-export default function LoginPage({ navigation }){
-  const [name, onChangeName] = React.useState('');
-  const [photoUrl, onChangePhotoUrl] = React.useState('');
+export default function LoginPage({ navigation, route }){
   const [buttonDisabled, onButtonPress] = React.useState(false);
 
   signIn = async(char) => {
@@ -18,14 +16,16 @@ export default function LoginPage({ navigation }){
         });
     
         if (result.type === 'success') {
-          onChangeName(result.user.name);
-          onChangePhotoUrl(result.user.photoUrl);
-
           if(char === 'A'){
             navigation.navigate('Map')
           }
           if(char === 'B'){
-            navigation.navigate('SignUpProfile')
+            navigation.navigate('SignUpProfile', {
+              photoUrl: result.user.photoUrl,
+              email: result.user.email,
+              token: result.idToken,
+              route: route
+            });
           }
         } else {
           console.log('cancelled');
