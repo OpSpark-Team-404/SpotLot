@@ -136,12 +136,6 @@ export default function App() {
           // need to find an icon for MyLot
         />
         <Drawer.Screen
-          name="MyLot"
-          component={MyLotStackScreen}
-          // options={{ drawerIcon: ({ tintColor }) => (<FontAwesome5 name="user" color={tintColor} size={20} right={-10} />) }}
-          // need to find an icon for MyLot
-        />
-        <Drawer.Screen
           name="Logout"
           component={LoginStackScreen}
           options={{
