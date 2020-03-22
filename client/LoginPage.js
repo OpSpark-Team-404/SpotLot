@@ -23,7 +23,7 @@ export default function LoginPage({ navigation, route }){
             navigation.navigate('SignUpProfile', {
               photoUrl: result.user.photoUrl,
               email: result.user.email,
-              token: result.user.idToken,
+              token: result.idToken,
               route: route
             });
           }

@@ -23,7 +23,7 @@ export default function SignUpProfile({ route, navigation }){
     // need to delete user from database if they hit the back button
 
     const name = `${firstName} ${lastName}`;
-
+    
     axios.post('http://10.0.2.2:8080/user/addUser', { name, email, google_token, image_url, bio })
       .then((res) => {
         console.log(res);
