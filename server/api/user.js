@@ -48,7 +48,7 @@ module.exports = async function(fastify) {
   fastify.get("/selectUser/:email", (req, res) => {
     selectUser(req.params.email)
       .then(data => {
-        res.send(data.rows[0]);
+        res.send(data);
       })
       .catch(error => {
         console.log(error);

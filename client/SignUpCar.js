@@ -1,19 +1,39 @@
 import React from 'react';
 import { Text, View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
+import axios from 'axios';
 import { StackActions } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function SignUpCar({ navigation }){
+export default function SignUpCar({ navigation, route }){
   const [make, changeMake] = React.useState('');
   const [model, changeModel] = React.useState('');
   const [color, changeColor] = React.useState('');
-  const [number, changeNumber] = React.useState('');
+  const [plate, changePlate] = React.useState('');
   const [state, changeState] = React.useState('');
+  const [userId, changeUserId] = React.useState('');
 
   //NEED TO ADD A BACK BUTTON
 
+  React.useEffect(() => {
+    const { email } = route.params;
+    axios.get(`http://10.0.2.2:8080/user/selectUser/${email}`)
+      .then((res) => {
+        changeUserId(res.data.id);
+      })
+      .catch((e) => {
+        console.log('error', e);
+      });
+  });
+
   function saveToDB(){
-    //SAVE TO DB
+    axios.post(`http://10.0.2.2:8080/vehicle/addVehicle/${userId}`, { make, model, color, plate, state })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((e) => {
+      console.log('error', e);
+    });
+
     const pushAction = StackActions.push('Login')
     navigation.dispatch(pushAction);
     navigation.navigate('Map')
@@ -59,7 +79,7 @@ export default function SignUpCar({ navigation }){
           <Text style={styles.inputHeader}>License plate number</Text>
           <TextInput
             style={styles.textInput}
-            onChangeText={text => changeNumber(text)}
+            onChangeText={text => changePlate(text)}
           >
           </TextInput>
         </View>
