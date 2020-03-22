@@ -2,8 +2,8 @@ const { Client, Pool } = require('pg');
 
 // Creates new pool
 const pool = new Pool({
-  user: "gordonstyron",
-  password: "password",
+  user: "operationspark",
+  password: "",
   host: "localhost",
   database: "spotlot"
 })
@@ -34,7 +34,7 @@ const allUsers = () => {
   return pool
     .query(query)
     .then(data => {
-      return data.rows[0];
+      return data;
     })
     .catch(error => {
       return error;
@@ -45,7 +45,7 @@ const selectUser = (email) => {
   const query = 'SELECT * FROM "user" WHERE email = $1'
   return pool.query(query, [email])
     .then(data => {
-      return data.rows[0];
+      return data;
     })
     .catch(error => {
       return error;

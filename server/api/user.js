@@ -36,7 +36,7 @@ module.exports = async function(fastify) {
   fastify.get("/allUsers", (req, res) => {
     allUsers()
       .then(data => {
-        res.send(data.rows[0]);
+        res.send(data.rows);
       })
       .catch(error => {
         console.log(error);
