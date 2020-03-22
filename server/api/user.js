@@ -1,12 +1,17 @@
-const { addUser, deleteUser, allUsers, selectUser, patchUser } = require('../db/index');
+const { addUser, deleteUser, allUsers, selectUser, userLots, patchUser } = require('../db/index');
 
 //exort should be a function that takes in fastify instance
 module.exports = async function(fastify) {
 
   // All APIs are under route here
-  fastify.get("/", (req, res) => {
-    console.log("Run a user function");
-    res.send("return user data");
+  fastify.get("/userLots/:id", (req, res) => {
+    userLots(req.params.id)
+    .then((data) => {
+      res.send(data.rows);
+    })
+    .catch(error => {
+      console.log(error);
+    });
   });
 
   // addUser to DB
