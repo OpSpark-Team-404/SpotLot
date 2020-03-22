@@ -54,7 +54,7 @@ export default class SearchInput extends Component {
         style={styles.container}>
         <ScrollView style={styles.scrollView}>
         </ScrollView>
-        <TextInput   onSubmitEditing={this.convertToCords} onChangeText={(text) => this.setState({text})} spellCheck={false} autoCorrect={false} autoFocus={true} style={styles.input} placeholder="Tap here" onBlur={()=>{onBlurFunc()}}/>
+        <TextInput onSubmitEditing={this.convertToCords} onChangeText={(text) => this.setState({text})} spellCheck={false} autoCorrect={false} autoFocus={true} style={styles.input} placeholder="Tap here" onBlur={()=>{onBlurFunc()}}/>
       </KeyboardAvoidingView>
     );
   }
