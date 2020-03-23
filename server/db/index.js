@@ -41,6 +41,18 @@ const allUsers = () => {
     });
 };
 
+const userLots = (id) => {
+  const query = 'SELECT * FROM "lot" WHERE owner_id = $1';
+  return pool
+    .query(query, [id])
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      return error;
+    });
+};
+
 const selectUser = (email) => {
   const query = 'SELECT * FROM "user" WHERE email = $1'
   return pool.query(query, [email])
@@ -186,6 +198,7 @@ module.exports = {
   addUser,
   allUsers,
   selectUser,
+  userLots,
   deleteUser,
   patchUser,
   //VEHICLE
