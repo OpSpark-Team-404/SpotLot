@@ -31,7 +31,7 @@ export default function Profile({ navigation }){
           <View style={styles.icon}>
             <Icon
             name='check'
-            color='#222222'
+            color='#726D9B'
             underlayColor='#E5EBEA'
             onPress={() => onStatusChange(!editStatus)}
             />
@@ -49,7 +49,7 @@ export default function Profile({ navigation }){
           <View style={styles.icon}>
             <Icon
             name='edit'
-            color='#222222'
+            color='#726D9B'
             underlayColor='#E5EBEA'
             onPress={() => onStatusChange(!editStatus)}
             />
