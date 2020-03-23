@@ -59,7 +59,6 @@ class MapContainter extends React.Component {
 
   render() {
     const { markers, lat, lng } = this.state
-    console.log(markers)
 
     let placeHolder = <Text></Text>
     let SearchInputHolder = <SearchInput changeCords={this.changeMapCords} onBlurFunc={this.onBlurInput}/>
