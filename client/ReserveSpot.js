@@ -66,7 +66,7 @@ export default function ReserveSpot({ navigation }){
           </View>
         </View>
         <View style={{ top: 60 }}>
-          <Button color="#394648" title="Reserve Spot" onPress={() => saveToDB()} />
+          <Button color="#726D9B" title="Reserve Spot" onPress={() => saveToDB()} />
         </View>
       </View>
     </View>

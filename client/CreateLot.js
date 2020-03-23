@@ -41,6 +41,7 @@ export default function CreateLot({ navigation }){
         <Button
           title="Choose Photo"
           onPress={handleChoosePhoto}
+          color={'#726D9B'}
         />
       </View>
       <View style={{ top: -60}}>
@@ -87,7 +88,7 @@ export default function CreateLot({ navigation }){
           </TextInput>
         </View>
         <View style={{ top: 60 }}>
-          <Button color="#394648" title="Complete" onPress={() => saveToDB()} />
+          <Button color="#726D9B" title="Complete" onPress={() => saveToDB()} />
         </View>
       </View>
     </View>
