@@ -92,7 +92,7 @@ export default function SignUpCar({ navigation, route }){
           </TextInput>
         </View>
         <View style={{ top: 50 }}>
-          <Button color="#394648" title="Complete" onPress={() => saveToDB()} />
+          <Button color="#726D9B" title="Complete" onPress={() => saveToDB()} />
         </View>
       </View>
     </View>

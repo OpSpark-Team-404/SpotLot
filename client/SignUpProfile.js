@@ -75,7 +75,7 @@ export default function SignUpProfile({ route, navigation }){
           </TextInput>
         </View>
         <View style={{ top: 40 }}>
-          <Button color="#394648" title="Continue" onPress={() => saveToDB()}></Button>
+          <Button color="#726D9B" title="Continue" onPress={() => saveToDB()}></Button>
         </View>
       </View>
     </View>
