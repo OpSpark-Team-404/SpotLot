@@ -10,6 +10,7 @@ import Profile from './client/Profile';
 import MyLot from './client/MyLot';
 import CreateLot from './client/CreateLot';
 import MapContainer from './client/MapContainer';
+import LotInfo from './client/LotInfo'
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const LoginStack = createStackNavigator();
@@ -47,6 +48,7 @@ const MapContainerStackScreen = () => (
     initialRouteName="MapContainer"
   >
     <MapContainerStack.Screen name="MapContainer" component={MapContainer} />
+    <MapContainerStack.Screen name="LotInfo" component={LotInfo} />
   </MapContainerStack.Navigator>
 );
 
