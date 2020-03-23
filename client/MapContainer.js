@@ -2,7 +2,7 @@ import React from 'react';
 import MapView, { Marker, UrlTile } from 'react-native-maps'
 import SearchButton from './SearchButton';
 import SearchInput from './SearchInput';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import { mapStyle } from './mapStyle';
 import { FontAwesome5 } from '@expo/vector-icons';
 import axios from 'axios';
@@ -65,6 +65,7 @@ class MapContainter extends React.Component {
     return (
       <View style={styles.container}>
         <MapView
+          showsCompass={false}
           customMapStyle={mapStyle} 
           style={styles.map}
           region={{
@@ -81,7 +82,13 @@ class MapContainter extends React.Component {
               title={`${marker.id}`}
               description={marker.description}
               image={'https://cdn.mapmarker.io/api/v1/font-awesome/v5/pin?icon=fa-car&size=120&background=3FB984&color=222222&hoffset=0&voffset=-1'}
-            />
+              onPress={()=>{
+                this.props.navigation.navigate('LotInfo', {
+                  lot: marker,
+                })
+              }}
+            >
+            </Marker>
           ))}
         </MapView>
         <TouchableOpacity
