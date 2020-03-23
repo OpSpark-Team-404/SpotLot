@@ -9,6 +9,7 @@ import SignUpCar from './client/SignUpCar';
 import Profile from './client/Profile';
 import MyLot from './client/MyLot';
 import CreateLot from './client/CreateLot';
+import ReserveSpot from './client/ReserveSpot';
 import MapContainer from './client/MapContainer';
 import { FontAwesome5 } from '@expo/vector-icons';
 
