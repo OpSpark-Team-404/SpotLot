@@ -37,7 +37,7 @@ export default function CreateLot({ navigation }){
       </TouchableOpacity>
       <Text style={styles.header}>Create a lot</Text>
       <View style={{top: -50}}>
-        <Image source={{ uri: image_url }} style={{ resizeMode: 'contain', width: 150, height: 150 }}/>
+        <Image source={require('../images/ThumbnailImage.png')} style={{ resizeMode: 'contain', width: 200, height: 150, borderWidth: 2, borderColor: '#3fb984', bottom: 5 }}/>
         <Button
           title="Choose Photo"
           onPress={handleChoosePhoto}

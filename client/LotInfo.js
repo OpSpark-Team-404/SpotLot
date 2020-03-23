@@ -47,7 +47,7 @@ export default function LotInfo({ navigation, route }){
           <Text style={{marginLeft: '15%', fontSize: 30}} >{`$${price} | 6 hours`}</Text>
         </View>
         <Text style={{fontSize: 20, marginHorizontal: 15, marginVertical: 25,}} >{`${description}`}</Text>
-        <Button color='#726D9B' title='Reserve Spot'></Button>
+        <Button color='#726D9B' title='Reserve Spot' onPress={() => navigation.navigate('Reserve')}></Button>
       </View>
     );
   }

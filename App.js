@@ -50,6 +50,7 @@ const MapContainerStackScreen = () => (
   >
     <MapContainerStack.Screen name="MapContainer" component={MapContainer} />
     <MapContainerStack.Screen name="LotInfo" component={LotInfo} />
+    <MapContainerStack.Screen name="Reserve" component={ReserveSpot} />
   </MapContainerStack.Navigator>
 );
 

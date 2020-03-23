@@ -17,14 +17,21 @@ export default function LoginPage({ navigation, route }){
     
         if (result.type === 'success') {
           if(char === 'A'){
-            navigation.navigate('Map')
+            navigation.navigate('Map', {
+              photoUrl: result.user.photoUrl,
+              email: result.user.email,
+              token: result.idToken,
+              name: result.user.name,
+              route: route
+            })
           }
           if(char === 'B'){
             navigation.navigate('SignUpProfile', {
               photoUrl: result.user.photoUrl,
               email: result.user.email,
               token: result.idToken,
-              route: route
+              route: route,
+              name: result.user.name,
             });
           }
         } else {
