@@ -106,10 +106,10 @@ export default function App() {
           name="Map"
           component={MapContainerStackScreen}
           options={{
-            drawerIcon: ({ tintColor }) => (
+            drawerIcon: () => (
               <FontAwesome5
                 name="globe"
-                color={tintColor}
+                color={'#726D9B'}
                 size={20}
                 right={-10}
               />
@@ -120,10 +120,10 @@ export default function App() {
           name="Profile"
           component={ProfileStackScreen}
           options={{
-            drawerIcon: ({ tintColor }) => (
+            drawerIcon: () => (
               <FontAwesome5
                 name="user"
-                color={tintColor}
+                color={'#726D9B'}
                 size={20}
                 right={-10}
               />
@@ -141,10 +141,10 @@ export default function App() {
           component={LoginStackScreen}
           options={{
             gestureEnabled: false,
-            drawerIcon: ({ tintColor }) => (
+            drawerIcon: () => (
               <FontAwesome5
                 name="sign-out-alt"
-                color={tintColor}
+                color={'#726D9B'}
                 size={20}
                 right={-10}
               />
