@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "2.1.0",
     "@react-native-community/masked-view": "0.1.5",
     "@react-navigation/bottom-tabs": "^5.2.1",
     "@react-navigation/drawer": "^5.3.1",
@@ -16,7 +17,9 @@
     "axios": "^0.19.2",
     "expo": "~36.0.0",
     "expo-google-app-auth": "^8.0.1",
+    "expo-image-picker": "~8.0.1",
     "fastify": "^2.12.1",
+    "moment": "^2.24.0",
     "pg": "^7.18.2",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
@@ -25,14 +28,14 @@
     "react-native-geocoding": "^0.4.0",
     "react-native-gesture-handler": "~1.5.0",
     "react-native-maps": "0.26.1",
+    "react-native-modal-datetime-picker": "^8.5.1",
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.3.1",
     "react-router-native": "^5.1.2",
-    "stripe": "^8.32.0",
-    "expo-image-picker": "~8.0.1"
+    "stripe": "^8.32.0"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",

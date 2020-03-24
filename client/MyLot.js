@@ -3,7 +3,7 @@ import { Text, View, Image, StyleSheet, Button, TouchableOpacity } from 'react-n
 import { FontAwesome5 } from '@expo/vector-icons';
 import axios from "axios";
 
-export default function MyLot({ navigation }){
+export default function MyLot({ navigation, user }){
   const [userLots, onCHangeUserLots] = React.useState([]);
 
     React.useEffect(() => {
@@ -47,7 +47,9 @@ export default function MyLot({ navigation }){
         </TouchableOpacity>
         <TouchableOpacity
           style={{ margin: 16, alignSelf: "flex-end", top: -40 }}
-          onPress={() => navigation.navigate("CreateLot")}
+          onPress={() => navigation.navigate("CreateLot", {
+            user: user
+          })}
         >
           <FontAwesome5 name="plus-circle" size={30} color="#3fb984" />
         </TouchableOpacity>
