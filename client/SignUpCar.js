@@ -4,7 +4,7 @@ import axios from 'axios';
 import { StackActions } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function SignUpCar({ navigation, route }){
+export default function SignUpCar({ navigation, route, userData }){
   const [make, changeMake] = React.useState('');
   const [model, changeModel] = React.useState('');
   const [color, changeColor] = React.useState('');
@@ -12,10 +12,9 @@ export default function SignUpCar({ navigation, route }){
   const [state, changeState] = React.useState('');
   const [userId, changeUserId] = React.useState('');
 
-  //NEED TO ADD A BACK BUTTON
-
   React.useEffect(() => {
     const { email } = route.params;
+    userData(email);
     axios.get(`http://10.0.2.2:8080/user/selectUser/${email}`)
       .then((res) => {
         changeUserId(res.data.id);
