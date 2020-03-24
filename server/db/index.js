@@ -2,16 +2,16 @@ const { Client, Pool } = require('pg');
 
 // Creates new pool
 const pool = new Pool({
-  user: "operationspark",
-  password: "",
+  user: "postgres",
+  password: "password",
   host: "localhost",
   database: "spotlot"
 })
 
 // Connects pool to DB
-// pool.connect()
-// .then(() => console.log("Connected to DB"))
-// .catch(err => console.log(err))
+pool.connect()
+.then(() => console.log("Connected to DB"))
+.catch(err => console.log(err))
 
 //
 //USER
