@@ -41,7 +41,7 @@ export default function LotInfo({ navigation, route }){
         <View style={styles.lotInfo}>
           <FontAwesome5 name="car" size={36} color='#3FB984' />
           <View>
-            <Text style={{marginLeft: 30, fontSize: 24}} >{`${max_spots} / ${current_spots}`}</Text>
+            <Text style={{marginLeft: 30, fontSize: 24}} >{`${current_spots} / ${max_spots}`}</Text>
             <Text style={{marginLeft: 20,}} >open spots</Text>
           </View>
           <Text style={{marginLeft: '15%', fontSize: 30}} >{`$${price} | 6 hours`}</Text>
