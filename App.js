@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { Image, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -15,74 +16,92 @@ import LotInfo from './client/LotInfo'
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const LoginStack = createStackNavigator();
-const LoginStackScreen = () => (
+const LoginStackScreen = ({ userData }) => (
   <LoginStack.Navigator
     screenOptions={{
       headerShown: false
     }}
     initialRouteName="Login"
   >
-    <LoginStack.Screen name="Login" component={LoginPage} />
+    <LoginStack.Screen name="Login">
+      {props => <LoginPage {...props} userData={userData} />}
+    </LoginStack.Screen>
     <LoginStack.Screen name="SignUpProfile" component={SignUpProfile} />
-    <LoginStack.Screen name="SignUpCar" component={SignUpCar} />
+    <LoginStack.Screen name="SignUpCar">
+      {props => <SignUpCar {...props} userData={userData} />}
+    </LoginStack.Screen>
   </LoginStack.Navigator>
 );
 
 const ProfileStack = createStackNavigator();
-const ProfileStackScreen = () => (
+const ProfileStackScreen = ({user}) => (
   <ProfileStack.Navigator
     screenOptions={{
       headerShown: false
     }}
     initialRouteName="Profile"
   >
-    <ProfileStack.Screen name="Profile" component={Profile} />
+    <ProfileStack.Screen name="Profile">
+      {props => <Profile {...props} user={user} />}
+    </ProfileStack.Screen>
   </ProfileStack.Navigator>
 );
 
 const MapContainerStack = createStackNavigator();
-const MapContainerStackScreen = () => (
+const MapContainerStackScreen = ({user}) => (
   <MapContainerStack.Navigator
     screenOptions={{
       headerShown: false
     }}
     initialRouteName="MapContainer"
   >
-    <MapContainerStack.Screen name="MapContainer" component={MapContainer} />
+    <MapContainerStack.Screen name="MapContainer">
+      {props => <MapContainer {...props} user={user} />}
+    </MapContainerStack.Screen>
     <MapContainerStack.Screen name="LotInfo" component={LotInfo} />
     <MapContainerStack.Screen name="Reserve" component={ReserveSpot} />
   </MapContainerStack.Navigator>
 );
 
 const MyLotStack = createStackNavigator();
-const MyLotStackScreen = () => (
+const MyLotStackScreen = ({user}) => (
   <MyLotStack.Navigator
     screenOptions={{
       headerShown: false
     }}
     initialRouteName="MyLot"
   >
-    <MyLotStack.Screen name="MyLot" component={MyLot} />
+    <MyLotStack.Screen name="MyLot">
+      {props => <MyLot {...props} user={user} />}
+    </MyLotStack.Screen>
     <MyLotStack.Screen name="CreateLot" component={CreateLot} />
   </MyLotStack.Navigator>
 );
 
 function CustomDrawer(props){
+  const [user, onUserChange] = React.useState({});
+
+  React.useEffect(() => {
+    if(props.user){
+      onUserChange(props.user);
+    }
+  });
+
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItem
         label={() => (
           <View style={{ flex: 1, flexDirection: "row" }}>
             <Image
-              style={{ height: 65, width: 65, resizeMode: "contain" }}
+              style={{ height: 50, width: 50, borderRadius: 150 }}
               source={{
-                uri: "https://pngimg.com/uploads/face/face_PNG5645.png"
+                uri: user.image_url
               }}
             />
             <Text
-              style={{ color: "#E5EBEA", alignSelf: "flex-end", fontSize: 16 }}
+              style={{ color: "#E5EBEA", alignSelf: "flex-end", fontSize: 16, left: 10 }}
             >
-              Fresh Prince
+              {user.name}
             </Text>
           </View>
         )}
@@ -96,6 +115,18 @@ function CustomDrawer(props){
 const Drawer = createDrawerNavigator();
 
 export default function App() {
+  const [user, onUserChange] = React.useState({});
+
+  function userData(email){
+    axios.get(`http://10.0.2.2:8080/user/selectUser/${email}`)
+      .then((res) => {
+        onUserChange(res.data);
+      })
+      .catch((e) => {
+        console.log('error', e);
+      });
+  }
+
   return (
     <NavigationContainer>
       <Drawer.Navigator
@@ -103,11 +134,10 @@ export default function App() {
         drawerContentOptions={{
           activeTintColor: "#3fb984"
         }}
-        drawerContent={props => <CustomDrawer {...props} />}
+        drawerContent={props => <CustomDrawer {...props} user={user} />}
       >
         <Drawer.Screen
           name="Map"
-          component={MapContainerStackScreen}
           options={{
             drawerIcon: () => (
               <FontAwesome5
@@ -118,10 +148,11 @@ export default function App() {
               />
             )
           }}
-        />
+        >
+          {props => <MapContainerStackScreen {...props} user={user} />}
+        </Drawer.Screen>
         <Drawer.Screen
           name="Profile"
-          component={ProfileStackScreen}
           options={{
             drawerIcon: () => (
               <FontAwesome5
@@ -132,16 +163,31 @@ export default function App() {
               />
             )
           }}
-        />
+        >
+          {props => <ProfileStackScreen {...props} user={user} />}
+        </Drawer.Screen>
         <Drawer.Screen
           name="MyLot"
-          component={MyLotStackScreen}
-          // options={{ drawerIcon: ({ tintColor }) => (<FontAwesome5 name="user" color={tintColor} size={20} right={-10} />) }}
-          // need to find an icon for MyLot
-        />
+          options={{
+            drawerIcon: () => (
+              <Text
+              style={{
+                color: '#726D9B',
+                fontSize: 20,
+                fontWeight: 'bold',
+                left: 3,
+                paddingRight: 7.5
+              }}
+              >
+              L
+              </Text>
+            )
+          }}
+        >
+          {props => <MyLotStackScreen {...props} user={user} />}
+        </Drawer.Screen>
         <Drawer.Screen
           name="Logout"
-          component={LoginStackScreen}
           options={{
             gestureEnabled: false,
             drawerIcon: () => (
@@ -153,7 +199,9 @@ export default function App() {
               />
             )
           }}
-        />
+        >
+        {props => <LoginStackScreen {...props} userData={userData} />}
+        </Drawer.Screen>
       </Drawer.Navigator>
     </NavigationContainer>
   );

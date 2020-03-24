@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity } from 'reac
 import { Icon } from 'react-native-elements';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function Profile({ navigation }){
+export default function Profile({ navigation, user }){
   const [editStatus, onStatusChange] = React.useState('false');
   const [description, onChangeDescription] = React.useState('')
 
@@ -15,8 +15,8 @@ export default function Profile({ navigation }){
       >
         <FontAwesome5 name="bars" size={30} color='#3fb984'/>
       </TouchableOpacity>
-      <Image style={styles.photoImage} source={{ uri: 'https://pngimg.com/uploads/face/face_PNG5645.png' }} />
-      <Text style={styles.header}>Fresh Prince</Text>
+      <Image style={styles.photoImage} source={{ uri: user.image_url }} />
+      <Text style={styles.header}>{user.name}</Text>
       {!editStatus ? (
         <View>
           <TextInput
