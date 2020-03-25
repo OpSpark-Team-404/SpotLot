@@ -35,7 +35,7 @@ export default function CreateLot({ navigation, route }){
     const max_reserve = 0;
     const current_spots = max_spots;
 
-    await convertToCords();
+    convertToCords();
 
     axios.post('http://10.0.2.2:8080/lot/addLot', { owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description })
       .then((res) => {
