@@ -2,10 +2,10 @@ const { Client, Pool } = require('pg');
 
 // Creates new pool
 const pool = new Pool({
-  user: "postgres",
-  password: "password",
-  host: "localhost",
-  database: "spotlot"
+    user: "postgres",
+    password: "bacool7769",
+    host: "localhost",
+    database: "spotlot"
 })
 
 // Connects pool to DB
@@ -191,6 +191,23 @@ const patchReview = (id) => {
 
 }
 
+
+//
+// STRIPE
+//
+
+  const addStripeToken = () => {
+
+  }
+
+  const addCardToken = () => {
+
+  }
+
+  const addBankToken = () => {
+
+  }
+
 module.exports = {
   // pool
   pool,
@@ -222,5 +239,9 @@ module.exports = {
   //REVIEW
   addReview,
   selectReview,
-  patchReview
+  patchReview,
+  //STRIPE
+  addStripeToken,
+  addCardToken,
+  addBankToken
 }
