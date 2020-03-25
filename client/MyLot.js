@@ -2,19 +2,9 @@ import React from 'react';
 import { Text, View, Image, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import axios from "axios";
-
-export default function MyLot({ navigation, user }){
+export default function MyLot({ navigation, user }) {
   const [userLots, onCHangeUserLots] = React.useState([]);
-
-    React.useEffect(() => {
-    // const { email } = route.params;
-    // axios.get(`http://10.0.2.2:8080/user/selectUser/${email}`)
-    //   .then((res) => {
-    //     changeUserId(res.data.id);
-    //   })
-      getCurrentUser('Hinesnaseer@gmail.com')
-    });
-  getCurrentUser = email => {
+  const getCurrentUser = email => {
     axios.get(`http://10.0.2.2:8080/user/selectUser/${email}`)
       .then(res => {
         console.log(res.id);
@@ -25,7 +15,7 @@ export default function MyLot({ navigation, user }){
         console.log('error', error);
       });
   };
-  grabCurrentUserLots = id => {
+  const grabCurrentUserLots = id => {
     axios.get(`http://10.0.2.2:8080/lots/userLots/${id}`)
       .then(res => {
         onCHangeUserLots(res);
@@ -35,7 +25,14 @@ export default function MyLot({ navigation, user }){
         console.log("error", error);
       });
   };
-
+  React.useEffect(() => {
+    // const { email } = route.params;
+    // axios.get(`http://10.0.2.2:8080/user/selectUser/${email}`)
+    //   .then((res) => {
+    //     changeUserId(res.data.id);
+    //   })
+    getCurrentUser('Hinesnaseer@gmail.com')
+  }, []);
   return (
     <View style={styles.container}>
       <View>
@@ -70,7 +67,6 @@ export default function MyLot({ navigation, user }){
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
