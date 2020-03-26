@@ -1,5 +1,5 @@
 const stripe = require('stripe')('sk_test_RBETXzuPgut6Ka5O91t2SF30002G14KCKS');
-const { addStripeToken } = require('./db/index.js');
+const { addStripeToken, selectStripeToken } = require('./db/index.js');
 
 module.exports = async function (fastify) {
 
@@ -34,6 +34,11 @@ module.exports = async function (fastify) {
       })
       .then(reply => res.send(reply.client_secret))
       .catch(error => console.log(error));
+    });
+
+    fastify.get("/token/:id", (req, res) => {
+        selectStripeToken(req.params.id)
+        .then(reply => res.send(reply))
     });
 
 
