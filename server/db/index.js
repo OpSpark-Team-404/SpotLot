@@ -202,6 +202,11 @@ const patchReview = (id) => {
 
   }
 
+  const selectStripeToken = (id) => {
+    const query = `SELECT (stripe_token) FROM billing_info WHERE user_id = ${id}`
+    return pool.query(query)
+  }
+
   const addCardToken = () => {
 
   }
@@ -245,5 +250,6 @@ module.exports = {
   //STRIPE
   addStripeToken,
   addCardToken,
-  addBankToken
+  addBankToken,
+  selectStripeToken
 }
