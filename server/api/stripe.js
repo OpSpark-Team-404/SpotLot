@@ -39,7 +39,7 @@ module.exports = async function (fastify) {
     fastify.get("/token/:id", (req, res) => {
         selectStripeToken(req.params.id)
         .then(reply => res.send(reply))
-    }
+    });
 
 
 
