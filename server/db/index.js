@@ -196,7 +196,9 @@ const patchReview = (id) => {
 // STRIPE
 //
 
-  const addStripeToken = () => {
+  const addStripeToken = (id, token) => {
+    const query = "INSERT INTO billing_info (user_id, stripe_token) VALUES ($1, $2)"
+    return pool.query(query, [id, token])
 
   }
 

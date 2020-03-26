@@ -1,10 +1,11 @@
 const stripe = require('stripe')('sk_test_RBETXzuPgut6Ka5O91t2SF30002G14KCKS');
+const { addStripeToken } = require('./db/index.js');
 
 module.exports = async function (fastify) {
 
     // All APIs are under route here
 
-    fastify.get("/createConnect/:code", (req, res) => {
+    fastify.get("/createConnect/:id/:code", (req, res) => {
         const code =  req.params.code
 
         stripe.oauth.token({
@@ -13,7 +14,7 @@ module.exports = async function (fastify) {
           }).then(
             (response) => {
               var connected_account_id = response.stripe_user_id;
-            //   saveAccountId(connected_account_id)
+              addStripeToken(req.params.id, connected_account_id)
             console.log(connected_account_id)
         })
         .catch(error => console.log(error))

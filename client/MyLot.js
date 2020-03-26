@@ -3,33 +3,18 @@ import { Text, View, Image, StyleSheet, Button, TouchableOpacity } from 'react-n
 import { FontAwesome5 } from '@expo/vector-icons';
 import axios from "axios";
 
-export default function MyLot({ navigation, user }){
-  const [userLots, onCHangeUserLots] = React.useState([]);
+export default function MyLot({ navigation, user }) {
+  const [userLots, onChangeUserLots] = React.useState([]);
 
-    React.useEffect(() => {
-    // const { email } = route.params;
-    // axios.get(`http://10.0.2.2:8080/user/selectUser/${email}`)
-    //   .then((res) => {
-    //     changeUserId(res.data.id);
-    //   })
-      getCurrentUser('Hinesnaseer@gmail.com')
-    });
-  getCurrentUser = email => {
-    axios.get(`http://10.0.2.2:8080/user/selectUser/${email}`)
-      .then(res => {
-        console.log(res.id);
-        grabCurrentUserLots(res.id);
-        console.log(userLots);
-      })
-      .catch(error => {
-        console.log('error', error);
-      });
-  };
-  grabCurrentUserLots = id => {
-    axios.get(`http://10.0.2.2:8080/lots/userLots/${id}`)
-      .then(res => {
-        onCHangeUserLots(res);
-        console.log(res);
+  React.useEffect(() => {
+    grabCurrentUserLots(user.id)
+  });
+
+  const grabCurrentUserLots = (id) => {
+    axios.get(`http://10.0.2.2:8080/user/userLots/${id}`)
+      .then(async res => {
+        let data = await res.data;
+        onChangeUserLots(data);
       })
       .catch(error => {
         console.log("error", error);
@@ -54,9 +39,6 @@ export default function MyLot({ navigation, user }){
           <FontAwesome5 name="plus-circle" size={30} color="#3fb984" />
         </TouchableOpacity>
       </View>
-      <Text style={{ justifyContent: "center", alignSelf: "center" }}>
-        MyLot
-      </Text>
       <View style={{ flexDirection: "row" }}>
         <View style={{ alignItems: "flex-start" }}>
           <Text>Lot Name</Text>
@@ -67,6 +49,14 @@ export default function MyLot({ navigation, user }){
           <Text>Distance Miles</Text>
         </View>
       </View>
+      {userLots ? userLots.map((lot) => (
+          <View>
+            <FontAwesome5 name="car" size={36} color='#3FB984' />
+            <View style={{marginLeft: 20}}>
+              <Text style={{fontSize: 20}}>{lot.price}</Text>
+            </View>
+          </View>
+        )) : null}
     </View>
   );
 }

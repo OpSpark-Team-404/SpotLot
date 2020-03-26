@@ -13,6 +13,7 @@ import CreateLot from './client/CreateLot';
 import ReserveSpot from './client/ReserveSpot';
 import MapContainer from './client/MapContainer';
 import LotInfo from './client/LotInfo'
+import MySpot from './client/MySpot';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const LoginStack = createStackNavigator();
@@ -76,6 +77,20 @@ const MyLotStackScreen = ({user}) => (
     </MyLotStack.Screen>
     <MyLotStack.Screen name="CreateLot" component={CreateLot} />
   </MyLotStack.Navigator>
+);
+
+const MySpotStack = createStackNavigator();
+const MySpotStackScreen = ({user}) => (
+  <MySpotStack.Navigator
+    screenOptions={{
+      headerShown: false
+    }}
+    initialRouteName="MySpot"
+  >
+    <MySpotStack.Screen name="MySpot">
+      {props => <MySpot {...props} user={user} />}
+    </MySpotStack.Screen>
+  </MySpotStack.Navigator>
 );
 
 function CustomDrawer(props){
@@ -185,6 +200,26 @@ export default function App() {
           }}
         >
           {props => <MyLotStackScreen {...props} user={user} />}
+        </Drawer.Screen>
+        <Drawer.Screen
+          name="MySpot"
+          options={{
+            drawerIcon: () => (
+              <Text
+              style={{
+                color: '#726D9B',
+                fontSize: 20,
+                fontWeight: 'bold',
+                left: 3,
+                paddingRight: 7.5
+              }}
+              >
+              S
+              </Text>
+            )
+          }}
+        >
+          {props => <MySpotStackScreen {...props} user={user} />}
         </Drawer.Screen>
         <Drawer.Screen
           name="Logout"

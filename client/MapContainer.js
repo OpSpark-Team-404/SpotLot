@@ -79,8 +79,7 @@ class MapContainter extends React.Component {
             <Marker
               key={marker.id}
               coordinate={{latitude: parseFloat(marker.latitude), longitude: parseFloat(marker.longitude)}}
-              title={`${marker.id}`}
-              description={marker.description}
+
               image={'https://cdn.mapmarker.io/api/v1/font-awesome/v5/pin?icon=fa-car&size=120&background=3FB984&color=222222&hoffset=0&voffset=-1'}
               onPress={()=>{
                 this.props.navigation.navigate('LotInfo', {
@@ -88,6 +87,7 @@ class MapContainter extends React.Component {
                 })
               }}
             >
+              <MapView.Callout tooltip={true} />
             </Marker>
           ))}
         </MapView>
