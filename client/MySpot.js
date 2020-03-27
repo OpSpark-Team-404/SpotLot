@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, Image, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function MySpot({navigation}){
@@ -25,14 +25,19 @@ export default function MySpot({navigation}){
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-          style={{ margin: 16, alignSelf: "flex-start", top: 20 }}
+      <View style={{backgroundColor: "#726D9B", height: 80}}>
+        <TouchableOpacity
+          style={{ margin: 16, alignSelf: "flex-start", top: 15 }}
           onPress={() => navigation.openDrawer()}
         >
-          <FontAwesome5 name="bars" size={30} color="#3fb984" />
+          <FontAwesome5 name="bars" size={30} color='#E5EBEA' />
         </TouchableOpacity>
+        <Image source={require('../images/logo.png')} style={styles.logo} />
+      </View>
       <View style={{padding: 55}}>
-        <Text style={styles.header}>My Spots</Text>
+        <View style={{marginBottom: -20, top: 10}}>
+          <Text style={styles.header}>My Spots</Text>
+        </View>
         <Text style={styles.subHeader}>Current Spot</Text>
         <View style={{ backgroundColor: "#726D9B", width: 300, height: 80, borderRadius: 5 }}>
           <View style={{flexDirection: 'row', left: 25, top: 5}}>
@@ -74,12 +79,18 @@ const styles = StyleSheet.create({
     color: '#394648',
     fontWeight: 'bold',
     alignSelf: 'flex-start',
-    top: -55
+    top: -55,
   },
   subHeader: {
     fontSize: 20,
     color: '#394648',
     fontWeight: 'bold',
     bottom: 5
+  },
+  logo: {
+    height: 50,
+    width: 50,
+    alignSelf: 'center',
+    top: -40
   }
 })
