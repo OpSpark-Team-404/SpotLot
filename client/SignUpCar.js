@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
+import { Text, Image, View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { StackActions } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -41,33 +41,34 @@ export default function SignUpCar({ navigation, route, userData }){
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={{ alignSelf: "flex-start", margin: 16, top: -70, left: -60  }}
+        style={{ alignSelf: "flex-start", margin: 16, top: -50, left: -50  }}
         onPress={() => navigation.goBack()}
         >
-        <FontAwesome5 name="arrow-left" size={24} color='#3fb984' />
+        <FontAwesome5 name="arrow-left" size={26} color='#3fb984' />
       </TouchableOpacity>
+      <Image source={require('../images/logo.png')} style={styles.logo} />
       <Text style={styles.header}>Sign up for SpotLot</Text>
       <Text style={styles.subtext}>
-        If you plan on parking using SpotLot we will need to know some information about your car to tell the lot owners.
+        If you plan on parking using SpotLot we will need to know some information about your vehicle to tell the lot owners.
       </Text>
-      <Text style={styles.header}>Car information</Text>
+      <Text style={styles.header}>Vehicle information</Text>
       <View style={{ top: -90}}>
         <View style={{top: 5}}>
-          <Text style={styles.inputHeader}>Car make</Text>
+          <Text style={styles.inputHeader}>Vehicle make</Text>
           <TextInput
             style={styles.textInput}
             onChangeText={text => changeMake(text)}
           ></TextInput>
         </View>
         <View style={{top: 10}}>
-          <Text style={styles.inputHeader}>Car model</Text>
+          <Text style={styles.inputHeader}>Vehicle model</Text>
           <TextInput
             style={styles.textInput}
             onChangeText={text => changeModel(text)}
           ></TextInput>
         </View>
         <View style={{top: 15}}>
-          <Text style={styles.inputHeader}>Car color</Text>
+          <Text style={styles.inputHeader}>Vehicle color</Text>
           <TextInput
             style={styles.textInput}
             onChangeText={text => changeColor(text)}
@@ -90,7 +91,7 @@ export default function SignUpCar({ navigation, route, userData }){
           >
           </TextInput>
         </View>
-        <View style={{ top: 50 }}>
+        <View style={{ top: 70 }}>
           <Button color="#726D9B" title="Complete" onPress={() => saveToDB()} />
         </View>
       </View>
@@ -104,18 +105,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#E5EBEA',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 55,
+    padding: 45,
   },
   header: {
     fontSize: 25,
-    color: '#222222',
+    color: '#395C6B',
     top: -80,
     fontWeight: 'bold',
     alignSelf: 'flex-start'
   },
   subtext: {
     fontSize: 15,
-    color: '#222222',
+    color: '#395C6B',
     top: -70,
     marginBottom: 20,
   },
@@ -123,13 +124,18 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     borderColor: '#3fb984',
-    width: 300,
-    top: 10,
+    width: 325,
+    top: 12,
     backgroundColor: 'white',
   },
   inputHeader: {
-    color: '#222222',
+    color: '#394648',
     bottom: 5,
     top: 10
   },
+  logo: {
+    height: 50,
+    width: 50,
+    top: -105
+  }
 })

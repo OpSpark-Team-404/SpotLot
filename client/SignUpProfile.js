@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, Button, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Text, View, Image, StyleSheet, TextInput, Button, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import axios from 'axios';
 
@@ -41,16 +41,17 @@ export default function SignUpProfile({ route, navigation }){
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={{ alignSelf: "flex-start", margin: 16, top: -80, left: -60 }}
+        style={{ alignSelf: "flex-start", margin: 16, top: -60, left: -50 }}
         onPress={() => navigation.goBack()}
         >
-        <FontAwesome5 name="arrow-left" size={24} color='#3fb984' />
+        <FontAwesome5 name="arrow-left" size={26} color='#3fb984' />
       </TouchableOpacity>
+      <Image source={require('../images/logo.png')} style={styles.logo} />
       <Text style={styles.header}>Sign up for SpotLot</Text>
       <Text style={styles.subtext}>
         Thank you for signing up for SpotLot using your Google account! We still need some information from you to complete your account.
       </Text>
-      <Text style={styles.header}>Profile</Text>
+      <Text style={styles.header}>Profile information</Text>
       <View style={{ top: -90}}>
         <Text style={styles.inputHeader}>First Name</Text>
         <TextInput
@@ -74,7 +75,7 @@ export default function SignUpProfile({ route, navigation }){
           >
           </TextInput>
         </View>
-        <View style={{ top: 40 }}>
+        <View style={{ top: 60 }}>
           <Button color="#726D9B" title="Continue" onPress={() => saveToDB()}></Button>
         </View>
       </View>
@@ -88,21 +89,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#E5EBEA',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 55
+    padding: 45
   },
   inputContainer: {
     bottom: 10
   },
   header: {
     fontSize: 25,
-    color: '#222222',
+    color: '#395C6B',
     top: -80,
     fontWeight: 'bold',
     alignSelf: 'flex-start'
   },
   subtext: {
     fontSize: 15,
-    color: '#222222',
+    color: '#395C6B',
     top: -70,
     marginBottom: 20,
   },
@@ -112,12 +113,12 @@ const styles = StyleSheet.create({
     borderColor: '#3fb984',
     bottom: 5,
     color: '#222222',
-    width: 300,
-    top: 10,
+    width: 325,
+    top: 12,
     backgroundColor: 'white'
   },
   inputHeader: {
-    color: '#222222',
+    color: '#394648',
     bottom: 5,
     top: 10
   },
@@ -131,5 +132,10 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     paddingHorizontal: 20,
+  },
+  logo: {
+    height: 50,
+    width: 50,
+    top: -115
   }
 })

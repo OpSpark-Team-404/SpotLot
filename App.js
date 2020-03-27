@@ -14,6 +14,9 @@ import ReserveSpot from './client/ReserveSpot';
 import MapContainer from './client/MapContainer';
 import LotInfo from './client/LotInfo'
 import MySpot from './client/MySpot';
+import ListView from './client/ListView';
+import Settings from './client/Settings';
+import Vehicle from './client/Vehicle';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const LoginStack = createStackNavigator();
@@ -34,18 +37,24 @@ const LoginStackScreen = ({ userData }) => (
   </LoginStack.Navigator>
 );
 
-const ProfileStack = createStackNavigator();
-const ProfileStackScreen = ({user}) => (
-  <ProfileStack.Navigator
+const SettingsStack = createStackNavigator();
+const SettingsStackScreen = ({user}) => (
+  <SettingsStack.Navigator
     screenOptions={{
       headerShown: false
     }}
-    initialRouteName="Profile"
+    initialRouteName="Settings"
   >
-    <ProfileStack.Screen name="Profile">
+    <SettingsStack.Screen name="Settings">
+      {props => <Settings {...props} user={user} />}
+    </SettingsStack.Screen>
+    <SettingsStack.Screen name="Profile">
       {props => <Profile {...props} user={user} />}
-    </ProfileStack.Screen>
-  </ProfileStack.Navigator>
+    </SettingsStack.Screen>
+    <SettingsStack.Screen name="Vehicle">
+      {props => <Vehicle {...props} user={user} />}
+    </SettingsStack.Screen>
+  </SettingsStack.Navigator>
 );
 
 const MapContainerStack = createStackNavigator();
@@ -58,6 +67,9 @@ const MapContainerStackScreen = ({user}) => (
   >
     <MapContainerStack.Screen name="MapContainer">
       {props => <MapContainer {...props} user={user} />}
+    </MapContainerStack.Screen>
+    <MapContainerStack.Screen name="ListView">
+      {props => <ListView {...props} user={user} />}
     </MapContainerStack.Screen>
     <MapContainerStack.Screen name="LotInfo" component={LotInfo} />
     <MapContainerStack.Screen name="Reserve" component={ReserveSpot} />
@@ -167,19 +179,24 @@ export default function App() {
           {props => <MapContainerStackScreen {...props} user={user} />}
         </Drawer.Screen>
         <Drawer.Screen
-          name="Profile"
+          name="MySpot"
           options={{
             drawerIcon: () => (
-              <FontAwesome5
-                name="user"
-                color={'#726D9B'}
-                size={20}
-                right={-10}
-              />
+              <Text
+              style={{
+                color: '#726D9B',
+                fontSize: 20,
+                fontWeight: 'bold',
+                left: 3,
+                paddingRight: 6.5
+              }}
+              >
+              S
+              </Text>
             )
           }}
         >
-          {props => <ProfileStackScreen {...props} user={user} />}
+          {props => <MySpotStackScreen {...props} user={user} />}
         </Drawer.Screen>
         <Drawer.Screen
           name="MyLot"
@@ -202,24 +219,19 @@ export default function App() {
           {props => <MyLotStackScreen {...props} user={user} />}
         </Drawer.Screen>
         <Drawer.Screen
-          name="MySpot"
+          name="Settings"
           options={{
             drawerIcon: () => (
-              <Text
-              style={{
-                color: '#726D9B',
-                fontSize: 20,
-                fontWeight: 'bold',
-                left: 3,
-                paddingRight: 7.5
-              }}
-              >
-              S
-              </Text>
+              <FontAwesome5
+                name="cog"
+                color={'#726D9B'}
+                size={20}
+                right={-10}
+              />
             )
           }}
         >
-          {props => <MySpotStackScreen {...props} user={user} />}
+          {props => <SettingsStackScreen {...props} user={user} />}
         </Drawer.Screen>
         <Drawer.Screen
           name="Logout"

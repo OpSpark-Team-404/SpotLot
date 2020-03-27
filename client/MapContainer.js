@@ -2,7 +2,7 @@ import React from 'react';
 import MapView, { Marker, UrlTile } from 'react-native-maps'
 import SearchButton from './SearchButton';
 import SearchInput from './SearchInput';
-import { StyleSheet, View, TouchableOpacity, Text} from 'react-native';
+import { StyleSheet, Image, View, TouchableOpacity, Text} from 'react-native';
 import { mapStyle } from './mapStyle';
 import { FontAwesome5 } from '@expo/vector-icons';
 import axios from 'axios';
@@ -97,6 +97,13 @@ class MapContainter extends React.Component {
         >
           <FontAwesome5 name="bars" size={30} color='#3fb984' />
         </TouchableOpacity>
+        <Image source={require('../images/logo.png')} style={styles.logo} />
+        <TouchableOpacity
+          style={{ alignSelf: "flex-end", margin: 16, top: -90 }}
+          onPress={() => this.props.navigation.navigate('ListView')}
+        >
+          <FontAwesome5 name="list-ul" size={30} color='#3fb984' />
+        </TouchableOpacity>
         <SearchButton clickFunc={this.onSearchButtonClick}/>
         {this.state.isSearchButtonClicked ? SearchInputHolder : placeHolder}
       </View>
@@ -118,6 +125,12 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+  },
+  logo: {
+    height: 50,
+    width: 50,
+    alignSelf: 'center',
+    top: -40
   }
 });
 
