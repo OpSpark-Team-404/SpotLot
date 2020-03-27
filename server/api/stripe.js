@@ -1,5 +1,5 @@
 const stripe = require('stripe')('sk_test_RBETXzuPgut6Ka5O91t2SF30002G14KCKS');
-const { addStripeToken, selectStripeToken } = require('./db/index.js');
+const { addStripeToken, selectStripeToken } = require('../db/index.js');
 
 module.exports = async function (fastify) {
 
