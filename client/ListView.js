@@ -42,9 +42,9 @@ export default function lotInfo({navigation}){
       <View style={{backgroundColor: "#726D9B", height: 80}}>
         <TouchableOpacity
           style={{ margin: 16, alignSelf: "flex-start", top: 15 }}
-          onPress={() => navigation.openDrawer()}
+          onPress={() => navigation.goBack()}
         >
-          <FontAwesome5 name="bars" size={30} color='#E5EBEA' />
+          <FontAwesome5 name="arrow-left" size={30} color='#E5EBEA' />
         </TouchableOpacity>
         <Image source={require('../images/logo.png')} style={styles.logo} />
       </View>
