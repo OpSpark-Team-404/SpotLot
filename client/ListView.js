@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function lotInfo(){
+export default function lotInfo({navigation}){
 
   const fakeData = [
     {
