@@ -6,7 +6,7 @@ import axios from 'axios';
 export default function SignUpProfile({ route, navigation }){
   const [firstName, changeFirstName] = React.useState('');
   const [lastName, changeLastName] = React.useState('');
-  const [bio, changeBio] = React.useState('');
+  const [phone, changePhone] = React.useState('');
   const [email, changeEmail] = React.useState('');
   const [google_token, changeToken] = React.useState('');
   const [image_url, changePhotoUrl] = React.useState('');
@@ -23,8 +23,10 @@ export default function SignUpProfile({ route, navigation }){
     // need to delete user from database if they hit the back button
 
     const name = `${firstName} ${lastName}`;
+    const spot_open = 0;
+    const lot_open = 0;
     
-    axios.post('http://10.0.2.2:8080/user/addUser', { name, email, google_token, image_url, bio })
+    axios.post('http://10.0.2.2:8080/user/addUser', { name, email, google_token, image_url, spot_open, lot_open, phone })
       .then((res) => {
         console.log(res);
       })
@@ -66,12 +68,10 @@ export default function SignUpProfile({ route, navigation }){
           ></TextInput>
         </View>
         <View style={{top: 10}}>
-          <Text style={styles.inputHeader}>Bio</Text>
+          <Text style={styles.inputHeader}>Phone Number</Text>
           <TextInput
-            style={styles.bio}
-            onChangeText={text => changeBio(text)}
-            multiline={true}
-            numberOfLines={5}
+            style={styles.textInput}
+            onChangeText={text => changePhone(text)}
           >
           </TextInput>
         </View>
@@ -120,14 +120,6 @@ const styles = StyleSheet.create({
   inputHeader: {
     color: '#394648',
     bottom: 5,
-    top: 10
-  },
-  bio : {
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: '#3fb984',
-    textAlignVertical: 'top',
-    backgroundColor: 'white',
     top: 10
   },
   scrollView: {
