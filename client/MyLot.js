@@ -64,15 +64,15 @@ export default function MyLot({ navigation, user }) {
           </TouchableOpacity>
         }
         <View style={{top: 30}}>
-          <Text style={styles.subHeader}>Lot History</Text>
+          <View style={{marginBottom: 10}}>
+            <Text style={styles.subHeader}>Lot History</Text>
+          </View>
           {userLots.map((lot) => (
-            <View style={{flexDirection: 'row', padding: 10}}>
-              <View>
-                <Text>{lot.address}</Text>
-                <Text>{`$${lot.price}`}</Text>
-              </View>
-              <View style={{justifyContent: 'flex-end', left: 90}}>
-                <Text>{lot.lot_close}</Text>
+            <View>
+              <Text style={{fontSize: 18, color: '#222222'}}>{lot.address}</Text>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontSize: 20, fontWeight: 'bold', color: '#222222'}}>{`$${lot.price}`}</Text>
+                <Text style={{fontSize: 20, color: '#222222'}}>{lot.lot_close}</Text>
               </View>
             </View>
           ))}
