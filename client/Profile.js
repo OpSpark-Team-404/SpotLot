@@ -9,53 +9,26 @@ export default function Profile({ navigation, user }){
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={{ alignSelf: "flex-start", justifyContent: "flex-start", margin: 16, top: 20 }}
-        onPress={() => navigation.openDrawer()}
-      >
-        <FontAwesome5 name="bars" size={30} color='#3fb984'/>
-      </TouchableOpacity>
-      <Image style={styles.photoImage} source={{ uri: user.image_url }} />
-      <Text style={styles.header}>{user.name}</Text>
-      {!editStatus ? (
-        <View>
-          <TextInput
-            style={styles.textArea}
-            onChangeText={text => onChangeDescription(text)}
-            multiline={true}
-            numberOfLines={5}
-            maxLength={100}
-          >
-            {description}
-          </TextInput>
-          <View style={styles.icon}>
-            <Icon
-            name='check'
-            color='#726D9B'
-            underlayColor='#E5EBEA'
-            onPress={() => onStatusChange(!editStatus)}
-            />
-          </View>
+      <View style={{backgroundColor: "#726D9B", height: 80}}>
+        <TouchableOpacity
+          style={{ margin: 16, alignSelf: "flex-start", top: 15 }}
+          onPress={() => navigation.goBack()}
+        >
+          <FontAwesome5 name="arrow-left" size={30} color='#E5EBEA' />
+        </TouchableOpacity>
+        <Image source={require('../images/logo.png')} style={styles.logo} />
+      </View>
+      <View style={{alignItems: 'center'}}>
+        <Image style={styles.photoImage} source={{ uri: user.image_url }} />
+        <View style={{marginBottom: 20, marginTop: 20}}>
+          <Text style={styles.inputHeader}>Username</Text>
+          <Text style={styles.box}>{user.name}</Text>
         </View>
-      ) : (
         <View>
-          <Text
-            style={styles.textArea}
-            multiline={true}
-            numberOfLines={5}
-          >
-            {description}
-          </Text>
-          <View style={styles.icon}>
-            <Icon
-            name='edit'
-            color='#726D9B'
-            underlayColor='#E5EBEA'
-            onPress={() => onStatusChange(!editStatus)}
-            />
-          </View>
+          <Text style={styles.inputHeader}>Phone Number</Text>
+          <Text style={styles.box}>504-920-9950</Text>
         </View>
-      )}
+      </View>
     </View>
   )
 }
@@ -72,34 +45,30 @@ const styles = StyleSheet.create({
     borderColor: '#3fb984',
     borderWidth: 3,
     borderRadius: 150,
-    bottom: 10,
-    top: -70,
-    alignSelf: "center",
-    top: 10,
   },
-  header: {
-    fontSize: 25,
-    color: '#222222',
-    top: -60,
-    alignSelf: "center",
-    top: 20
+  logo: {
+    height: 50,
+    width: 50,
+    alignSelf: 'center',
+    top: -40
   },
-  textArea: {
-    fontSize: 15,
-    backgroundColor: 'white',
-    textAlignVertical: 'top',
-    width: 250,
-    height: 125,
+  box: {
     borderRadius: 5,
-    alignSelf: "center",
-    top: 60,
+    borderWidth: 2,
     borderColor: '#3fb984',
-    borderWidth: 2
+    bottom: 5,
+    color: '#394648',
+    width: 200,
+    top: 12,
+    height: 30,
+    backgroundColor: 'white',
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    fontSize: 20,
   },
-  icon: {
-    alignContent: 'flex-end',
-    alignSelf: 'flex-end',
-    top: 60,
-    marginRight: 80
-  }
+  inputHeader: {
+    color: '#394648',
+    bottom: 5,
+    top: 10
+  },
 });

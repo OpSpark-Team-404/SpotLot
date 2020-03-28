@@ -44,16 +44,14 @@ export default function LoginPage({ navigation, route, userData }){
 
   return (
     <View style={styles.container}>
-      <Image source={require('../images/spotlot3.png')} style={styles.image} />
+      <Image source={require('../images/logo.png')} style={styles.image} />
       <Text style={styles.text}>SpotLot</Text>
-      <Text style={styles.subtext}>find a <Text style={styles.spotlot}>spot</Text>, rent a <Text style={styles.spotlot}>lot</Text></Text>
+      <Text style={styles.subtext}>Find a <Text style={styles.spotlot}>spot,</Text> rent a <Text style={styles.spotlot}>lot</Text></Text>
       <View style={styles.button}>
-        <Text style={styles.buttonText}>Have an account?</Text>
-        <Button style={styles.button} title="Sign In with Google" onPress={() => signIn('A')} />
+        <Button color='#726D9B' style={styles.button} title="Sign In with Google" onPress={() => signIn('A')} />
       </View>
       <View style={styles.button}>
-        <Text style={styles.buttonText}>Need an account?</Text>
-        <Button title="Sign Up with Google" onPress={() => signIn('B')} />
+        <Button color='#726D9B' uppercase={false} title="Sign Up with Google" onPress={() => signIn('B')} />
       </View>
     </View>
   )
@@ -62,37 +60,35 @@ export default function LoginPage({ navigation, route, userData }){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3fb984',
+    backgroundColor: '#E5EBEA',
     alignItems: 'center',
     justifyContent: 'center'
   },
   subtext: {
-    color: '#E5EBEA',
-    fontSize: 15,
+    color: '#395C6B',
+    fontSize: 25,
     textAlign: 'center',
-    top: -25,
+    top: -85,
+    fontStyle: 'italic'
   },
   text: {
-    color: '#E5EBEA',
+    color: '#395C6B',
     fontSize: 50,
-    top: -40,
-  },
-  image: {
-    width: 180,
-    height: 180,
-    resizeMode: 'contain'
-  },
-  spotlot: {
-    color: '#726D9B',
+    top: -95,
     fontWeight: 'bold'
   },
-  button: {
-    width: 200,
-    padding: 10
+  image: {
+    width: 135,
+    height: 135,
+    resizeMode: 'contain',
+    top: -80
   },
-  buttonText: {
-    textAlign: 'center',
-    color: '#E5EBEA',
-    fontStyle: 'italic'
-  }
+  spotlot: {
+    color: '#3FB984',
+    fontWeight: 'bold',
+  },
+  button: {
+    width: 300,
+    padding: 10,
+  },
 });
