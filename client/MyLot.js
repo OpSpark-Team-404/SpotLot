@@ -107,4 +107,3 @@ const styles = StyleSheet.create({
     bottom: 5
   },
 })
-© 2020 GitHub, Inc.
