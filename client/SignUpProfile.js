@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet, TextInput, Button, TouchableOpacity, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Text, View, Image, StyleSheet, TextInput, Button, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import axios from 'axios';
 
@@ -42,41 +42,45 @@ export default function SignUpProfile({ route, navigation }){
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={{ alignSelf: "flex-start", margin: 16, top: -60, left: -50 }}
-        onPress={() => navigation.goBack()}
+      <View style={{backgroundColor: "#726D9B", height: 80}}>
+        <TouchableOpacity
+          style={{ margin: 16, alignSelf: "flex-start", top: 15 }}
+          onPress={() => navigation.goBack()}
         >
-        <FontAwesome5 name="arrow-left" size={26} color='#3fb984' />
-      </TouchableOpacity>
-      <Image source={require('../images/logo.png')} style={styles.logo} />
-      <Text style={styles.header}>Sign up for SpotLot</Text>
-      <Text style={styles.subtext}>
-        Thank you for signing up for SpotLot using your Google account! We still need some information from you to complete your account.
-      </Text>
-      <Text style={styles.header}>Profile information</Text>
-      <View style={{ top: -90}}>
-        <Text style={styles.inputHeader}>First Name</Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={text => changeFirstName(text)}
-        ></TextInput>
-        <View style={{top: 5}}>
-          <Text style={styles.inputHeader}>Last Name</Text>
+          <FontAwesome5 name="arrow-left" size={30} color='#E5EBEA' />
+        </TouchableOpacity>
+        <Image source={require('../images/logo.png')} style={styles.logo} />
+      </View>
+      <View style={styles.info}>
+        <Text style={styles.header}>Sign up for SpotLot</Text>
+        <Text style={styles.subtext}>
+          Thank you for signing up for SpotLot using your Google account! We still need some information from you to complete your account.
+        </Text>
+        <Text style={styles.header}>Profile information</Text>
+        <View style={{ top: -90}}>
+          <Text style={styles.inputHeader}>First Name</Text>
           <TextInput
             style={styles.textInput}
-            onChangeText={text => changeLastName(text)}
+            onChangeText={text => changeFirstName(text)}
           ></TextInput>
-        </View>
-        <View style={{top: 10}}>
-          <Text style={styles.inputHeader}>Phone Number</Text>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={text => changePhone(text)}
-          >
-          </TextInput>
-        </View>
-        <View style={{ top: 60 }}>
-          <Button color="#726D9B" title="Continue" onPress={() => saveToDB()}></Button>
+          <View style={{top: 5}}>
+            <Text style={styles.inputHeader}>Last Name</Text>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={text => changeLastName(text)}
+            ></TextInput>
+          </View>
+          <View style={{top: 10}}>
+            <Text style={styles.inputHeader}>Phone Number</Text>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={text => changePhone(text)}
+            >
+            </TextInput>
+          </View>
+          <View style={{ top: 60 }}>
+            <Button color="#726D9B" title="Continue" onPress={() => saveToDB()}></Button>
+          </View>
         </View>
       </View>
     </View>
@@ -87,9 +91,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#E5EBEA',
+  },
+  info: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 45
+    padding: 45,
+    top: 50
   },
   inputContainer: {
     bottom: 10
@@ -122,12 +129,10 @@ const styles = StyleSheet.create({
     bottom: 5,
     top: 10
   },
-  scrollView: {
-    paddingHorizontal: 20,
-  },
   logo: {
     height: 50,
     width: 50,
-    top: -115
-  }
+    alignSelf: 'center',
+    top: -40
+  },
 })
