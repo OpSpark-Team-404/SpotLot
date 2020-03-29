@@ -12,10 +12,7 @@ export default function CreateLot({ navigation, route }){
   const [owner_id, changeUserId] = React.useState('');
   const [price, changePrice] = React.useState('');
   const [address, changeAddress] = React.useState('');
-  const [lat, changeLat] = React.useState('');
-  const [long, changeLong] = React.useState('');
   const [lot_close, changeLotClose] = React.useState('');
-  const [lot_closeDisplay, changeLotCloseDisplay] = React.useState('');
   const [max_spots, changeMaxSpots] = React.useState('');
   const [description, changeDescription] = React.useState('');
   const [photo, setPhoto] = React.useState('');
@@ -30,31 +27,28 @@ export default function CreateLot({ navigation, route }){
   const saveToDB = async () => {
     convertToCords();
 
-    const image_url = photo;
-    const longitude = long;
-    const latitude = lat;
-    const is_open = true;
-    const max_reserve = 0;
-    const current_spots = max_spots;
-
-    axios.post('http://10.0.2.2:8080/lot/addLot', { owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log('error', e);
-      });
-
     navigation.goBack();
   }
 
   const convertToCords = () => {
+    const image_url = photo;
+    const is_open = true;
+    const max_reserve = 0;
+    const current_spots = max_spots;
+
     Geocoder.init(googlKey);
     Geocoder.from(address)
-        .then(json => {
-            let location = json.results[0].geometry.location;
-            changeLat(location.lat);
-            changeLong(location.lng);
+        .then(async json => {
+            let location = await json.results[0].geometry.location;
+            const latitude = location.lat;
+            const longitude = location.lng;
+            axios.post('http://10.0.2.2:8080/lot/addLot', { owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description, address })
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((e) => {
+                console.log('error', e);
+              });
         })
         .catch(error => console.log(error));
   }
@@ -107,9 +101,8 @@ export default function CreateLot({ navigation, route }){
 
   const handleTime = time => {
     lotDisplayOff();
-    changeLotClose(time);
     const closingTime = moment(time).format('LLL')
-    changeLotCloseDisplay(closingTime);
+    changeLotClose(closingTime);
   }
 
   return (
@@ -135,7 +128,7 @@ export default function CreateLot({ navigation, route }){
       </View>
       <View style={{ top: -60}}>
         <View style={{top: 5, alignSelf: 'center'}}>
-          {lot_closeDisplay ? <Text style={styles.lotClose}>{lot_closeDisplay}</Text> : <Text style={styles.lotCloseDefault}>January 1, 2020 12:00 PM</Text>}
+          {lot_close ? <Text style={styles.lotClose}>{lot_close}</Text> : <Text style={styles.lotCloseDefault}>January 1, 2020 12:00 PM</Text>}
           <View style={{width: 200, alignSelf: 'center', top: 20}}>
             <Button title="Lot close time" onPress={lotDisplayOn} color={'#726D9B'}/>
           </View>

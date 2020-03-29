@@ -17,11 +17,11 @@ pool.connect()
 //USER
 //
 
-const addUser = ({ name, email, google_token, image_url, bio }) => {
-  const query = 'INSERT INTO "user" (name, email, google_token, image_url, bio) VALUES ($1, $2, $3, $4, $5)'
+const addUser = ({ name, email, google_token, image_url, spot_open, lot_open, phone }) => {
+  const query = 'INSERT INTO "user" (name, email, google_token, image_url, spot_open, lot_open, phone) VALUES ($1, $2, $3, $4, $5, $6, $7)'
   return pool.query
   (query,
-    [name, email, google_token, image_url, bio ])
+    [name, email, google_token, image_url, spot_open, lot_open, phone ])
   }
   
   const deleteUser = (id) => {
@@ -65,7 +65,7 @@ const selectUser = (email) => {
 }
 
 const patchUser = (id, body) => {
-  const { name, email, google_token, image_url, bio, billing_info } = body;
+  const { name, email, google_token, image_url, spot_open, lot_open, phone } = body;
 }
 
 //VEHICLE
@@ -98,11 +98,11 @@ const patchVehicle = (id, body) => {
 //LOT
 //
 
-const addLot = ({ owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description }) => {
-  const query = "INSERT INTO lot (owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)"
+const addLot = ({ owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description, address }) => {
+  const query = "INSERT INTO lot (owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description, address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)"
   return pool.query(
     query,
-    [owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description]
+    [owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description, address]
   )
 }
 
@@ -141,7 +141,8 @@ const patchLot = (id, body) => {
     max_reserve,
     max_spots,
     current_spots,
-    description
+    description,
+    address
   } = body;
 }
 

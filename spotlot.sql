@@ -1,10 +1,12 @@
 CREATE TABLE "user" (
   "id" SERIAL PRIMARY KEY,
   "image_url" varchar(255),
-  "bio" varchar(255),
   "name" varchar(64),
   "email" text UNIQUE,
-  "google_token" text UNIQUE
+  "google_token" text UNIQUE,
+  "spot_open" int,
+  "lot_open" int,
+  "phone" varchar(20)
 );
 
 CREATE TABLE "review" (
@@ -39,11 +41,12 @@ CREATE TABLE "lot" (
   "longitude" numeric,
   "latitude" numeric,
   "is_open" boolean,
-  "lot_close" timestamp,
+  "lot_close" varchar(50),
   "max_reserve" integer,
   "max_spots" integer,
   "current_spots" integer,
-  "description" varchar(255)
+  "description" varchar(255),
+  "address" varchar(50)
 );
 
 CREATE TABLE "billing_info" (
