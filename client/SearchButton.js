@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { FontAwesome5 } from "@expo/vector-icons";
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 
 export default class Search extends Component{
@@ -10,37 +11,34 @@ export default class Search extends Component{
 
   render() {
     const { clickFunc } = this.props;
-    const styles = StyleSheet.create({
-      button: {
-        alignItems: 'center',
-        backgroundColor: '#3FB984',
-        padding: 10,
-        height: 40,
-        width: 40,
-        borderRadius: 200,
-        position: 'absolute',
-        bottom:0,
-        right:0,
-        margin: 5,
-      },
-      image: {
-        height: 40,
-        width: 40,
-        borderRadius: 200,
-        position: 'absolute',
-      },
-    });
     return (
-        <TouchableOpacity 
-          style={styles.button}
-          title={'btn'}
-          onPress={()=>{clickFunc()}}
-        >
-          <Image
-            style={styles.image}
-            source={require('../images/search.png')}
-          />
-        </TouchableOpacity>
+      <View>
+        {this.props.reserved ? (
+          <TouchableOpacity
+            style={{
+              alignSelf: "flex-end",
+              justifyContent: "flex-end",
+              top: 460,
+              right: 25
+            }}
+            onPress={() => navigation.openDrawer()}
+          >
+            <FontAwesome5 name="location-arrow" size={30} color="#3fb984" />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={{
+              alignSelf: "flex-end",
+              justifyContent: "flex-end",
+              top: 460,
+              right: 25
+            }}
+            onPress={() => navigation.openDrawer()}
+          >
+            <FontAwesome5 name="location-arrow" size={30} color="#394648" />
+          </TouchableOpacity>
+        )}
+      </View>
     );
   }
 }
