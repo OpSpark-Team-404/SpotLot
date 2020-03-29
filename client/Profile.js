@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: 'white',
     textAlignVertical: 'center',
-    textAlign: 'center',
     fontSize: 20,
   },
   inputHeader: {

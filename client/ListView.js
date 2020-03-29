@@ -47,6 +47,12 @@ export default function lotInfo({navigation}){
           <FontAwesome5 name="arrow-left" size={30} color='#E5EBEA' />
         </TouchableOpacity>
         <Image source={require('../images/logo.png')} style={styles.logo} />
+        <TouchableOpacity
+          style={{ alignSelf: "flex-end", margin: 16, top: -98 }}
+          // onPress={}
+        >
+          <FontAwesome5 name="sort" size={35} color='#E5EBEA' />
+        </TouchableOpacity>
       </View>
       <View style={{marginHorizontal:20}}>
         <ScrollView style={{top: 10}}>
