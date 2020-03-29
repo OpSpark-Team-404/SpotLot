@@ -35,7 +35,7 @@ export default class Search extends Component{
             }}
             onPress={() => navigation.openDrawer()}
           >
-            <FontAwesome5 name="location-arrow" size={30} color="#394648" />
+            <FontAwesome5 name="location-arrow" size={30} color="#395C6B" />
           </TouchableOpacity>
         )}
       </View>
