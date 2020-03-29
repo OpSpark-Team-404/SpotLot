@@ -49,12 +49,20 @@ export default class SearchInput extends Component {
     const { onBlurFunc } = this.props;
 
     return (
-      <KeyboardAvoidingView
-        behavior={'padding'}
-        style={styles.container}>
-        <ScrollView style={styles.scrollView}>
-        </ScrollView>
-        <TextInput onSubmitEditing={this.convertToCords} onChangeText={(text) => this.setState({text})} spellCheck={false} autoCorrect={false} autoFocus={true} style={styles.input} placeholder="Tap here" onBlur={()=>{onBlurFunc()}}/>
+      <KeyboardAvoidingView behavior={"padding"} style={styles.container}>
+        <ScrollView style={styles.scrollView}></ScrollView>
+        <TextInput
+          onSubmitEditing={this.convertToCords}
+          onChangeText={text => this.setState({ text })}
+          spellCheck={false}
+          autoCorrect={false}
+          autoFocus={true}
+          style={styles.input}
+          placeholder="Set New Location"
+          onBlur={() => {
+            onBlurFunc();
+          }}
+        />
       </KeyboardAvoidingView>
     );
   }
