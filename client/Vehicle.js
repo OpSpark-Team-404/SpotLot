@@ -62,6 +62,7 @@ export default function Vehicle({ navigation, user }) {
           <View style={{top: 5}}>
             <Text style={styles.inputHeader}>Vehicle make</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
               placeholder={car.make}
               placeholderTextColor={'#222222'}
@@ -71,6 +72,7 @@ export default function Vehicle({ navigation, user }) {
           <View style={{top: 10}}>
             <Text style={styles.inputHeader}>Vehicle model</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
               placeholder={car.model}
               placeholderTextColor={'#222222'}
@@ -80,6 +82,7 @@ export default function Vehicle({ navigation, user }) {
           <View style={{top: 15}}>
             <Text style={styles.inputHeader}>Vehicle color</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
               placeholder={car.color}
               placeholderTextColor={'#222222'}
@@ -90,6 +93,7 @@ export default function Vehicle({ navigation, user }) {
           <View style={{top: 20}}>
             <Text style={styles.inputHeader}>License plate number</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
               placeholder={car.license_plate}
               placeholderTextColor={'#222222'}
@@ -100,6 +104,7 @@ export default function Vehicle({ navigation, user }) {
           <View style={{top: 25}}>
             <Text style={styles.inputHeader}>License plate state</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
               placeholder={car.state}
               placeholderTextColor={'#222222'}

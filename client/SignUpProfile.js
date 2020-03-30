@@ -60,12 +60,14 @@ export default function SignUpProfile({ route, navigation }){
         <View style={{ top: -90}}>
           <Text style={styles.inputHeader}>First Name</Text>
           <TextInput
+            paddingLeft={5}
             style={styles.textInput}
             onChangeText={text => changeFirstName(text)}
           ></TextInput>
           <View style={{top: 5}}>
             <Text style={styles.inputHeader}>Last Name</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
               onChangeText={text => changeLastName(text)}
             ></TextInput>
@@ -73,6 +75,7 @@ export default function SignUpProfile({ route, navigation }){
           <View style={{top: 10}}>
             <Text style={styles.inputHeader}>Phone Number</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
               onChangeText={text => changePhone(text)}
             >
