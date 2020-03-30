@@ -15,6 +15,9 @@ class MapContainter extends React.Component {
       lat: 29.9511,
       lng: -90.031533,
       markers: [],
+      reservedLat: 32.78306,
+      reservedLng: -96.80667,
+      hasReserved: true
     };
     this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
     this.onBlurInput = this.onBlurInput.bind(this);
@@ -58,10 +61,8 @@ class MapContainter extends React.Component {
   }
 
   render() {
-    const { markers, lat, lng } = this.state
+    const { markers, lat, lng, reservedLat, reservedLng, hasReserved } = this.state
 
-    let placeHolder = <Text></Text>
-    let SearchInputHolder = <SearchInput changeCords={this.changeMapCords} onBlurFunc={this.onBlurInput}/>
     return (
       <View style={styles.container}>
         <MapView
@@ -104,8 +105,36 @@ class MapContainter extends React.Component {
         >
           <FontAwesome5 name="list-ul" size={30} color='#3fb984' />
         </TouchableOpacity>
-        <SearchButton clickFunc={this.onSearchButtonClick}/>
-        {this.state.isSearchButtonClicked ? SearchInputHolder : placeHolder}
+        <Text style={styles.textInput} onPress={this.onSearchButtonClick}>  Search for spots...</Text>
+        {this.state.isSearchButtonClicked ?
+          <SearchInput changeCords={this.changeMapCords} onBlurFunc={this.onBlurInput}/>
+          :
+          null
+        }
+        {hasReserved ?
+          <TouchableOpacity
+              style={{
+                alignSelf: "flex-end",
+                justifyContent: "flex-end",
+                top: 375,
+                right: 10
+              }}
+              onPress={() => this.changeMapCords(reservedLat, reservedLng)}
+            >
+              <FontAwesome5 name="map-marked" size={30} color="#3FB984" />
+            </TouchableOpacity>
+          :
+          <TouchableOpacity
+            style={{
+              alignSelf: "flex-end",
+              justifyContent: "flex-end",
+              top: 375,
+              right: 10
+            }}
+          >
+            <FontAwesome5 name="map-marked" size={30} color="#394648" />
+          </TouchableOpacity>
+        }
       </View>
     );
   }
@@ -131,7 +160,19 @@ const styles = StyleSheet.create({
     width: 50,
     alignSelf: 'center',
     top: -40
-  }
+  },
+  textInput: {
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#3fb984',
+    color: '#222222',
+    width: 411,
+    height: 45,
+    top: 460,
+    backgroundColor: 'white',
+    textAlignVertical: 'center',
+    fontSize: 20
+  },
 });
 
 export default MapContainter;

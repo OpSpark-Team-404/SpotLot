@@ -1,11 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function Profile({ navigation, user }){
-  const [editStatus, onStatusChange] = React.useState('false');
-  const [description, onChangeDescription] = React.useState('')
 
   return (
     <View style={styles.container}>
@@ -26,7 +23,7 @@ export default function Profile({ navigation, user }){
         </View>
         <View>
           <Text style={styles.inputHeader}>Phone Number</Text>
-          <Text style={styles.box}>504-920-9950</Text>
+          <Text style={styles.box}>{user.phone}</Text>
         </View>
       </View>
     </View>
@@ -63,7 +60,6 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: 'white',
     textAlignVertical: 'center',
-    textAlign: 'center',
     fontSize: 20,
   },
   inputHeader: {

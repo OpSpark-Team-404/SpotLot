@@ -30,22 +30,6 @@ export default class SearchInput extends Component {
   }
 
   render() {
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-      },
-      scrollView: {
-        paddingHorizontal: 20,
-      },
-      input: {
-        borderBottomWidth: 2,
-        borderColor: '#dbdbdb',
-        padding: 10,
-        color: 'white',
-        fontSize: 25,
-        borderBottomWidth: 0,
-      },
-    });
     const { onBlurFunc } = this.props;
 
     return (
@@ -54,8 +38,20 @@ export default class SearchInput extends Component {
         style={styles.container}>
         <ScrollView style={styles.scrollView}>
         </ScrollView>
-        <TextInput onSubmitEditing={this.convertToCords} onChangeText={(text) => this.setState({text})} spellCheck={false} autoCorrect={false} autoFocus={true} style={styles.input} placeholder="Tap here" onBlur={()=>{onBlurFunc()}}/>
+        <TextInput onSubmitEditing={this.convertToCords} onChangeText={(text) => this.setState({text})} spellCheck={false} autoFocus={true} autoCorrect={false} style={styles.input} onBlur={()=>{onBlurFunc()}}/>
       </KeyboardAvoidingView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  input: {
+    left: 6,
+    bottom: 25,
+    fontSize: 25,
+    color: 'white'
+  },
+});

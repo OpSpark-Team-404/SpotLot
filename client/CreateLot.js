@@ -12,10 +12,7 @@ export default function CreateLot({ navigation, route }){
   const [owner_id, changeUserId] = React.useState('');
   const [price, changePrice] = React.useState('');
   const [address, changeAddress] = React.useState('');
-  const [lat, changeLat] = React.useState('');
-  const [long, changeLong] = React.useState('');
   const [lot_close, changeLotClose] = React.useState('');
-  const [lot_closeDisplay, changeLotCloseDisplay] = React.useState('');
   const [max_spots, changeMaxSpots] = React.useState('');
   const [description, changeDescription] = React.useState('');
   const [photo, setPhoto] = React.useState('');
@@ -30,31 +27,28 @@ export default function CreateLot({ navigation, route }){
   const saveToDB = async () => {
     convertToCords();
 
-    const image_url = photo;
-    const longitude = long;
-    const latitude = lat;
-    const is_open = true;
-    const max_reserve = 0;
-    const current_spots = max_spots;
-
-    axios.post('http://10.0.2.2:8080/lot/addLot', { owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log('error', e);
-      });
-
     navigation.goBack();
   }
 
   const convertToCords = () => {
+    const image_url = photo;
+    const is_open = true;
+    const max_reserve = 0;
+    const current_spots = max_spots;
+
     Geocoder.init(googlKey);
     Geocoder.from(address)
-        .then(json => {
-            let location = json.results[0].geometry.location;
-            changeLat(location.lat);
-            changeLong(location.lng);
+        .then(async json => {
+            let location = await json.results[0].geometry.location;
+            const latitude = location.lat;
+            const longitude = location.lng;
+            axios.post('http://10.0.2.2:8080/lot/addLot', { owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description, address })
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((e) => {
+                console.log('error', e);
+              });
         })
         .catch(error => console.log(error));
   }
@@ -107,47 +101,54 @@ export default function CreateLot({ navigation, route }){
 
   const handleTime = time => {
     lotDisplayOff();
-    changeLotClose(time);
     const closingTime = moment(time).format('LLL')
-    changeLotCloseDisplay(closingTime);
+    changeLotClose(closingTime);
   }
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        style={{ alignSelf: "flex-start", margin: 16, left: -60, top: -10 }}
-        onPress={() => navigation.goBack()}
+    <View>
+      <View style={{backgroundColor: "#726D9B", height: 80}}>
+        <TouchableOpacity
+          style={{ margin: 16, alignSelf: "flex-start", top: 15 }}
+          onPress={() => navigation.goBack()}
         >
-        <FontAwesome5 name="arrow-left" size={24} color='#3fb984' />
-      </TouchableOpacity>
-      <Text style={styles.header}>Create a lot</Text>
-      <View style={{top: -50}}>
-        {photo ?
-          <Image source={{ uri: photo }} style={{ width: 200, height: 150 }} />
-        :
-          <Image source={require('../images/ThumbnailImage.png')} style={{ resizeMode: 'contain', width: 200, height: 150, borderWidth: 2, borderColor: '#3fb984', bottom: 5 }}/>
-        }
-        <Button
-          title="Choose Photo"
-          onPress={cloud}
-          color={'#726D9B'}
-        />
+          <FontAwesome5 name="arrow-left" size={30} color='#E5EBEA' />
+        </TouchableOpacity>
+        <Image source={require('../images/logo.png')} style={styles.logo} />
       </View>
-      <View style={{ top: -60}}>
-        <View style={{top: 5, alignSelf: 'center'}}>
-          {lot_closeDisplay ? <Text style={styles.lotClose}>{lot_closeDisplay}</Text> : <Text style={styles.lotCloseDefault}>January 1, 2020 12:00 PM</Text>}
-          <View style={{width: 200, alignSelf: 'center', top: 20}}>
-            <Button title="Lot close time" onPress={lotDisplayOn} color={'#726D9B'}/>
+      <View style={{marginHorizontal: 25 }}>
+        <Text style={styles.header}>Create a lot</Text>
+        <View style={{alignSelf: 'center', top: 8}}>
+          {photo ?
+            <Image source={{ uri: photo }} style={{ width: 200, height: 150 }} />
+          :
+            <Image source={require('../images/ThumbnailImage.png')} style={{ resizeMode: 'contain', width: 200, height: 150, borderWidth: 2, borderColor: '#3fb984', bottom: 5 }}/>
+          }
+          <View style={{alignSelf: 'center'}}>
+            <TouchableOpacity
+              onPress={cloud}
+            >
+              <View style={{flexDirection: 'row'}}>
+                <FontAwesome5 name="upload" size={20} color="#726D9B" />
+                <View style={{alignSelf: 'flex-end', left: 10}}>
+                  <Text style={{fontWeight: 'bold'}}>Upload a photo</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
           </View>
-          <DateTimePickerModal
-            isVisible={lotDisplay}
-            mode="time"
-            is24Hour={false}
-            onConfirm={handleTime}
-            onCancel={lotDisplayOff}
-          />
         </View>
-        <View style={{top: 10}}>
+        <View style={{alignSelf: 'center'}}>
+          <Text style={styles.inputHeader}>Lot close time</Text>
+          {lot_close ? <Text style={styles.textInputTime}>{lot_close}</Text> : <Text onPress={lotDisplayOn} style={styles.textInputTime}></Text>}
+        </View>
+        <DateTimePickerModal
+          isVisible={lotDisplay}
+          mode="time"
+          is24Hour={false}
+          onConfirm={handleTime}
+          onCancel={lotDisplayOff}
+        />
+        <View style={{alignSelf: 'center'}}>
           <Text style={styles.inputHeader}>Price</Text>
           <TextInput
             style={styles.textInput}
@@ -155,7 +156,7 @@ export default function CreateLot({ navigation, route }){
           >
           </TextInput>
         </View>
-        <View style={{top: 15}}>
+        <View style={{alignSelf: 'center'}}>
           <Text style={styles.inputHeader}>Number of parking spaces</Text>
           <TextInput
             style={styles.textInput}
@@ -163,7 +164,7 @@ export default function CreateLot({ navigation, route }){
           >
           </TextInput>
         </View>
-        <View style={{top: 20}}>
+        <View style={{alignSelf: 'center'}}>
           <Text style={styles.inputHeader}>Address</Text>
           <TextInput
             style={styles.textInput}
@@ -171,7 +172,7 @@ export default function CreateLot({ navigation, route }){
           >
           </TextInput>
         </View>
-        <View style={{top: 25}}>
+        <View style={{alignSelf: 'center', width: 300}}>
           <Text style={styles.inputHeader}>Extra info</Text>
           <TextInput
             style={styles.info}
@@ -181,7 +182,7 @@ export default function CreateLot({ navigation, route }){
           >
           </TextInput>
         </View>
-        <View style={{ top: 60 }}>
+        <View style={{ top: 20, width: 300, left: 31 }}>
           <Button color="#726D9B" title="Complete" onPress={() => saveToDB()} />
         </View>
       </View>
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
     color: '#222222',
     fontWeight: 'bold',
     alignSelf: 'flex-start',
-    top: -55
+    top: 4
   },
   inputHeader: {
     color: '#222222',
@@ -216,6 +217,16 @@ const styles = StyleSheet.create({
     width: 300,
     top: 10,
     backgroundColor: 'white',
+  },
+  textInputTime: {
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#3fb984',
+    width: 300,
+    top: 10,
+    backgroundColor: 'white',
+    height: 32,
+    textAlignVertical: 'center',
   },
   lotClose : {
     borderRadius: 5,
@@ -250,4 +261,10 @@ const styles = StyleSheet.create({
     top: 12,
     color: '#E5EBEA'
   },
+  logo: {
+    height: 50,
+    width: 50,
+    alignSelf: 'center',
+    top: -40
+  }
 })

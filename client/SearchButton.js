@@ -10,26 +10,6 @@ export default class Search extends Component{
 
   render() {
     const { clickFunc } = this.props;
-    const styles = StyleSheet.create({
-      button: {
-        alignItems: 'center',
-        backgroundColor: '#3FB984',
-        padding: 10,
-        height: 40,
-        width: 40,
-        borderRadius: 200,
-        position: 'absolute',
-        bottom:0,
-        right:0,
-        margin: 5,
-      },
-      image: {
-        height: 40,
-        width: 40,
-        borderRadius: 200,
-        position: 'absolute',
-      },
-    });
     return (
         <TouchableOpacity 
           style={styles.button}

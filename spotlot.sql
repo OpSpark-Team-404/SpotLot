@@ -34,7 +34,7 @@ CREATE TABLE "lot" (
   "longitude" numeric,
   "latitude" numeric,
   "is_open" boolean,
-  "lot_close" timestamp,
+  "lot_close" varchar(50),
   "max_reserve" integer,
   "max_spots" integer,
   "current_spots" integer,
