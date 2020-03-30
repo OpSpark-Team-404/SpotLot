@@ -76,7 +76,7 @@ const addVehicle = (user_id, { make, model, color, plate, state }) => {
 }
 
 const selectVehicle = id => {
-  const query = "SELECT * FROM vehicle WHERE id = $1"
+  const query = "SELECT * FROM vehicle WHERE user_id = $1"
   return pool.query(query, [id])
 }
 
