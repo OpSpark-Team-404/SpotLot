@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet, Button, TouchableOpacity, TextInput } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import axios from 'axios';
 
-export default function ReserveSpot({ navigation }){
+export default function ReserveSpot({ navigation, user, route }){
   const [name, changeName] = React.useState('');
   const [number, changeNumber] = React.useState('');
   const [expiration, changeExpiration] = React.useState('');
@@ -10,7 +11,17 @@ export default function ReserveSpot({ navigation }){
   const [zip, changeZip] = React.useState('');
 
   function saveToDB(){
+    const lotId = route.params.lotId;
 
+    axios.post(`http://10.0.2.2:8080/spot/addSpot/${lotId}/${user.id}`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log('error', e);
+      });
+
+    navigation.navigate('MapContainer')
   }
 
   return (
