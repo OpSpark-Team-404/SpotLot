@@ -8,7 +8,7 @@ export default function SignUpCar({ navigation, route, userData }){
   const [make, changeMake] = React.useState('');
   const [model, changeModel] = React.useState('');
   const [color, changeColor] = React.useState('');
-  const [plate, changePlate] = React.useState('');
+  const [license_plate, changePlate] = React.useState('');
   const [state, changeState] = React.useState('');
   const [userId, changeUserId] = React.useState('');
 
@@ -25,7 +25,7 @@ export default function SignUpCar({ navigation, route, userData }){
   });
 
   function saveToDB(){
-    axios.post(`http://10.0.2.2:8080/vehicle/addVehicle/${userId}`, { make, model, color, plate, state })
+    axios.post(`http://10.0.2.2:8080/vehicle/addVehicle/${userId}`, { make, model,  license_plate, color, state })
     .then((res) => {
       console.log(res);
     })

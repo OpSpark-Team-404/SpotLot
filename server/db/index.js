@@ -72,9 +72,9 @@ const patchUser = (id, body) => {
 
 //VEHICLE
 
-const addVehicle = (user_id, { make, model, color, plate, state }) => {
-  const query = "INSERT INTO vehicle (user_id, make, model,license_plate, color, state) VALUES ($1, $2, $3, $4, $5, $6)"
-  return pool.query(query, [user_id, make, model, color, plate, state])
+const addVehicle = (user_id, { make, model, license_plate, color, state }) => {
+  const query = "INSERT INTO vehicle (user_id, make, model, license_plate, color, state) VALUES ($1, $2, $3, $4, $5, $6)"
+  return pool.query(query, [user_id, make, model, license_plate, color, state])
 }
 
 const selectVehicle = id => {
@@ -93,8 +93,8 @@ const deleteAllUserVehicles = (user_id) => {
 }
 
 const patchVehicle = (id, body) => {
-  const { make, model, color, plate, state } = body;
-  const query = `UPDATE vehicle SET make = '${make}', color = '${color}', model = '${model}', license_plate = '${plate}', state = '${state}'`
+  const { make, model, color, license_plate, state } = body;
+  const query = `UPDATE vehicle SET make = '${make}', model = '${model}', color = '${color}', license_plate = '${license_plate}', state = '${state}' WHERE id = '${id}'`
   return pool.query(query)
 }
 
