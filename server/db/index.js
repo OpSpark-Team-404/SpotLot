@@ -92,6 +92,8 @@ const deleteAllUserVehicles = (user_id) => {
 
 const patchVehicle = (id, body) => {
   const { make, model, color, plate, state } = body;
+  const query = `UPDATE vehicle SET make = '${make}', color = '${color}', model = '${model}', license_plate = '${plate}', state = '${state}'`
+  return pool.query(query)
 }
 
 //
