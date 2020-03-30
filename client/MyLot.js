@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet, Button, TouchableOpacity } from 'react-native';
+import LotPreview from './LotPreview';
+import { Text, View, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import axios from "axios";
 
@@ -33,51 +34,47 @@ export default function MyLot({ navigation, user }) {
         </TouchableOpacity>
         <Image source={require('../images/logo.png')} style={styles.logo} />
       </View>
-      <View style={{padding: 55}}>
-        <Text style={styles.header}>My Lots</Text>
-        {currentLot ?
-          <View>
-            <Text style={styles.subHeader}>Current Lot</Text>
-            <View style={{ backgroundColor: "#726D9B", width: 300, height: 80, borderRadius: 5 }}>
-              <View style={{flexDirection: 'row', left: 25, top: 5}}>
-                <FontAwesome5 name="car" size={36} color='#3FB984' />
-                <Text style={{alignSelf: 'center', padding: 10, color: '#E5EBEA'}}>Address</Text>
-              </View>
-              <View style={{flexDirection: 'row'}}>
-                <Text style={{left: 25, bottom: -10, color: '#E5EBEA'}}>Price</Text>
-                <Text style={{left: 160, bottom: -10, color: '#E5EBEA'}}>Closing Time</Text>
-              </View>
-            </View>  
-          </View>
-        :
-          <TouchableOpacity
-            onPress={() => navigation.navigate("CreateLot", {
-              user: user
-            })}
-          >
-            <View style={{flexDirection: 'row'}}>
-              <FontAwesome5 name="plus-circle" size={30} color="#726D9B" />
-              <View style={{justifyContent: 'center'}}>
-                <Text style={{color: "#726D9B", fontSize: 18, left: 15}}>Create a lot</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-        }
-        <View style={{top: 30}}>
-          <View style={{marginBottom: 10}}>
-            <Text style={styles.subHeader}>Lot History</Text>
-          </View>
-          {userLots.map((lot) => (
+      <ScrollView>
+        <View style={{padding: 55}}>
+          <Text style={styles.header}>My Lots</Text>
+          {currentLot ?
             <View>
-              <Text style={{fontSize: 18, color: '#222222'}}>{lot.address}</Text>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontSize: 20, fontWeight: 'bold', color: '#222222'}}>{`$${lot.price}`}</Text>
-                <Text style={{fontSize: 20, color: '#222222'}}>{lot.lot_close}</Text>
-              </View>
+              <Text style={styles.subHeader}>Current Lot</Text>
+              <View style={{ backgroundColor: "#726D9B", width: 300, height: 80, borderRadius: 5 }}>
+                <View style={{flexDirection: 'row', left: 25, top: 5}}>
+                  <FontAwesome5 name="car" size={36} color='#3FB984' />
+                  <Text style={{alignSelf: 'center', padding: 10, color: '#E5EBEA'}}>Address</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{left: 25, bottom: -10, color: '#E5EBEA'}}>Price</Text>
+                  <Text style={{left: 160, bottom: -10, color: '#E5EBEA'}}>Closing Time</Text>
+                </View>
+              </View>  
             </View>
-          ))}
+          :
+            <TouchableOpacity
+              onPress={() => navigation.navigate("CreateLot", {
+                user: user
+              })}
+            >
+              <View style={{flexDirection: 'row'}}>
+                <FontAwesome5 name="plus-circle" size={30} color="#726D9B" />
+                <View style={{justifyContent: 'center'}}>
+                  <Text style={{color: "#726D9B", fontSize: 18, left: 15}}>Create a lot</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          }
+          <View style={{top: 30}}>
+            <View style={{marginBottom: 10}}>
+              <Text style={styles.subHeader}>Lot History</Text>
+            </View>
+            {userLots ? userLots.map((lot) => (
+              <LotPreview key={lot.id} lot={lot} navigation={navigation}/>
+            )) : null}
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }

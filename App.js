@@ -72,7 +72,9 @@ const MapContainerStackScreen = ({user}) => (
       {props => <ListView {...props} user={user} />}
     </MapContainerStack.Screen>
     <MapContainerStack.Screen name="LotInfo" component={LotInfo} />
-    <MapContainerStack.Screen name="Reserve" component={ReserveSpot} />
+    <MapContainerStack.Screen name="Reserve">
+      {props => <ReserveSpot {...props} user={user} />}
+    </MapContainerStack.Screen>
   </MapContainerStack.Navigator>
 );
 

@@ -3,8 +3,8 @@ import { Button, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-n
 import { FontAwesome5 } from '@expo/vector-icons';
 export default function LotInfo({ navigation, route }){
     
-  const { current_spots, max_spots, price, lot_close, description, image_url } = route.params.lot
-  
+  const { current_spots, max_spots, price, lot_close, description, image_url, id } = route.params.lot
+
   return (
     <View style={styles.container}>
       <View style={{backgroundColor: "#726D9B", height: 80}}>
@@ -28,7 +28,10 @@ export default function LotInfo({ navigation, route }){
           <Text style={{fontSize: 24, left: 100, width: 125}} >{`${lot_close}`}</Text>
         </View>
         <Text style={{fontSize: 20, marginHorizontal: 15, marginBottom: 30}} >{`${description}`}</Text>
-        <Button color='#726D9B' title='Reserve Spot' onPress={() => navigation.navigate('Reserve')}></Button>
+        <Button color='#726D9B' title='Reserve Spot' onPress={() => navigation.navigate('Reserve', {
+          lotId: id,
+          navigation: navigation
+        })}></Button>
       </View>
     </View>
   );

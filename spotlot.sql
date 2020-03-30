@@ -44,7 +44,7 @@ CREATE TABLE "lot" (
 
 CREATE TABLE "billing_info" (
   "user_id" integer,
-  "stripe_token" text,
+  "stripe_token" text
 );
 
 ALTER TABLE "spot" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");

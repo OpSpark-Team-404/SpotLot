@@ -1,27 +1,27 @@
 import React from 'react';
+import LotPreview from './LotPreview';
 import { Text, Image, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import axios from 'axios';
 
-export default function MySpot({navigation}){
+export default function MySpot({navigation, user}){
+  const [userSpots, onChangeUserSpots] = React.useState([]);
+  const [currentSpot, onChangeCurrentSpot] = React.useState(false);
 
-  const fakeData = [
-    {
-      address: '4876 Blueberry Lane',
-      price: 15,
-      time: '10:00 PM',
-    },
-    {
-      address: '8965 Sunflower Road',
-      price: 30,
-      time: '12:00 PM',
-    },
-    {
-      address: '4876 Blueberry Lane',
-      price: 15,
-      time: '10:00 PM',
-    },
- 
-  ]
+  React.useEffect(() => {
+    grabCurrentUserSpots(user.id)
+  });
+
+  const grabCurrentUserSpots = (id) => {
+    axios.get(`http://10.0.2.2:8080/user/userLots/${id}`)
+      .then(async res => {
+        let data = await res.data;
+        onChangeUserSpots(data);
+      })
+      .catch(error => {
+        console.log("error", error);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -51,17 +51,9 @@ export default function MySpot({navigation}){
         </View>
         <View style={{top: 30}}>
           <Text style={styles.subHeader}>Spot History</Text>
-          {fakeData.map((lot) => (
-            <View style={{flexDirection: 'row', padding: 10}}>
-              <View>
-                <Text>{lot.address}</Text>
-                <Text>{`$${lot.price}`}</Text>
-              </View>
-              <View style={{justifyContent: 'flex-end', left: 90}}>
-                <Text>{lot.time}</Text>
-              </View>
-            </View>
-          ))}
+          {userSpots ? userSpots.map((lot) => (
+            <LotPreview key={lot.id} lot={lot} navigation={navigation}/>
+          )) : null}
         </View>
       </View>
     </View>

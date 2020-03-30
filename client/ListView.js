@@ -1,42 +1,26 @@
 import React from 'react';
+import LotPreview from './LotPreview';
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import axios from 'axios';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function lotInfo({navigation}){
+  const [allLots, onChangeAllLots] = React.useState([]);
 
-  const fakeData = [
-    {
-      address: '2604 Magazine Street, New Orleans, Louisiana',
-      time: '10:00 PM',
-      price: 20,
-    },
-    {
-      address: '2604 Magazine Street, New Orleans, Louisiana',
-      time: '10:00 PM',
-      price: 20,
-    },
-    {
-      address: '2604 Magazine Street, New Orleans, Louisiana',
-      time: '10:00 PM',
-      price: 20,
-    },
-    {
-      address: '2604 Magazine Street, New Orleans, Louisiana',
-      time: '10:00 PM',
-      price: 20,
-    },
-    {
-      address: '2604 Magazine Street, New Orleans, Louisiana',
-      time: '10:00 PM',
-      price: 20,
-    },
-    {
-      address: '2604 Magazine Street, New Orleans, Louisiana',
-      time: '10:00 PM',
-      price: 20,
-    }
-  ]
-    
+  React.useEffect(() => {
+    grabAllLots();
+  });
+
+  const grabAllLots = () => {
+    axios.get('http://10.0.2.2:8080/lot/allLots')
+      .then(res => {
+        onChangeAllLots(res.data);
+      })
+      .catch(error => {
+        console.log("error", error);
+      });
+  };
+
   return (
     <View>
       <View style={{backgroundColor: "#726D9B", height: 80}}>
@@ -56,16 +40,9 @@ export default function lotInfo({navigation}){
       </View>
       <View style={{marginHorizontal:20}}>
         <ScrollView style={{top: 10}}>
-          {fakeData.map((lot) => (
-            <View style={styles.lotInfo}>
-              <FontAwesome5 name="car" size={36} color='#3FB984' style={{top: 10}} />
-              <View style={{padding: 10}}>
-                <Text style={{fontSize: 20}}>{lot.address}</Text>
-                <Text style={{fontSize: 20, fontWeight: 'bold'}}>{lot.time}</Text>
-                <Text style={{fontSize: 20}}>{`$${lot.price}`}</Text>
-              </View>
-            </View>
-          ))}
+          {allLots ? allLots.map((lot) => (
+            <LotPreview lot={lot} key={lot.id} navigation={navigation} />
+          )) : null}
         </ScrollView>
       </View>
     </View>
@@ -82,10 +59,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     height: 200,
     width: '100%'
-  },
-  lotInfo:{
-    marginBottom: 15,
-    flexDirection: 'row'
   },
   logo: {
     height: 50,
