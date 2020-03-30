@@ -63,8 +63,9 @@ module.exports = async function(fastify) {
       });
   }); 
 
-  fastify.patch("/patchVehicle", (req, res) => {
-    console.log("Run patchVehicle function");
-    res.send("patchVehicle Return");
+  fastify.patch("/patchVehicle/:id", (req, res) => {
+    patchVehicle(req.params.id, req.body)
+    .then( data => res.send(data))
+    .catch( error => console.log(error))
   });
 };

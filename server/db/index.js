@@ -3,7 +3,7 @@ const { Client, Pool } = require('pg');
 // Creates new pool
 const pool = new Pool({
     user: "postgres",
-    password: "password",
+    password: "bacool7769",
     host: "localhost",
     database: "spotlot"
 })
@@ -65,7 +65,9 @@ const selectUser = (email) => {
 }
 
 const patchUser = (id, body) => {
-  const { name, email, google_token, image_url, spot_open, lot_open, phone } = body;
+  const { name, image_url, phone } = body;
+  const query = `UPDATE user SET (name, image_url, phone) = ('${name}', '${image_url}', '${phone}') WHERE id = '${id}'`
+  pool.query(query)
 }
 
 //VEHICLE
@@ -76,7 +78,7 @@ const addVehicle = (user_id, { make, model, color, plate, state }) => {
 }
 
 const selectVehicle = id => {
-  const query = "SELECT * FROM vehicle WHERE id = $1"
+  const query = "SELECT * FROM vehicle WHERE user_id = $1"
   return pool.query(query, [id])
 }
 
@@ -92,6 +94,8 @@ const deleteAllUserVehicles = (user_id) => {
 
 const patchVehicle = (id, body) => {
   const { make, model, color, plate, state } = body;
+  const query = `UPDATE vehicle SET make = '${make}', color = '${color}', model = '${model}', license_plate = '${plate}', state = '${state}'`
+  return pool.query(query)
 }
 
 //
@@ -131,19 +135,16 @@ const deleteLot = (id) => {
 
 const patchLot = (id, body) => {
   const {
-    owner_id,
     image_url,
-    price,
-    longitude,
-    latitude,
-    is_open,
     lot_close,
     max_reserve,
     max_spots,
-    current_spots,
-    description,
-    address
+    description
   } = body;
+
+  const query = `UPDATE lot SET image_url = '${image_url}' , lot_close = '${lot_close}', max_reserve = '${max_reserve}', max_spots = '${max_spots}', description = '${description}' WHERE id = '${id}'`
+
+  return pool.query(query)
 }
 
 //
@@ -168,6 +169,11 @@ const deleteSpot = id => {
 const patchSpot = (lot_id, user_id) => {
   //update query for current person in a spot
 }
+
+const allSpots = (user_id) => {
+  const query = `SELECT * FROM spot WHERE user_id = '${user_id}'`
+  return pool.query(query)
+};
 
 const reserveSpot = id => {
   const query = 'UPDATE lot SET current_spots = current_spots + 1 WHERE id = $1'
@@ -238,6 +244,7 @@ module.exports = {
   deleteSpot,
   patchSpot,
   reserveSpot,
+  allSpots,
   //LOT
   addLot,
   allLots,

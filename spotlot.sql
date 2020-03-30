@@ -4,18 +4,11 @@ CREATE TABLE "user" (
   "name" varchar(64),
   "email" text UNIQUE,
   "google_token" text UNIQUE,
-  "spot_open" int,
+  "phone" varchar(20),
   "lot_open" int,
-  "phone" varchar(20)
+  "spot_open" int
 );
 
-CREATE TABLE "review" (
-  "id" SERIAL PRIMARY KEY,
-  "user_id" int,
-  "lot_id" int,
-  "rating" int,
-  "description" varchar(255)
-);
 
 CREATE TABLE "spot" (
   "id" SERIAL PRIMARY KEY,
@@ -46,14 +39,12 @@ CREATE TABLE "lot" (
   "max_spots" integer,
   "current_spots" integer,
   "description" varchar(255),
-  "address" varchar(50)
+  "address" varchar(100)
 );
 
 CREATE TABLE "billing_info" (
   "user_id" integer,
   "stripe_token" text,
-  "card_token" text,
-  "bank_token" text
 );
 
 ALTER TABLE "spot" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
@@ -64,8 +55,16 @@ ALTER TABLE "lot" ADD FOREIGN KEY ("owner_id") REFERENCES "user" ("id");
 
 ALTER TABLE "vehicle" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
 
-ALTER TABLE "review" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
-
-ALTER TABLE "review" ADD FOREIGN KEY ("lot_id") REFERENCES "lot" ("id");
-
 ALTER TABLE "billing_info" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
+
+-- CREATE TABLE "review" (
+--   "id" SERIAL PRIMARY KEY,
+--   "user_id" int,
+--   "lot_id" int,
+--   "rating" int,
+--   "description" varchar(255)
+-- );
+
+-- ALTER TABLE "review" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
+
+-- ALTER TABLE "review" ADD FOREIGN KEY ("lot_id") REFERENCES "lot" ("id");
