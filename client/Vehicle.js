@@ -66,16 +66,11 @@ export default function SignUpCar({ navigation }){
             </TextInput>
           </View>
         </View>
-        <View style={{top: -30, left: -20}}>
+        <View style={{top: -433, right: -165}}>
           <TouchableOpacity
             onPress={() => changeEditStatus(!edit)}
           > 
-            <View style={{flexDirection: 'row'}}>
-              <FontAwesome5 name="check-square" size={30} color="#726D9B" />
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{fontWeight: 'bold', left: 10, color: "#726D9B"}}>Confirm vehicle information</Text>
-              </View>
-            </View>
+            <FontAwesome5 name="check-square" size={32} color='#E5EBEA' />
           </TouchableOpacity>
         </View>
       </View>
@@ -114,16 +109,11 @@ export default function SignUpCar({ navigation }){
             >Test</Text>
           </View>
         </View>
-        <View style={{top: -30, left: -20}}>
+        <View style={{top: -435, right: -165}}>
           <TouchableOpacity
             onPress={() => changeEditStatus(!edit)}
           > 
-            <View style={{flexDirection: 'row'}}>
-              <FontAwesome5 name="edit" size={30} color="#726D9B" />
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{fontWeight: 'bold', left: 10, color: "#726D9B"}}>Edit vehicle information</Text>
-              </View>
-            </View>
+            <FontAwesome5 name="edit" size={30} color='#E5EBEA' />
           </TouchableOpacity>
         </View>
       </View>
