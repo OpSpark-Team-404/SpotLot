@@ -3,7 +3,7 @@ const { Client, Pool } = require('pg');
 // Creates new pool
 const pool = new Pool({
     user: "postgres",
-    password: "password",
+    password: "bacool7769",
     host: "localhost",
     database: "spotlot"
 })
@@ -138,7 +138,7 @@ const patchLot = (id, body) => {
     description
   } = body;
 
-  const query = `UPDATE lot SET image_url =${image_url}, lot_close = ${lot_close}, max_reserve = ${max_reserve}, max_spots = ${max_spots}, description = ${description} WHERE id = ${id}`
+  const query = `UPDATE lot SET image_url = '${image_url}' , lot_close = '${lot_close}', max_reserve = '${max_reserve}', max_spots = '${max_spots}', description = '${description}' WHERE id = '${id}'`
 
   return pool.query(query)
 }
