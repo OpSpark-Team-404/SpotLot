@@ -166,6 +166,11 @@ const patchSpot = (lot_id, user_id) => {
   //update query for current person in a spot
 }
 
+const allSpots = (user_id) => {
+  const query = `SELECT * FROM spot WHERE user_id = '${user_id}'`
+  return pool.query(query)
+};
+
 const reserveSpot = id => {
   const query = 'UPDATE lot SET current_spots = current_spots + 1 WHERE id = $1'
   return pool.query(query, [id])
@@ -235,6 +240,7 @@ module.exports = {
   deleteSpot,
   patchSpot,
   reserveSpot,
+  allSpots,
   //LOT
   addLot,
   allLots,
