@@ -1,16 +1,49 @@
 import React from 'react';
 import { Text, Image, View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
 import axios from 'axios';
-import { StackActions } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function SignUpCar({ navigation }){
+export default function Vehicle({ navigation, user }) {
   const [make, changeMake] = React.useState('');
   const [model, changeModel] = React.useState('');
   const [color, changeColor] = React.useState('');
-  const [plate, changePlate] = React.useState('');
+  const [license_plate, changePlate] = React.useState('');
   const [state, changeState] = React.useState('');
-  const [edit, changeEditStatus] = React.useState(false);
+  const [id, changeId] = React.useState('');
+  const [car, changeCar] = React.useState('');
+
+  React.useEffect(() => {
+    grabUserCar();
+  }, []);
+
+  const grabUserCar = () => {
+    axios.get(`http://10.0.2.2:8080/vehicle/selectVehicle/${user.id}`)
+      .then(async res => {
+        let data = await res.data;
+        changeCar(data);
+        changeMake(data.make);
+        changeModel(data.model);
+        changeColor(data.color);
+        changePlate(data.license_plate);
+        changeState(data.state);
+        changeId(data.id);
+      })
+      .catch(error => {
+        console.log("error", error);
+      });
+  };
+
+  const updateVehicle = () => {
+    console.log(color);
+
+    axios.patch(`http://10.0.2.2:8080/vehicle/patchVehicle/${id}`, { make, model, license_plate, color, state })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.log("error", error);
+      });
+  }
 
   return (
     <View style={styles.container}>
@@ -23,28 +56,36 @@ export default function SignUpCar({ navigation }){
         </TouchableOpacity>
         <Image source={require('../images/logo.png')} style={styles.logo} />
       </View>
-      {edit ?
       <View style={styles.info}>
         <Text style={styles.header}>Vehicle Information</Text>
         <View style={{ top: -90}}>
           <View style={{top: 5}}>
             <Text style={styles.inputHeader}>Vehicle make</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
+              placeholder={car.make}
+              placeholderTextColor={'#222222'}
               onChangeText={text => changeMake(text)}
             ></TextInput>
           </View>
           <View style={{top: 10}}>
             <Text style={styles.inputHeader}>Vehicle model</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
+              placeholder={car.model}
+              placeholderTextColor={'#222222'}
               onChangeText={text => changeModel(text)}
             ></TextInput>
           </View>
           <View style={{top: 15}}>
             <Text style={styles.inputHeader}>Vehicle color</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
+              placeholder={car.color}
+              placeholderTextColor={'#222222'}
               onChangeText={text => changeColor(text)}
             >
             </TextInput>
@@ -52,7 +93,10 @@ export default function SignUpCar({ navigation }){
           <View style={{top: 20}}>
             <Text style={styles.inputHeader}>License plate number</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
+              placeholder={car.license_plate}
+              placeholderTextColor={'#222222'}
               onChangeText={text => changePlate(text)}
             >
             </TextInput>
@@ -60,64 +104,19 @@ export default function SignUpCar({ navigation }){
           <View style={{top: 25}}>
             <Text style={styles.inputHeader}>License plate state</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
+              placeholder={car.state}
+              placeholderTextColor={'#222222'}
               onChangeText={text => changeState(text)}
             >
             </TextInput>
           </View>
         </View>
-        <View style={{top: -433, right: -165}}>
-          <TouchableOpacity
-            onPress={() => changeEditStatus(!edit)}
-          > 
-            <FontAwesome5 name="check-square" size={32} color='#E5EBEA' />
-          </TouchableOpacity>
-        </View>
       </View>
-      : 
-      <View style={styles.info}>
-        <Text style={styles.header}>Vehicle Information</Text>
-        <View style={{ top: -90}}>
-          <View style={{top: 5}}>
-            <Text style={styles.inputHeader}>Vehicle make</Text>
-            <Text
-              style={styles.text}
-            >Test</Text>
-          </View>
-          <View style={{top: 10}}>
-            <Text style={styles.inputHeader}>Vehicle model</Text>
-            <Text
-              style={styles.text}
-            >Test</Text>
-          </View>
-          <View style={{top: 15}}>
-            <Text style={styles.inputHeader}>Vehicle color</Text>
-            <Text
-              style={styles.text}
-            >Test</Text>
-          </View>
-          <View style={{top: 20}}>
-            <Text style={styles.inputHeader}>License plate number</Text>
-            <Text
-              style={styles.text}
-            >Test</Text>
-          </View>
-          <View style={{top: 25}}>
-            <Text style={styles.inputHeader}>License plate state</Text>
-            <Text
-              style={styles.text}
-            >Test</Text>
-          </View>
-        </View>
-        <View style={{top: -435, right: -165}}>
-          <TouchableOpacity
-            onPress={() => changeEditStatus(!edit)}
-          > 
-            <FontAwesome5 name="edit" size={30} color='#E5EBEA' />
-          </TouchableOpacity>
-        </View>
+      <View style={{ top: -20, width: 320, alignSelf: 'center' }}>
+        <Button color="#726D9B" title="Confirm vehicle changes" onPress={() => updateVehicle()}></Button>
       </View>
-      }
     </View>
   )
 }

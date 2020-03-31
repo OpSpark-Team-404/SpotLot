@@ -8,7 +8,7 @@ export default function SignUpCar({ navigation, route, userData }){
   const [make, changeMake] = React.useState('');
   const [model, changeModel] = React.useState('');
   const [color, changeColor] = React.useState('');
-  const [plate, changePlate] = React.useState('');
+  const [license_plate, changePlate] = React.useState('');
   const [state, changeState] = React.useState('');
   const [userId, changeUserId] = React.useState('');
 
@@ -25,7 +25,7 @@ export default function SignUpCar({ navigation, route, userData }){
   });
 
   function saveToDB(){
-    axios.post(`http://10.0.2.2:8080/vehicle/addVehicle/${userId}`, { make, model, color, plate, state })
+    axios.post(`http://10.0.2.2:8080/vehicle/addVehicle/${userId}`, { make, model,  license_plate, color, state })
     .then((res) => {
       console.log(res);
     })
@@ -59,6 +59,7 @@ export default function SignUpCar({ navigation, route, userData }){
           <View style={{top: 5}}>
             <Text style={styles.inputHeader}>Vehicle make</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
               onChangeText={text => changeMake(text)}
             ></TextInput>
@@ -66,6 +67,7 @@ export default function SignUpCar({ navigation, route, userData }){
           <View style={{top: 10}}>
             <Text style={styles.inputHeader}>Vehicle model</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
               onChangeText={text => changeModel(text)}
             ></TextInput>
@@ -73,6 +75,7 @@ export default function SignUpCar({ navigation, route, userData }){
           <View style={{top: 15}}>
             <Text style={styles.inputHeader}>Vehicle color</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
               onChangeText={text => changeColor(text)}
             >
@@ -81,6 +84,7 @@ export default function SignUpCar({ navigation, route, userData }){
           <View style={{top: 20}}>
             <Text style={styles.inputHeader}>License plate number</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
               onChangeText={text => changePlate(text)}
             >
@@ -89,6 +93,7 @@ export default function SignUpCar({ navigation, route, userData }){
           <View style={{top: 25}}>
             <Text style={styles.inputHeader}>License plate state</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.textInput}
               onChangeText={text => changeState(text)}
             >

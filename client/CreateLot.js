@@ -151,6 +151,7 @@ export default function CreateLot({ navigation, route }){
         <View style={{alignSelf: 'center'}}>
           <Text style={styles.inputHeader}>Price</Text>
           <TextInput
+            paddingLeft={5}
             style={styles.textInput}
             onChangeText={text => changePrice(text)}
           >
@@ -159,6 +160,7 @@ export default function CreateLot({ navigation, route }){
         <View style={{alignSelf: 'center'}}>
           <Text style={styles.inputHeader}>Number of parking spaces</Text>
           <TextInput
+            paddingLeft={5}
             style={styles.textInput}
             onChangeText={text => changeMaxSpots(text)}
           >
@@ -167,6 +169,7 @@ export default function CreateLot({ navigation, route }){
         <View style={{alignSelf: 'center'}}>
           <Text style={styles.inputHeader}>Address</Text>
           <TextInput
+            paddingLeft={5}
             style={styles.textInput}
             onChangeText={text => changeAddress(text)}
           >
@@ -175,6 +178,7 @@ export default function CreateLot({ navigation, route }){
         <View style={{alignSelf: 'center', width: 300}}>
           <Text style={styles.inputHeader}>Extra info</Text>
           <TextInput
+            paddingLeft={5}
             style={styles.info}
             onChangeText={text => changeDescription(text)}
             multiline={true}
@@ -227,6 +231,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: 32,
     textAlignVertical: 'center',
+    paddingLeft: 5
   },
   lotClose : {
     borderRadius: 5,

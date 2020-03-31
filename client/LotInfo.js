@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+
 export default function LotInfo({ navigation, route }){
     
   const { current_spots, max_spots, price, lot_close, description, image_url, id } = route.params.lot

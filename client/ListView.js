@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'rea
 import axios from 'axios';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function lotInfo({navigation}){
+export default function ListView({navigation}){
   const [allLots, onChangeAllLots] = React.useState([]);
 
   React.useEffect(() => {
