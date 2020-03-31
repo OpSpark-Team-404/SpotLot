@@ -66,8 +66,8 @@ const selectUser = (email) => {
 
 const patchUser = (id, body) => {
   const { name, image_url, phone } = body;
-  const query = `UPDATE user SET (name, image_url, phone) = ('${name}', '${image_url}', '${phone}') WHERE id = '${id}'`
-  pool.query(query)
+  const query = `UPDATE "user" SET name = '${name}', image_url = '${image_url}', phone = '${phone}' WHERE id = '${id}'`
+  return pool.query(query)
 }
 
 //VEHICLE

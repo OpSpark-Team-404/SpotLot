@@ -63,16 +63,9 @@ module.exports = async function(fastify) {
 
   // patchUser in DB
   fastify.patch("/patchUser/:id", (req, res) => {
-    console.log(req);
     patchUser(req.params.id, req.body)
-      .then(data => {
-        console.log(data);
-        res.send("Patching user from DB");
-      })
-      .catch(error => {
-        console.log(error);
-        res.send("Unable to patch user from DB");
-      });
+      .then(data => res.send(data))
+      .catch(error => console.log(error))
   });
 
   fastify.get("/allSpots/:id", (req, res) => {
