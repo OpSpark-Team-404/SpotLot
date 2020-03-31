@@ -8,8 +8,7 @@ import axios from 'axios';
 import moment from 'moment';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-export default function CreateLot({ navigation, route }){
-  const [owner_id, changeUserId] = React.useState('');
+export default function CreateLot({ navigation, userData, user, route }){
   const [price, changePrice] = React.useState('');
   const [address, changeAddress] = React.useState('');
   const [lot_close, changeLotClose] = React.useState('');
@@ -18,11 +17,6 @@ export default function CreateLot({ navigation, route }){
   const [photo, setPhoto] = React.useState('');
   const [lotDisplay, changeLotDisplay] = React.useState(false);
   const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/daauxjhcv/upload';
-
-  React.useEffect(() => {
-    const id = route.params.user.id;
-    changeUserId(id);
-  });
 
   const saveToDB = async () => {
     convertToCords();
@@ -35,6 +29,7 @@ export default function CreateLot({ navigation, route }){
     const is_open = true;
     const max_reserve = 0;
     const current_spots = max_spots;
+    const owner_id = user.id;
 
     Geocoder.init(googlKey);
     Geocoder.from(address)
@@ -44,7 +39,17 @@ export default function CreateLot({ navigation, route }){
             const longitude = location.lng;
             axios.post('http://10.0.2.2:8080/lot/addLot', { owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description, address })
               .then((res) => {
-                console.log(res);
+                const lot_open = res.data.rows[0].id;
+                const id = owner_id;
+                axios.patch(`http://10.0.2.2:8080/user/patchUserLot/${id}`, { lot_open })
+                  .then(res => {
+                    console.log(res);
+                    userData(user.email);
+                    route.params.grabSingleLot(lot_open);
+                  })
+                  .catch(error => {
+                    console.log("error", error);
+                  });
               })
               .catch((e) => {
                 console.log('error', e);

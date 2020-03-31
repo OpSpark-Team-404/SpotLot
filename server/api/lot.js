@@ -18,7 +18,7 @@ module.exports = async function(fastify) {
   fastify.post("/addLot", (req, res) => {
     addLot(req.body)
       .then(data => {
-        res.send('Added lot to DB');
+        res.send(data, 'Added lot to DB');
       })
       .catch(error => {
         console.log(error);
