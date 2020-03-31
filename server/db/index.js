@@ -70,6 +70,12 @@ const patchUser = (id, body) => {
   return pool.query(query)
 }
 
+const patchUserLot = (id, body) => {
+  const { lot_open } = body;
+  const query = `UPDATE "user" SET lot_open = '${lot_open}' WHERE id = '${id}'`
+  return pool.query(query)
+}
+
 //VEHICLE
 
 const addVehicle = (user_id, { make, model, license_plate, color, state }) => {
@@ -103,7 +109,7 @@ const patchVehicle = (id, body) => {
 //
 
 const addLot = ({ owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description, address }) => {
-  const query = "INSERT INTO lot (owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description, address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)"
+  const query = "INSERT INTO lot (owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description, address) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id"
   return pool.query(
     query,
     [owner_id, image_url, price, longitude, latitude, is_open, lot_close, max_reserve, max_spots, current_spots, description, address]
@@ -123,8 +129,7 @@ const allLots = () => {
 };
 
 const selectLot = (id) => {
-  const query = "SELECT * FROM lot WHERE owner_id = $1"
-  console.log(id);
+  const query = "SELECT * FROM lot WHERE id = $1"
   return pool.query(query, [id])
 }
 
@@ -232,6 +237,7 @@ module.exports = {
   userLots,
   deleteUser,
   patchUser,
+  patchUserLot,
   //VEHICLE
   addVehicle,
   selectVehicle,

@@ -4,24 +4,60 @@ import { Text, View, Image, StyleSheet, ScrollView, TouchableOpacity } from 'rea
 import { FontAwesome5 } from '@expo/vector-icons';
 import axios from "axios";
 
-export default function MyLot({ navigation, user }) {
+export default function MyLot({ navigation, user, userData }) {
   const [userLots, onChangeUserLots] = React.useState([]);
-  const [currentLot, onChangeCurrentLot] = React.useState(false);
+  const [singleLot, onChangeSingleLot] = React.useState(0);
 
   React.useEffect(() => {
     grabCurrentUserLots(user.id)
-  });
+    if(user.lot_open > 0 && user.lot_open !== null){
+      grabSingleLot(user.lot_open);
+    }
+  },[]);
 
   const grabCurrentUserLots = (id) => {
     axios.get(`http://10.0.2.2:8080/user/userLots/${id}`)
       .then(async res => {
         let data = await res.data;
-        onChangeUserLots(data);
+        let lots = data.filter(lot => lot.id !== user.lot_open)
+        onChangeUserLots(lots);
       })
       .catch(error => {
         console.log("error", error);
       });
   };
+
+  const grabSingleLot = (id) => {
+    axios.get(`http://10.0.2.2:8080/lot/selectLot/${id}`)
+      .then(async res => {
+        let data = await res.data;
+        onChangeSingleLot(data);
+      })
+      .catch(error => {
+        console.log("error", error);
+      });
+  };
+
+  const handleLotClose = () => {
+    const lot_open = 0;
+    axios.patch(`http://10.0.2.2:8080/user/patchUserLot/${user.id}`, { lot_open })
+      .then(res => {
+        console.log(res);
+        userData(user.email);
+        axios.get(`http://10.0.2.2:8080/user/userLots/${user.id}`)
+          .then(async res => {
+            let data = await res.data;
+            onChangeUserLots(data);
+          })
+          .catch(error => {
+            console.log("error", error);
+          });
+        onChangeSingleLot(0);
+      })
+      .catch(error => {
+        console.log("error", error);
+      });
+  }
 
   return (
     <View style={styles.container}>
@@ -37,24 +73,40 @@ export default function MyLot({ navigation, user }) {
       <ScrollView>
         <View style={{padding: 55}}>
           <Text style={styles.header}>My Lots</Text>
-          {currentLot ?
+          {singleLot !== 0 ?
             <View>
               <Text style={styles.subHeader}>Current Lot</Text>
-              <View style={{ backgroundColor: "#726D9B", width: 300, height: 80, borderRadius: 5 }}>
-                <View style={{flexDirection: 'row', left: 25, top: 5}}>
-                  <FontAwesome5 name="car" size={36} color='#3FB984' />
-                  <Text style={{alignSelf: 'center', padding: 10, color: '#E5EBEA'}}>Address</Text>
+              <View style={{ backgroundColor: "#726D9B", width: 308, height: 80, borderRadius: 5 }}>
+                <LotPreview lot={singleLot} navigation={navigation} color={'#E5EBEA'}/>
+              </View>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{width: 100, top: 5}}>
+                  <TouchableOpacity onPress={() => navigation.navigate("EditLot")}>
+                    <View style={{flexDirection: 'row'}}>
+                      <FontAwesome5 name="edit" size={28} color='#3FB984' />
+                      <View style={{justifyContent: 'center'}}>
+                        <Text style={{color: "#726D9B", fontSize: 18, left: 10, color: '#3FB984'}}>Edit lot</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{left: 25, bottom: -10, color: '#E5EBEA'}}>Price</Text>
-                  <Text style={{left: 160, bottom: -10, color: '#E5EBEA'}}>Closing Time</Text>
+                <View style={{width: 100, top: 5}}>
+                  <TouchableOpacity onPress={() => handleLotClose()}>
+                    <View style={{flexDirection: 'row', top: 2}}>
+                      <FontAwesome5 name="times-circle" size={30} color='#3FB984' />
+                      <View style={{justifyContent: 'center', left: -5}}>
+                        <Text style={{color: "#726D9B", fontSize: 18, left: 10, color: '#3FB984'}}>Close lot</Text>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              </View>  
+              </View>
             </View>
           :
             <TouchableOpacity
               onPress={() => navigation.navigate("CreateLot", {
-                user: user
+                user: user,
+                grabSingleLot: grabSingleLot
               })}
             >
               <View style={{flexDirection: 'row'}}>
@@ -69,8 +121,11 @@ export default function MyLot({ navigation, user }) {
             <View style={{marginBottom: 10}}>
               <Text style={styles.subHeader}>Lot History</Text>
             </View>
-            {userLots ? userLots.map((lot) => (
-              <LotPreview key={lot.id} lot={lot} navigation={navigation}/>
+            {userLots ? userLots.slice(0).reverse().map((lot) => (
+              <View>
+                <LotPreview key={lot.id} lot={lot} navigation={navigation} color={'#222222'}/>
+                <View style={{borderBottomWidth: 2, borderBottomColor: '#A9B4C2'}}></View>
+              </View>
             )) : null}
           </View>
         </View>

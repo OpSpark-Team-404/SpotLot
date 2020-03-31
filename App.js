@@ -79,7 +79,7 @@ const MapContainerStackScreen = ({user}) => (
 );
 
 const MyLotStack = createStackNavigator();
-const MyLotStackScreen = ({user}) => (
+const MyLotStackScreen = ({user, userData}) => (
   <MyLotStack.Navigator
     screenOptions={{
       headerShown: false
@@ -87,9 +87,11 @@ const MyLotStackScreen = ({user}) => (
     initialRouteName="MyLot"
   >
     <MyLotStack.Screen name="MyLot">
-      {props => <MyLot {...props} user={user} />}
+      {props => <MyLot {...props} user={user} userData={userData}/>}
     </MyLotStack.Screen>
-    <MyLotStack.Screen name="CreateLot" component={CreateLot} />
+    <MyLotStack.Screen name="CreateLot">
+      {props => <CreateLot {...props} user={user} userData={userData}/>}
+    </MyLotStack.Screen>
   </MyLotStack.Navigator>
 );
 
@@ -218,7 +220,7 @@ export default function App() {
             )
           }}
         >
-          {props => <MyLotStackScreen {...props} user={user} />}
+          {props => <MyLotStackScreen {...props} user={user} userData={userData}/>}
         </Drawer.Screen>
         <Drawer.Screen
           name="Settings"

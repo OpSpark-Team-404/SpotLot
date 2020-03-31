@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function lotPreview({lot, navigation}){
+export default function lotPreview({lot, navigation, color}){
   const [carColor, onChangeCarColor] = React.useState('#3FB984');
 
   React.useEffect(() => {
@@ -26,9 +26,9 @@ export default function lotPreview({lot, navigation}){
       <View style={{flexDirection: 'row'}}>
         <FontAwesome5 name="car-alt" size={36} color={carColor} style={{top: 10, left: 5}} />
         <View style={{padding: 10, left: 10}}>
-          <Text style={{fontSize: 15}}>{lot.address}</Text>
-          <Text style={{fontSize: 15, fontWeight: 'bold'}}>Open until {lot.lot_close}</Text>
-          <Text style={{fontSize: 15}}>{`$${lot.price}`}</Text>
+          <Text style={{fontSize: 15, color: color}}>{lot.address}</Text>
+          <Text style={{fontSize: 15, fontWeight: 'bold', color: color}}>Open until {lot.lot_close}</Text>
+          <Text style={{fontSize: 15, color: color}}>{`$${lot.price}`}</Text>
         </View>
       </View>
     </TouchableOpacity>
