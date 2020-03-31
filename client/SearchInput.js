@@ -16,6 +16,15 @@ export default class SearchInput extends Component {
     };
 
     this.convertToCords = this.convertToCords.bind(this);
+    this.handleTextChange = this.handleTextChange.bind(this);
+  }
+
+  handleTextChange(text) {
+    this.setState({
+      text
+    })
+
+    this.props.changeText(text);
   }
 
   convertToCords(){
@@ -38,7 +47,7 @@ export default class SearchInput extends Component {
         style={styles.container}>
         <ScrollView style={styles.scrollView}>
         </ScrollView>
-        <TextInput onSubmitEditing={this.convertToCords} onChangeText={(text) => this.setState({text})} spellCheck={false} autoFocus={true} autoCorrect={false} style={styles.input} onBlur={()=>{onBlurFunc()}}/>
+        <TextInput onSubmitEditing={this.convertToCords} onChangeText={(text) => this.handleTextChange(text)} spellCheck={false} autoFocus={true} autoCorrect={false} style={styles.input} onBlur={()=>{onBlurFunc()}}/>
       </KeyboardAvoidingView>
     );
   }

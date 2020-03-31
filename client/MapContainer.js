@@ -17,12 +17,14 @@ class MapContainter extends React.Component {
       markers: [],
       reservedLat: 32.78306,
       reservedLng: -96.80667,
-      hasReserved: true
+      hasReserved: true,
+      text: 'Search for spots...'
     };
     this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
     this.onBlurInput = this.onBlurInput.bind(this);
     this.changeMapCords = this.changeMapCords.bind(this);
     this.getLots = this.getLots.bind(this);
+    this.changeText = this.changeText.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +50,12 @@ class MapContainter extends React.Component {
     })
   }
 
+  changeText(text) {
+    this.setState({
+      text
+    })
+  }
+
   getLots(){
     axios.get('http://10.0.2.2:8080/lot/allLots')
       .then((res) => {
@@ -61,7 +69,7 @@ class MapContainter extends React.Component {
   }
 
   render() {
-    const { markers, lat, lng, reservedLat, reservedLng, hasReserved } = this.state
+    const { markers, lat, lng, reservedLat, reservedLng, hasReserved, text } = this.state
 
     return (
       <View style={styles.container}>
@@ -105,9 +113,9 @@ class MapContainter extends React.Component {
         >
           <FontAwesome5 name="list-ul" size={30} color='#3fb984' />
         </TouchableOpacity>
-        <Text style={styles.textInput} onPress={this.onSearchButtonClick}>  Search for spots...</Text>
+            <Text style={styles.textInput} onPress={this.onSearchButtonClick}> <FontAwesome5 name="search" size={25} color='#3FB984'/>  {text}</Text>
         {this.state.isSearchButtonClicked ?
-          <SearchInput changeCords={this.changeMapCords} onBlurFunc={this.onBlurInput}/>
+          <SearchInput changeCords={this.changeMapCords} onBlurFunc={this.onBlurInput} changeText={this.changeText}/>
           :
           null
         }
@@ -165,7 +173,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     borderColor: '#3fb984',
-    color: '#222222',
+    color: "#3FB984",
     width: 411,
     height: 45,
     top: 460,
