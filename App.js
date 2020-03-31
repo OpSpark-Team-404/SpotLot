@@ -38,7 +38,7 @@ const LoginStackScreen = ({ userData }) => (
 );
 
 const SettingsStack = createStackNavigator();
-const SettingsStackScreen = ({user}) => (
+const SettingsStackScreen = ({user, userData}) => (
   <SettingsStack.Navigator
     screenOptions={{
       headerShown: false
@@ -49,7 +49,7 @@ const SettingsStackScreen = ({user}) => (
       {props => <Settings {...props} user={user} />}
     </SettingsStack.Screen>
     <SettingsStack.Screen name="Profile">
-      {props => <Profile {...props} user={user} />}
+      {props => <Profile {...props} user={user} userData={userData}/>}
     </SettingsStack.Screen>
     <SettingsStack.Screen name="Vehicle">
       {props => <Vehicle {...props} user={user} />}
@@ -233,7 +233,7 @@ export default function App() {
             )
           }}
         >
-          {props => <SettingsStackScreen {...props} user={user} />}
+          {props => <SettingsStackScreen {...props} user={user} userData={userData}/>}
         </Drawer.Screen>
         <Drawer.Screen
           name="Logout"

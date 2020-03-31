@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function Settings({ navigation, user }){
+export default function Settings({ navigation }){
 
   return (
     <View style={styles.container}>
@@ -29,6 +29,7 @@ export default function Settings({ navigation, user }){
             </View>
           </TouchableOpacity>
         </View>
+        <View style={{borderBottomWidth: 2, borderBottomColor: '#A9B4C2', top: 10}}></View>
         <View style={{top: 30}}>
           <TouchableOpacity
             onPress={() => navigation.navigate("Vehicle")}
@@ -41,6 +42,7 @@ export default function Settings({ navigation, user }){
             </View>
           </TouchableOpacity>
         </View>
+        <View style={{borderBottomWidth: 2, borderBottomColor: '#A9B4C2', top: 35}}></View>
       </View>
     </View>
   )

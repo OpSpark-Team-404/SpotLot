@@ -27,7 +27,7 @@ export default function lotPreview({lot, navigation}){
         <FontAwesome5 name="car-alt" size={36} color={carColor} style={{top: 10, left: 5}} />
         <View style={{padding: 10, left: 10}}>
           <Text style={{fontSize: 15}}>{lot.address}</Text>
-          <Text style={{fontSize: 15, fontWeight: 'bold'}}>{lot.lot_close}</Text>
+          <Text style={{fontSize: 15, fontWeight: 'bold'}}>Open until {lot.lot_close}</Text>
           <Text style={{fontSize: 15}}>{`$${lot.price}`}</Text>
         </View>
       </View>
