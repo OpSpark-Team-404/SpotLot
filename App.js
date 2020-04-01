@@ -17,6 +17,7 @@ import MySpot from './client/MySpot';
 import ListView from './client/ListView';
 import Settings from './client/Settings';
 import Vehicle from './client/Vehicle';
+import EditLot from './client/EditLot';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const LoginStack = createStackNavigator();
@@ -91,6 +92,9 @@ const MyLotStackScreen = ({user, userData}) => (
     </MyLotStack.Screen>
     <MyLotStack.Screen name="CreateLot">
       {props => <CreateLot {...props} user={user} userData={userData}/>}
+    </MyLotStack.Screen>
+    <MyLotStack.Screen name="EditLot">
+      {props => <EditLot {...props} user={user}/>}
     </MyLotStack.Screen>
   </MyLotStack.Navigator>
 );
