@@ -76,7 +76,7 @@ export default function MyLot({ navigation, user, userData }) {
           {singleLot !== 0 ?
             <View>
               <Text style={styles.subHeader}>Current Lot</Text>
-              <View style={{ backgroundColor: "#726D9B", width: 308, height: 80, borderRadius: 5 }}>
+              <View style={{ backgroundColor: "#726D9B", width: 310, height: 80, borderRadius: 5 }}>
                 <LotPreview lot={singleLot} key={singleLot.id} navigation={navigation} color={'#E5EBEA'}/>
               </View>
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
