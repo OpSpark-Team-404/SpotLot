@@ -49,11 +49,9 @@ module.exports = async function(fastify) {
   });  
 
   fastify.patch("/patchLot/:id", (req, res) => {
-    console.log(req);
     patchLot(req.params.id, req.body)
       .then(data => {
-        console.log(data);
-        res.send("Patching lot in DB");
+        res.send(data, "Patched lot in DB");
       })
       .catch(error => {
         console.log(error);
