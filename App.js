@@ -59,7 +59,7 @@ const SettingsStackScreen = ({user, userData}) => (
 );
 
 const MapContainerStack = createStackNavigator();
-const MapContainerStackScreen = ({user}) => (
+const MapContainerStackScreen = ({user, userData}) => (
   <MapContainerStack.Navigator
     screenOptions={{
       headerShown: false
@@ -74,7 +74,7 @@ const MapContainerStackScreen = ({user}) => (
     </MapContainerStack.Screen>
     <MapContainerStack.Screen name="LotInfo" component={LotInfo} />
     <MapContainerStack.Screen name="Reserve">
-      {props => <ReserveSpot {...props} user={user} />}
+      {props => <ReserveSpot {...props} user={user} userData={userData}/>}
     </MapContainerStack.Screen>
   </MapContainerStack.Navigator>
 );
@@ -184,7 +184,7 @@ export default function App() {
             )
           }}
         >
-          {props => <MapContainerStackScreen {...props} user={user} />}
+          {props => <MapContainerStackScreen {...props} user={user} userData={userData}/>}
         </Drawer.Screen>
         <Drawer.Screen
           name="MySpot"

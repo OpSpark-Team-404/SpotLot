@@ -1,22 +1,51 @@
 import React from 'react';
 import LotPreview from './LotPreview';
-import { Text, Image, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, Image, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import axios from 'axios';
 
 export default function MySpot({navigation, user}){
   const [userSpots, onChangeUserSpots] = React.useState([]);
-  const [currentSpot, onChangeCurrentSpot] = React.useState(false);
+  const [currentSpot, onChangeCurrentSpot] = React.useState(0);
 
   React.useEffect(() => {
-    grabCurrentUserSpots(user.id)
-  });
+    onChangeUserSpots([]);
+    if(user.spot_open === 0){
+      onChangeCurrentSpot(0);
+    } else if(user.spot_open !== 0){
+      grabSingleSpot();
+    }
+    grabCurrentUserSpots()
+  },[user.spot_open]);
 
-  const grabCurrentUserSpots = (id) => {
-    axios.get(`http://10.0.2.2:8080/user/userLots/${id}`)
+  const grabCurrentUserSpots = () => {
+    onChangeUserSpots([]);
+    axios.get(`http://10.0.2.2:8080/user/allSpots/${user.id}`)
       .then(async res => {
         let data = await res.data;
-        onChangeUserSpots(data);
+        for(let i = 0; i < data.length; i++){
+            axios.get(`http://10.0.2.2:8080/lot/selectLot/${data[i].lot_id}`)
+              .then(async res => {
+                let spot = await res.data
+                let newArr = [...userSpots, spot];
+                newArr[newArr.length] = spot;
+                onChangeUserSpots(newArr);
+              })
+              .catch(error => {
+                console.log("error", error);
+              });
+        }
+      })
+      .catch(error => {
+        console.log("error", error);
+      });
+  };
+
+  const grabSingleSpot = () => {
+    axios.get(`http://10.0.2.2:8080/lot/selectLot/${user.spot_open}`)
+      .then(async res => {
+        let data = await res.data;
+        onChangeCurrentSpot(data);
       })
       .catch(error => {
         console.log("error", error);
@@ -34,28 +63,34 @@ export default function MySpot({navigation, user}){
         </TouchableOpacity>
         <Image source={require('../images/logo.png')} style={styles.logo} />
       </View>
-      <View style={{padding: 55}}>
-        <View style={{marginBottom: -20, top: 10}}>
-          <Text style={styles.header}>My Spots</Text>
-        </View>
-        <Text style={styles.subHeader}>Current Spot</Text>
-        <View style={{ backgroundColor: "#726D9B", width: 300, height: 80, borderRadius: 5 }}>
-          <View style={{flexDirection: 'row', left: 25, top: 5}}>
-            <FontAwesome5 name="car" size={36} color='#3FB984' />
-            <Text style={{alignSelf: 'center', padding: 10, color: '#E5EBEA'}}>Address</Text>
+      <ScrollView>
+        <View style={{padding: 55}}>
+          <View style={{marginBottom: -20, top: 10}}>
+            <Text style={styles.header}>My Spots</Text>
           </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{left: 25, bottom: -10, color: '#E5EBEA'}}>Price</Text>
-            <Text style={{left: 160, bottom: -10, color: '#E5EBEA'}}>Closing Time</Text>
+          <Text style={styles.subHeader}>Current Spot</Text>
+          {currentSpot !== 0 ?
+            <View style={{ backgroundColor: "#726D9B", width: 310, height: 80, borderRadius: 5 }}>
+              <LotPreview lot={currentSpot} key={currentSpot.id} navigation={navigation} color={'#E5EBEA'}/>
+            </View>
+          :
+            <Text style={{color: '#394648'}}>(No current spot reserved)</Text>
+          } 
+          <View style={{top: 30}}>
+            <Text style={styles.subHeader}>Spot History</Text>
+            {userSpots.length > 0 ?
+              userSpots
+              .slice(0).reverse().map((lot) => {if(lot.id !== currentSpot.id) return(
+                  <View key={lot.id}>
+                    <LotPreview lot={lot} navigation={navigation}/>
+                    <View style={{borderBottomWidth: 2, borderBottomColor: '#A9B4C2'}} />
+                  </View>
+              )})
+              .filter((value, index, self) => self.indexOf(value) === index) 
+              : null}
           </View>
         </View>
-        <View style={{top: 30}}>
-          <Text style={styles.subHeader}>Spot History</Text>
-          {userSpots ? userSpots.map((lot) => (
-            <LotPreview key={lot.id} lot={lot} navigation={navigation}/>
-          )) : null}
-        </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }

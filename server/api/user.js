@@ -1,4 +1,4 @@
-const { addUser, deleteUser, allUsers, selectUser, userLots, patchUser, allSpots, patchUserLot } = require('../db/index');
+const { addUser, deleteUser, allUsers, selectUser, userLots, patchUser, allSpots, patchUserLot, patchUserSpot } = require('../db/index');
 
 //exort should be a function that takes in fastify instance
 module.exports = async function(fastify) {
@@ -71,6 +71,13 @@ module.exports = async function(fastify) {
   // patchUserLot in DB
   fastify.patch("/patchUserLot/:id", (req, res) => {
     patchUserLot(req.params.id, req.body)
+      .then(data => res.send(data))
+      .catch(error => console.log(error))
+  });
+
+  // patchUserSpot in DB
+  fastify.patch("/patchUserSpot/:id", (req, res) => {
+    patchUserSpot(req.params.id, req.body)
       .then(data => res.send(data))
       .catch(error => console.log(error))
   });

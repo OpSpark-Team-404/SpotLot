@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet, Button, TouchableOpacity, TextInput } from 'react-native';
+import { Text, View, Image, StyleSheet, Button, TouchableOpacity, TextInput, KeyboardAvoidingView, SafeAreaView, Keyboard } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Geocoder from 'react-native-geocoding';
@@ -16,7 +16,26 @@ export default function CreateLot({ navigation, userData, user, route }){
   const [description, changeDescription] = React.useState('');
   const [photo, setPhoto] = React.useState('');
   const [lotDisplay, changeLotDisplay] = React.useState(false);
+  const [keyProp, changeKeyProp] = React.useState('flex-start');
   const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/daauxjhcv/upload';
+
+  React.useEffect(() => {
+    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+    return () => {
+      Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
+      Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
+    };
+  }, []);
+
+  const _keyboardDidShow = () => {
+    changeKeyProp('flex-end');
+  };
+
+  const _keyboardDidHide = () => {
+    changeKeyProp('flex-start')
+  };
 
   const saveToDB = async () => {
     convertToCords();
@@ -111,91 +130,95 @@ export default function CreateLot({ navigation, userData, user, route }){
   }
 
   return (
-    <View>
-      <View style={{backgroundColor: "#726D9B", height: 80}}>
-        <TouchableOpacity
-          style={{ margin: 16, alignSelf: "flex-start", top: 15 }}
-          onPress={() => navigation.goBack()}
-        >
-          <FontAwesome5 name="arrow-left" size={30} color='#E5EBEA' />
-        </TouchableOpacity>
-        <Image source={require('../images/logo.png')} style={styles.logo} />
-      </View>
-      <View style={{marginHorizontal: 25 }}>
-        <Text style={styles.header}>Create a lot</Text>
-        <View style={{alignSelf: 'center', top: 8}}>
-          {photo ?
-            <Image source={{ uri: photo }} style={{ width: 200, height: 150 }} />
-          :
-            <Image source={require('../images/ThumbnailImage.png')} style={{ resizeMode: 'contain', width: 200, height: 150, borderWidth: 2, borderColor: '#3fb984', bottom: 5 }}/>
-          }
-          <View style={{alignSelf: 'center'}}>
+    <KeyboardAvoidingView style={{flex: 1}} behavior="height">
+      <SafeAreaView style={{flex: 1}}>
+        <View style={[styles.inner, { justifyContent: keyProp}]}>
+          <View style={{backgroundColor: "#726D9B", height: 80}}>
             <TouchableOpacity
-              onPress={cloud}
+              style={{ margin: 16, alignSelf: "flex-start", top: 15 }}
+              onPress={() => navigation.goBack()}
             >
-              <View style={{flexDirection: 'row'}}>
-                <FontAwesome5 name="upload" size={20} color="#726D9B" />
-                <View style={{alignSelf: 'flex-end', left: 10}}>
-                  <Text style={{fontWeight: 'bold'}}>Upload a photo</Text>
-                </View>
-              </View>
+              <FontAwesome5 name="arrow-left" size={30} color='#E5EBEA' />
             </TouchableOpacity>
+            <Image source={require('../images/logo.png')} style={styles.logo} />
+          </View>
+          <View style={{marginHorizontal: 25 }}>
+            <Text style={styles.header}>Create a lot</Text>
+            <View style={{alignSelf: 'center', top: 8}}>
+              {photo ?
+                <Image source={{ uri: photo }} style={{ width: 200, height: 150 }} />
+              :
+                <Image source={require('../images/ThumbnailImage.png')} style={{ resizeMode: 'contain', width: 200, height: 150, borderWidth: 2, borderColor: '#3fb984', bottom: 5 }}/>
+              }
+              <View style={{alignSelf: 'center'}}>
+                <TouchableOpacity
+                  onPress={cloud}
+                >
+                  <View style={{flexDirection: 'row'}}>
+                    <FontAwesome5 name="upload" size={20} color="#726D9B" />
+                    <View style={{alignSelf: 'flex-end', left: 10}}>
+                      <Text style={{fontWeight: 'bold'}}>Upload a photo</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={{alignSelf: 'center'}}>
+              <Text style={styles.inputHeader}>Lot close time</Text>
+              {lot_close ? <Text style={styles.textInputTime}>{lot_close}</Text> : <Text onPress={lotDisplayOn} style={styles.textInputTime}></Text>}
+            </View>
+            <DateTimePickerModal
+              isVisible={lotDisplay}
+              mode="time"
+              is24Hour={false}
+              onConfirm={handleTime}
+              onCancel={lotDisplayOff}
+            />
+            <View style={{alignSelf: 'center'}}>
+              <Text style={styles.inputHeader}>Price</Text>
+              <TextInput
+                paddingLeft={5}
+                style={styles.textInput}
+                onChangeText={text => changePrice(text)}
+              >
+              </TextInput>
+            </View>
+            <View style={{alignSelf: 'center'}}>
+              <Text style={styles.inputHeader}>Number of parking spaces</Text>
+              <TextInput
+                paddingLeft={5}
+                style={styles.textInput}
+                onChangeText={text => changeMaxSpots(text)}
+              >
+              </TextInput>
+            </View>
+            <View style={{alignSelf: 'center'}}>
+              <Text style={styles.inputHeader}>Address</Text>
+              <TextInput
+                paddingLeft={5}
+                style={styles.textInput}
+                onChangeText={text => changeAddress(text)}
+              >
+              </TextInput>
+            </View>
+            <View style={{alignSelf: 'center', width: 300}}>
+              <Text style={styles.inputHeader}>Extra info</Text>
+              <TextInput
+                paddingLeft={5}
+                style={styles.info}
+                onChangeText={text => changeDescription(text)}
+                multiline={true}
+                numberOfLines={5}
+              >
+              </TextInput>
+            </View>
+            <View style={{ top: 20, width: 300, left: 31 }}>
+              <Button color="#726D9B" title="Complete" onPress={() => saveToDB()} />
+            </View>
           </View>
         </View>
-        <View style={{alignSelf: 'center'}}>
-          <Text style={styles.inputHeader}>Lot close time</Text>
-          {lot_close ? <Text style={styles.textInputTime}>{lot_close}</Text> : <Text onPress={lotDisplayOn} style={styles.textInputTime}></Text>}
-        </View>
-        <DateTimePickerModal
-          isVisible={lotDisplay}
-          mode="time"
-          is24Hour={false}
-          onConfirm={handleTime}
-          onCancel={lotDisplayOff}
-        />
-        <View style={{alignSelf: 'center'}}>
-          <Text style={styles.inputHeader}>Price</Text>
-          <TextInput
-            paddingLeft={5}
-            style={styles.textInput}
-            onChangeText={text => changePrice(text)}
-          >
-          </TextInput>
-        </View>
-        <View style={{alignSelf: 'center'}}>
-          <Text style={styles.inputHeader}>Number of parking spaces</Text>
-          <TextInput
-            paddingLeft={5}
-            style={styles.textInput}
-            onChangeText={text => changeMaxSpots(text)}
-          >
-          </TextInput>
-        </View>
-        <View style={{alignSelf: 'center'}}>
-          <Text style={styles.inputHeader}>Address</Text>
-          <TextInput
-            paddingLeft={5}
-            style={styles.textInput}
-            onChangeText={text => changeAddress(text)}
-          >
-          </TextInput>
-        </View>
-        <View style={{alignSelf: 'center', width: 300}}>
-          <Text style={styles.inputHeader}>Extra info</Text>
-          <TextInput
-            paddingLeft={5}
-            style={styles.info}
-            onChangeText={text => changeDescription(text)}
-            multiline={true}
-            numberOfLines={5}
-          >
-          </TextInput>
-        </View>
-        <View style={{ top: 20, width: 300, left: 31 }}>
-          <Button color="#726D9B" title="Complete" onPress={() => saveToDB()} />
-        </View>
-      </View>
-    </View>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   )
 }
 
@@ -206,6 +229,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 55,
+  },
+  inner: {
+    flex: 1
   },
   header: {
     fontSize: 25,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Image, View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
+import { Text, Image, View, StyleSheet, TextInput, Button, TouchableOpacity, KeyboardAvoidingView, SafeAreaView, Keyboard } from 'react-native';
 import axios from 'axios';
 import { FontAwesome5 } from '@expo/vector-icons';
 
@@ -11,10 +11,27 @@ export default function Vehicle({ navigation, user }) {
   const [state, changeState] = React.useState('');
   const [id, changeId] = React.useState('');
   const [car, changeCar] = React.useState('');
+  const [keyProp, changeKeyProp] = React.useState('flex-start');
 
   React.useEffect(() => {
     grabUserCar();
+
+    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+    return () => {
+      Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
+      Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
+    };
   }, []);
+
+  const _keyboardDidShow = () => {
+    changeKeyProp('flex-end');
+  };
+
+  const _keyboardDidHide = () => {
+    changeKeyProp('flex-start')
+  };
 
   const grabUserCar = () => {
     axios.get(`http://10.0.2.2:8080/vehicle/selectVehicle/${user.id}`)
@@ -46,78 +63,82 @@ export default function Vehicle({ navigation, user }) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={{backgroundColor: "#726D9B", height: 80}}>
-        <TouchableOpacity
-          style={{ margin: 16, alignSelf: "flex-start", top: 15 }}
-          onPress={() => navigation.goBack()}
-        >
-          <FontAwesome5 name="arrow-left" size={30} color='#E5EBEA' />
-        </TouchableOpacity>
-        <Image source={require('../images/logo.png')} style={styles.logo} />
-      </View>
-      <View style={styles.info}>
-        <Text style={styles.header}>Vehicle Information</Text>
-        <View style={{ top: -90}}>
-          <View style={{top: 5}}>
-            <Text style={styles.inputHeader}>Vehicle make</Text>
-            <TextInput
-              paddingLeft={5}
-              style={styles.textInput}
-              placeholder={car.make}
-              placeholderTextColor={'#222222'}
-              onChangeText={text => changeMake(text)}
-            ></TextInput>
-          </View>
-          <View style={{top: 10}}>
-            <Text style={styles.inputHeader}>Vehicle model</Text>
-            <TextInput
-              paddingLeft={5}
-              style={styles.textInput}
-              placeholder={car.model}
-              placeholderTextColor={'#222222'}
-              onChangeText={text => changeModel(text)}
-            ></TextInput>
-          </View>
-          <View style={{top: 15}}>
-            <Text style={styles.inputHeader}>Vehicle color</Text>
-            <TextInput
-              paddingLeft={5}
-              style={styles.textInput}
-              placeholder={car.color}
-              placeholderTextColor={'#222222'}
-              onChangeText={text => changeColor(text)}
+    <KeyboardAvoidingView style={{flex: 1}} behavior="height">
+      <View style={styles.container}>
+        <View style={[styles.inner, { justifyContent: keyProp}]}>
+          <View style={{backgroundColor: "#726D9B", height: 80}}>
+            <TouchableOpacity
+              style={{ margin: 16, alignSelf: "flex-start", top: 15 }}
+              onPress={() => navigation.goBack()}
             >
-            </TextInput>
+              <FontAwesome5 name="arrow-left" size={30} color='#E5EBEA' />
+            </TouchableOpacity>
+            <Image source={require('../images/logo.png')} style={styles.logo} />
           </View>
-          <View style={{top: 20}}>
-            <Text style={styles.inputHeader}>License plate number</Text>
-            <TextInput
-              paddingLeft={5}
-              style={styles.textInput}
-              placeholder={car.license_plate}
-              placeholderTextColor={'#222222'}
-              onChangeText={text => changePlate(text)}
-            >
-            </TextInput>
+          <View style={styles.info}>
+            <Text style={styles.header}>Vehicle Information</Text>
+            <View style={{ top: -90}}>
+              <View style={{top: 5}}>
+                <Text style={styles.inputHeader}>Vehicle make</Text>
+                <TextInput
+                  paddingLeft={5}
+                  style={styles.textInput}
+                  placeholder={car.make}
+                  placeholderTextColor={'#222222'}
+                  onChangeText={text => changeMake(text)}
+                ></TextInput>
+              </View>
+              <View style={{top: 10}}>
+                <Text style={styles.inputHeader}>Vehicle model</Text>
+                <TextInput
+                  paddingLeft={5}
+                  style={styles.textInput}
+                  placeholder={car.model}
+                  placeholderTextColor={'#222222'}
+                  onChangeText={text => changeModel(text)}
+                ></TextInput>
+              </View>
+              <View style={{top: 15}}>
+                <Text style={styles.inputHeader}>Vehicle color</Text>
+                <TextInput
+                  paddingLeft={5}
+                  style={styles.textInput}
+                  placeholder={car.color}
+                  placeholderTextColor={'#222222'}
+                  onChangeText={text => changeColor(text)}
+                >
+                </TextInput>
+              </View>
+              <View style={{top: 20}}>
+                <Text style={styles.inputHeader}>License plate number</Text>
+                <TextInput
+                  paddingLeft={5}
+                  style={styles.textInput}
+                  placeholder={car.license_plate}
+                  placeholderTextColor={'#222222'}
+                  onChangeText={text => changePlate(text)}
+                >
+                </TextInput>
+              </View>
+              <View style={{top: 25}}>
+                <Text style={styles.inputHeader}>License plate state</Text>
+                <TextInput
+                  paddingLeft={5}
+                  style={styles.textInput}
+                  placeholder={car.state}
+                  placeholderTextColor={'#222222'}
+                  onChangeText={text => changeState(text)}
+                >
+                </TextInput>
+              </View>
+            </View>
           </View>
-          <View style={{top: 25}}>
-            <Text style={styles.inputHeader}>License plate state</Text>
-            <TextInput
-              paddingLeft={5}
-              style={styles.textInput}
-              placeholder={car.state}
-              placeholderTextColor={'#222222'}
-              onChangeText={text => changeState(text)}
-            >
-            </TextInput>
+          <View style={{ top: -20, width: 320, alignSelf: 'center' }}>
+            <Button color="#726D9B" title="Confirm vehicle changes" onPress={() => updateVehicle()}></Button>
           </View>
         </View>
       </View>
-      <View style={{ top: -20, width: 320, alignSelf: 'center' }}>
-        <Button color="#726D9B" title="Confirm vehicle changes" onPress={() => updateVehicle()}></Button>
-      </View>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 
