@@ -3,7 +3,7 @@ import { Text, View, Image, StyleSheet, Button, TouchableOpacity, TextInput } fr
 import { FontAwesome5 } from '@expo/vector-icons';
 import axios from 'axios';
 
-export default function ReserveSpot({ navigation, user, route }){
+export default function ReserveSpot({ navigation, user, route, userData }){
   const [name, changeName] = React.useState('');
   const [number, changeNumber] = React.useState('');
   const [expiration, changeExpiration] = React.useState('');
@@ -16,6 +16,10 @@ export default function ReserveSpot({ navigation, user, route }){
     axios.post(`http://10.0.2.2:8080/spot/addSpot/${lotId}/${user.id}`)
       .then((res) => {
         console.log(res);
+        const spot_open = lotId
+        axios.patch(`http://10.0.2.2:8080/user/patchUserSpot/${user.id}`, { spot_open })
+            .then(() => userData(user.email))
+            .catch(err => console.log(err))
       })
       .catch((e) => {
         console.log('error', e);

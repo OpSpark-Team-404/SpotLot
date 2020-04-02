@@ -76,6 +76,12 @@ const patchUserLot = (id, body) => {
   return pool.query(query)
 }
 
+const patchUserSpot = (id, body) => {
+  const { spot_open } = body;
+  const query = `UPDATE "user" SET spot_open = '${spot_open}' WHERE id = '${id}'`
+  return pool.query(query)
+}
+
 //VEHICLE
 
 const addVehicle = (user_id, { make, model, license_plate, color, state }) => {
@@ -230,6 +236,7 @@ module.exports = {
   deleteUser,
   patchUser,
   patchUserLot,
+  patchUserSpot,
   //VEHICLE
   addVehicle,
   selectVehicle,

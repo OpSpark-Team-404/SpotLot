@@ -38,16 +38,27 @@ export default function MyLot({ navigation, user, userData }) {
       });
   };
 
-  const handleLotClose = () => {
+  const handleLotClose = (id) => {
     const lot_open = 0;
     axios.patch(`http://10.0.2.2:8080/user/patchUserLot/${user.id}`, { lot_open })
       .then(res => {
         console.log(res);
-        userData(user.email);
         axios.get(`http://10.0.2.2:8080/user/userLots/${user.id}`)
           .then(async res => {
             let data = await res.data;
             onChangeUserLots(data);
+            axios.get('http://10.0.2.2:8080/user/allUsers')
+              .then(res => {
+                for(let i = 0; i < res.data.length; i++){
+                  if(res.data[i].spot_open === id){
+                    const spot_open = 0;
+                    axios.patch(`http://10.0.2.2:8080/user/patchUserSpot/${res.data[i].id}`, { spot_open})
+                      .then(() => userData(user.email))
+                      .catch(err => console.log(err))
+                  }
+                }
+              })
+              .catch(err => console.log(err));
           })
           .catch(error => {
             console.log("error", error);
@@ -94,7 +105,7 @@ export default function MyLot({ navigation, user, userData }) {
                   </TouchableOpacity>
                 </View>
                 <View style={{width: 100, top: 5}}>
-                  <TouchableOpacity onPress={() => handleLotClose()}>
+                  <TouchableOpacity onPress={() => handleLotClose(singleLot.id)}>
                     <View style={{flexDirection: 'row', top: 2}}>
                       <FontAwesome5 name="times-circle" size={30} color='#3FB984' />
                       <View style={{justifyContent: 'center', left: -5}}>
@@ -125,8 +136,8 @@ export default function MyLot({ navigation, user, userData }) {
               <Text style={styles.subHeader}>Lot History</Text>
             </View>
             {userLots ? userLots.slice(0).reverse().map((lot) => (
-              <View>
-                <LotPreview key={lot.id} lot={lot} navigation={navigation} color={'#222222'}/>
+              <View key={lot.id}>
+                <LotPreview lot={lot} navigation={navigation} color={'#222222'}/>
                 <View style={{borderBottomWidth: 2, borderBottomColor: '#A9B4C2'}}></View>
               </View>
             )) : null}
