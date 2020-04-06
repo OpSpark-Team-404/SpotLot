@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet, Button, TouchableOpacity, TextInput } from 'react-native';
+import { Text, View, Image, StyleSheet, Button, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import axios from 'axios';
 
@@ -29,7 +29,7 @@ export default function ReserveSpot({ navigation, user, route, userData }){
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <TouchableOpacity
         style={{ alignSelf: "flex-start", margin: 16, left: -60, top: -180 }}
         onPress={() => navigation.goBack()}
@@ -37,10 +37,12 @@ export default function ReserveSpot({ navigation, user, route, userData }){
         <FontAwesome5 name="arrow-left" size={24} color='#3fb984' />
       </TouchableOpacity>
       <Text style={styles.header}>Credit card information</Text>
+      <View style={{top: 70}}>
       <View style={{ top: -200}}>
         <View style={{top: 5}}>
           <Text style={styles.inputHeader}>Credit card name</Text>
           <TextInput
+            paddingLeft={5}
             style={styles.textInput}
             onChangeText={text => changeName(text)}
           >
@@ -49,6 +51,7 @@ export default function ReserveSpot({ navigation, user, route, userData }){
         <View style={{top: 10}}>
           <Text style={styles.inputHeader}>Credit card number</Text>
           <TextInput
+            paddingLeft={5}
             style={styles.textInput}
             onChangeText={text => changeNumber(text)}
           >
@@ -58,6 +61,7 @@ export default function ReserveSpot({ navigation, user, route, userData }){
           <View style={{top: 15}}>
             <Text style={styles.inputHeader}>Exp.</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.smallInput}
               onChangeText={text => changeExpiration(text)}
             >
@@ -66,6 +70,7 @@ export default function ReserveSpot({ navigation, user, route, userData }){
           <View style={{top: 15}}>
             <Text style={styles.inputHeader}>CVC</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.smallInput}
               onChangeText={text => changeCVC(text)}
             >
@@ -74,6 +79,7 @@ export default function ReserveSpot({ navigation, user, route, userData }){
           <View style={{top: 15}}>
             <Text style={styles.inputHeader}>Zip</Text>
             <TextInput
+              paddingLeft={5}
               style={styles.smallInput}
               onChangeText={text => changeZip(text)}
             >
@@ -84,7 +90,8 @@ export default function ReserveSpot({ navigation, user, route, userData }){
           <Button color="#726D9B" title="Reserve Spot" onPress={() => saveToDB()} />
         </View>
       </View>
-    </View>
+      </View>
+    </SafeAreaView>
   )
 }
 
@@ -101,7 +108,7 @@ const styles = StyleSheet.create({
     color: '#222222',
     fontWeight: 'bold',
     alignSelf: 'flex-start',
-    top: -200
+    top: -160
   },
   inputHeader: {
     color: '#222222',
