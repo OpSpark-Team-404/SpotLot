@@ -1,8 +1,6 @@
 import React from 'react';
 import { Keyboard, SafeAreaView, Text, Image, View, StyleSheet, TextInput, Button, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import axios from 'axios';
-import StripeButton from './stripeButton';
-import { StackActions } from '@react-navigation/native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function SignUpCar({ navigation, route, userData }){
@@ -51,9 +49,7 @@ export default function SignUpCar({ navigation, route, userData }){
       console.log('error', e);
     });
 
-    const pushAction = StackActions.push('Login')
-    navigation.dispatch(pushAction);
-    navigation.navigate('Map')
+    navigation.navigate('SignUpStripe')
   }
 
   return (
@@ -119,14 +115,8 @@ export default function SignUpCar({ navigation, route, userData }){
               >
               </TextInput>
             </View>
-            <View style={{ top: 150 }}>
-              <Button color="#726D9B" title="Complete" onPress={() => saveToDB()} />
-            </View>
-            <View>
-              <Text style={styles.subtextTwo}>If you plan on renting out a lot you will need to sign up with Stripe, otherwise you can skip this step and complete your sign up</Text>
-              <View style={{top: 7}}>
-                <StripeButton/>
-              </View>
+            <View style={{ top: 70 }}>
+              <Button color="#726D9B" title="Continue" onPress={() => saveToDB()} />
             </View>
           </View>
         </View>
