@@ -17,12 +17,13 @@ export default class StripeButton extends React.Component {
   }
 
   _handlePressAsync = async () => {
-    let redirectUrl = AuthSession.getRedirectUrl(); 
+    let redirectUrl = AuthSession.getRedirectUrl();
+    console.log(redirectUrl); 
     let result = await AuthSession.startAsync(
        {
         
         authUrl:
-          `https://connect.stripe.com/express/oauth/authorize?client_id=ca_GyyGQiG3LQwR35E2daAY3GDEA8Y5Sgn1&redirect_uri=https://auth.expo.io/@Bakey/SpotLot`
+          `https://connect.stripe.com/express/oauth/authorize?client_id=ca_GyyGQiG3LQwR35E2daAY3GDEA8Y5Sgn1`
       }
     );
     this.setState({ result });

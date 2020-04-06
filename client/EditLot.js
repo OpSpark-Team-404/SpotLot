@@ -7,7 +7,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function EditLot({ navigation, user, route }) {
-  const [image_url, changeImage] = React.useState('');
+  const [image_url, changeImage] = React.useState('a');
   const [lot_close, changeClose] = React.useState('');
   const [max_spots, changeMax] = React.useState('');
   const [description, changeDescription] = React.useState('');
@@ -155,7 +155,7 @@ export default function EditLot({ navigation, user, route }) {
         </View>
       </View>
       <View style={{ top: -20, width: 320, alignSelf: 'center' }}>
-        <Button color="#726D9B" title="Confirm vehicle changes" onPress={() => updateLot()}></Button>
+        <Button color="#726D9B" title="Confirm lot changes" onPress={() => updateLot()}></Button>
       </View>
     </View>
   )

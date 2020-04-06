@@ -3,7 +3,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   TextInput,
-  StyleSheet
+  StyleSheet,
+  View
 } from 'react-native';
 import Geocoder from 'react-native-geocoding';
 import { googlKey } from '../supersecret';
@@ -42,13 +43,15 @@ export default class SearchInput extends Component {
     const { onBlurFunc } = this.props;
 
     return (
-      <KeyboardAvoidingView
-        behavior={'padding'}
-        style={styles.container}>
-        <ScrollView style={styles.scrollView}>
-        </ScrollView>
+      // <KeyboardAvoidingView
+        // behavior={'padding'}
+        // style={styles.container}>
+        // <ScrollView style={styles.scrollView}>
+        // </ScrollView>
+        <View>
         <TextInput onSubmitEditing={this.convertToCords} onChangeText={(text) => this.handleTextChange(text)} spellCheck={false} autoFocus={true} autoCorrect={false} style={styles.input} onBlur={()=>{onBlurFunc()}}/>
-      </KeyboardAvoidingView>
+        </View>
+      /* </KeyboardAvoidingView> */
     );
   }
 }
@@ -59,8 +62,8 @@ const styles = StyleSheet.create({
   },
   input: {
     left: 6,
-    bottom: 25,
     fontSize: 25,
-    color: 'white'
+    color: 'white',
+    top: 120
   },
 });
