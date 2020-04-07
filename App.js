@@ -18,10 +18,11 @@ import ListView from './client/ListView';
 import Settings from './client/Settings';
 import Vehicle from './client/Vehicle';
 import EditLot from './client/EditLot';
+import SignUpStripe from './client/SignUpStripe';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const LoginStack = createStackNavigator();
-const LoginStackScreen = ({ userData }) => (
+const LoginStackScreen = ({ userData, user }) => (
   <LoginStack.Navigator
     screenOptions={{
       headerShown: false
@@ -34,6 +35,9 @@ const LoginStackScreen = ({ userData }) => (
     <LoginStack.Screen name="SignUpProfile" component={SignUpProfile} />
     <LoginStack.Screen name="SignUpCar">
       {props => <SignUpCar {...props} userData={userData} />}
+    </LoginStack.Screen>
+    <LoginStack.Screen name="SignUpStripe">
+      {props => <SignUpStripe {...props} user={user} />}
     </LoginStack.Screen>
   </LoginStack.Navigator>
 );
@@ -255,7 +259,7 @@ export default function App() {
             )
           }}
         >
-        {props => <LoginStackScreen {...props} userData={userData} />}
+        {props => <LoginStackScreen {...props} userData={userData} user={user}/>}
         </Drawer.Screen>
       </Drawer.Navigator>
     </NavigationContainer>
