@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-export default function lotPreview({lot, navigation, color}){
+export default function lotPreview({lot, navigation, color, noReserve}){
   const [carColor, onChangeCarColor] = React.useState('#3FB984');
 
   React.useEffect(() => {
@@ -21,6 +21,7 @@ export default function lotPreview({lot, navigation, color}){
     <TouchableOpacity
       onPress={() => navigation.navigate("LotInfo", {
         lot: lot,
+        noReserve: noReserve
       })}
     >
       <View style={{flexDirection: 'row'}}>

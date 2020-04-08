@@ -165,6 +165,8 @@ export default function App() {
         console.log('error', e);
       });
   }
+  
+  console.disableYellowBox = true;
 
   return (
     <NavigationContainer>

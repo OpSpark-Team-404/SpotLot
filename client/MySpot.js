@@ -9,7 +9,6 @@ export default function MySpot({navigation, user}){
   const [currentSpot, onChangeCurrentSpot] = React.useState(0);
 
   React.useEffect(() => {
-    onChangeUserSpots([]);
     if(user.spot_open === 0){
       onChangeCurrentSpot(0);
     } else if(user.spot_open !== 0){
@@ -19,17 +18,18 @@ export default function MySpot({navigation, user}){
   },[user.spot_open]);
 
   const grabCurrentUserSpots = () => {
-    onChangeUserSpots([]);
     axios.get(`http://10.0.2.2:8080/user/allSpots/${user.id}`)
       .then(async res => {
         let data = await res.data;
+        let spots = [];
         for(let i = 0; i < data.length; i++){
             axios.get(`http://10.0.2.2:8080/lot/selectLot/${data[i].lot_id}`)
               .then(async res => {
                 let spot = await res.data
-                let newArr = [...userSpots, spot];
-                newArr[newArr.length] = spot;
-                onChangeUserSpots(newArr);
+                spots.push(spot);
+                if(spots.length === data.length){
+                  onChangeUserSpots(spots);
+                }
               })
               .catch(error => {
                 console.log("error", error);
@@ -71,7 +71,7 @@ export default function MySpot({navigation, user}){
           <Text style={styles.subHeader}>Current Spot</Text>
           {currentSpot !== 0 ?
             <View style={{ backgroundColor: "#726D9B", width: 310, height: 80, borderRadius: 5 }}>
-              <LotPreview lot={currentSpot} key={currentSpot.id} navigation={navigation} color={'#E5EBEA'}/>
+              <LotPreview lot={currentSpot} key={currentSpot.id} navigation={navigation} color={'#E5EBEA'} noReserve={true}/>
             </View>
           :
             <Text style={{color: '#394648'}}>(No current spot reserved)</Text>
@@ -82,7 +82,7 @@ export default function MySpot({navigation, user}){
               userSpots
               .slice(0).reverse().map((lot) => {if(lot.id !== currentSpot.id) return(
                   <View key={lot.id}>
-                    <LotPreview lot={lot} navigation={navigation}/>
+                    <LotPreview lot={lot} navigation={navigation} noReserve={true}/>
                     <View style={{borderBottomWidth: 2, borderBottomColor: '#A9B4C2'}} />
                   </View>
               )})

@@ -21,7 +21,7 @@ export default function MapContainer({ navigation, user }){
   React.useEffect(() => {
     getLots();
     grabSingleSpot();
-  },[user.spot_open]);
+  },[user.spot_open, user.lot_open]);
   
   function grabSingleSpot(){
     if(user.spot_open > 0){

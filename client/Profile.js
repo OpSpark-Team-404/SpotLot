@@ -39,6 +39,7 @@ export default function Profile({ navigation, user, userData }) {
       .catch(error => {
         console.log("error", error);
       });
+    navigation.goBack();
   }
 
   const cloud = async () => {
@@ -97,7 +98,7 @@ export default function Profile({ navigation, user, userData }) {
             <View style={{ top: -90}}>
               <View style={{alignSelf: 'center', top: 8}}>
                 <Image source={{ uri: image_url }} style={styles.photoImage} />
-                <View style={{alignSelf: 'center'}}>
+                <View style={{alignSelf: 'center', left: -10}}>
                   <TouchableOpacity
                     onPress={cloud}
                   >

@@ -88,7 +88,7 @@ export default function MyLot({ navigation, user, userData }) {
             <View>
               <Text style={styles.subHeader}>Current Lot</Text>
               <View style={{ backgroundColor: "#726D9B", width: 310, height: 80, borderRadius: 5 }}>
-                <LotPreview lot={singleLot} key={singleLot.id} navigation={navigation} color={'#E5EBEA'}/>
+                <LotPreview lot={singleLot} key={singleLot.id} navigation={navigation} color={'#E5EBEA'} noReserve={true}/>
               </View>
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View style={{width: 100, top: 5}}>
@@ -137,7 +137,7 @@ export default function MyLot({ navigation, user, userData }) {
             </View>
             {userLots ? userLots.slice(0).reverse().map((lot) => (
               <View key={lot.id}>
-                <LotPreview lot={lot} navigation={navigation} color={'#222222'}/>
+                <LotPreview lot={lot} navigation={navigation} color={'#222222'} noReserve={true}/>
                 <View style={{borderBottomWidth: 2, borderBottomColor: '#A9B4C2'}}></View>
               </View>
             )) : null}
