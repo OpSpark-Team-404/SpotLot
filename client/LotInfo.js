@@ -29,10 +29,12 @@ export default function LotInfo({ navigation, route }){
           <Text style={{fontSize: 24, left: 100, width: 125}} >{`${lot_close}`}</Text>
         </View>
         <Text style={{fontSize: 20, marginHorizontal: 15, marginBottom: 30}} >{`${description}`}</Text>
-        <Button color='#726D9B' title='Reserve Spot' onPress={() => navigation.navigate('Reserve', {
-          lotId: id,
-          navigation: navigation
-        })}></Button>
+        {route.params.noReserve ? null :
+          <Button color='#726D9B' title='Reserve Spot' onPress={() => navigation.navigate('Reserve', {
+            lotId: id,
+            navigation: navigation
+          })}></Button>
+        }
       </View>
     </View>
   );

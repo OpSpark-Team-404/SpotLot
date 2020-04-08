@@ -51,8 +51,6 @@ export default function Vehicle({ navigation, user }) {
   };
 
   const updateVehicle = () => {
-    console.log(color);
-
     axios.patch(`http://10.0.2.2:8080/vehicle/patchVehicle/${id}`, { make, model, license_plate, color, state })
       .then(res => {
         console.log(res);
@@ -60,6 +58,8 @@ export default function Vehicle({ navigation, user }) {
       .catch(error => {
         console.log("error", error);
       });
+    
+    navigation.goBack();
   }
 
   return (
