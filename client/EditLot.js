@@ -174,8 +174,8 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 25,
-    color: '#395C6B',
-    top: -80,
+    color: '#394648',
+    top: -90,
     fontWeight: 'bold',
     alignSelf: 'flex-start'
   },
