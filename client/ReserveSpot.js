@@ -31,12 +31,13 @@ export default function ReserveSpot({ navigation, user, route, userData }){
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity
-        style={{ alignSelf: "flex-start", margin: 16, left: -60, top: -180 }}
+        style={{ alignSelf: "flex-start", margin: 16, left: -60, top: -150 }}
         onPress={() => navigation.goBack()}
         >
         <FontAwesome5 name="arrow-left" size={24} color='#3fb984' />
       </TouchableOpacity>
       <Text style={styles.header}>Credit card information</Text>
+      <Text style={{fontSize: 15, color: '#222222', top: -150}}>Please input your credit card information below. Your payment processing will be handled by Stripe.</Text>
       <View style={{top: 70}}>
       <View style={{ top: -200}}>
         <View style={{top: 5}}>

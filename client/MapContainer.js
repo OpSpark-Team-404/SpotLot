@@ -118,7 +118,7 @@ export default function MapContainer({ navigation, user }){
       >
         <FontAwesome5 name="list-ul" size={30} color='#3fb984' />
       </TouchableOpacity>
-          <Text style={styles.textInput} onPress={onSearchButtonClick}> <FontAwesome5 name="search" size={25} color='#3FB984'/>  {text}</Text>
+          <Text style={styles.textInput} onPress={onSearchButtonClick}>   <FontAwesome5 name="search" size={20} color='#3FB984'/>   {text}</Text>
       {isSearchButtonClicked ?
         <SearchInput changeCords={changeMapCords} onBlurFunc={onBlurInput} changeText={changeText}/>
         :
@@ -129,8 +129,8 @@ export default function MapContainer({ navigation, user }){
             style={{
               alignSelf: "flex-end",
               justifyContent: "flex-end",
-              top: 375,
-              right: 10
+              top: 345,
+              right: 15
             }}
             onPress={() => changeReservedMapCords(reservedLat, reservedLng)}
           >
@@ -141,8 +141,8 @@ export default function MapContainer({ navigation, user }){
           style={{
             alignSelf: "flex-end",
             justifyContent: "flex-end",
-            top: 375,
-            right: 10
+            top: 345,
+            right: 15
           }}
         >
           <FontAwesome5 name="map-marked" size={30} color="#395C6B" />
@@ -178,11 +178,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#3fb984',
     color: "#3FB984",
-    width: 411,
+    width: 400,
     height: 45,
-    top: 460,
+    top: 430,
     backgroundColor: 'white',
     textAlignVertical: 'center',
-    fontSize: 20
+    fontSize: 20,
+    alignSelf: 'center'
   },
 });

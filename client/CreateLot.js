@@ -125,7 +125,7 @@ export default function CreateLot({ navigation, userData, user, route }){
 
   const handleTime = time => {
     lotDisplayOff();
-    const closingTime = moment(time).format('LLL')
+    const closingTime = moment(time).format('h:mm a')
     changeLotClose(closingTime);
   }
 
@@ -235,10 +235,11 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 25,
-    color: '#222222',
+    color: '#394648',
     fontWeight: 'bold',
     alignSelf: 'flex-start',
-    top: 4
+    left: 20,
+    top: -2
   },
   inputHeader: {
     color: '#222222',
