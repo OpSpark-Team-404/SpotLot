@@ -1,4 +1,4 @@
-const stripe = require('stripe')('sk_test_RBETXzuPgut6Ka5O91t2SF30002G14KCKS');
+const stripe = require('stripe')('sk_test_0m17XkI0zrQ87l2OKUSdz81C000B6pt8QF');
 const { addStripeToken, selectStripeToken } = require('../db/index.js');
 
 module.exports = async function (fastify) {
@@ -6,7 +6,7 @@ module.exports = async function (fastify) {
 
     // Takes in user id and auth code as params, saves user's Stripe account token to DB 
     // https://stripe.com/docs/connect/collect-then-transfer-guide
-    fastify.get("/createConnect/:id/:code", (req, res) => {
+    fastify.post("/createConnect/:id/:code", (req, res) => {
         const code =  req.params.code
 
         stripe.oauth.token({

@@ -13,7 +13,7 @@ export default function lotPreview({lot, navigation, color, noReserve}){
     if((lot.current_spots / lot.max_spots) <= 0.40){
       onChangeCarColor('red')
     } else if ((lot.current_spots / lot.max_spots) <= 0.70){
-      onChangeCarColor('yellow')
+      onChangeCarColor('#fcdf03')
     }
   }
 
