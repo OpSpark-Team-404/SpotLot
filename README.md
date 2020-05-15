@@ -1,4 +1,7 @@
 # SpotLot
+
+Watch demo: https://www.youtube.com/watch?v=jAHPypD37tI&feature=youtu.be
+
 Mobile application that allows users to rent out their empty lots as parking spots for other users, allowing those users to reserve parking spots in those lots.
 
 
