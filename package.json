@@ -19,7 +19,7 @@
     "expo": "~36.0.0",
     "expo-google-app-auth": "^8.0.1",
     "expo-image-picker": "~8.0.1",
-    "fastify": "^2.12.1",
+    "fastify": "^2.15.1",
     "moment": "^2.24.0",
     "pg": "^7.18.2",
     "react": "~16.9.0",
